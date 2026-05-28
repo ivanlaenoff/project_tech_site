@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>КТТО — Кооперативный техникум</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #ffffff;
+            font-family: 'Open Sans', 'Roboto', 'PT Sans', 'Segoe UI', system-ui, sans-serif;
+            color: #1f2e3a;
+            line-height: 1.5;
+        }
+
+        .wrapper {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 30px;
+        }
+
+        /* ===== МЕНЮ ===== */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            border-bottom: 3px solid #01AABD;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .logo img {
+            height: 55px;
+            object-fit: contain;
+        }
+
+        .nav {
+            display: flex;
+            gap: 24px;
+            flex-wrap: wrap;
+        }
+
+        .nav a {
+            text-decoration: none;
+            font-weight: 600;
+            font-family: inherit;
+            color: #1f2e3a;
+            padding: 8px 18px;
+            border-radius: 50px;
+            transition: all 0.2s ease;
+        }
+
+        .nav a:hover {
+            background: #01AABD;
+            color: white;
+        }
+
+        /* ===== ГЕРОЙ ===== */
+        .hero {
+            display: flex;
+            align-items: center;
+            gap: 60px;
+            background: linear-gradient(135deg, #EFFAFC 50%, #ffffff 90%);
+            border-radius: 48px;
+            padding: 48px 56px;
+            margin-bottom: 70px;
+            flex-wrap: wrap;
+        }
+
+        .hero-text {
+            flex: 1.2;
+        }
+
+        .hero-text h1 {
+            font-size: 2.4rem;
+            font-weight: 700;
+            line-height: 1.2;
+            color: #1a2c3e;
+            font-family: 'PT Sans', 'Roboto', sans-serif;
+        }
+
+        .hero-text .accent {
+            background: #01AABD;
+            color: white;
+            padding: 0 14px;
+            display: inline-block;
+            border-radius: 60px;
+            font-size: 1.6rem;
+            margin: 14px 0 10px;
+        }
+
+        .hero-text p {
+            font-size: 1rem;
+            margin: 18px 0 28px;
+            line-height: 1.5;
+            color: #2c4b5e;
+        }
+
+        .btn {
+            background: #01AABD;
+            color: white;
+            border: none;
+            padding: 12px 34px;
+            border-radius: 60px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: 0.2s;
+            font-family: inherit;
+            box-shadow: 0 4px 10px rgba(1,170,189,0.3);
+        }
+
+        .hero-image img {
+            width: 100%;
+            max-width: 320px;
+            border-radius: 40px;
+        }
+
+        /* ===== БЫСТРЫЙ ДОСТУП ===== */
+        .quick-section {
+            background: #F8FAFC;
+            border-radius: 48px;
+            padding: 48px 48px;
+            margin-bottom: 70px;
+            border: 1px solid #E2E8F0;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 32px;
+            color: #0F172A;
+            letter-spacing: -0.3px;
+        }
+
+        .quick-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+        }
+
+        .quick-card {
+            background: white;
+            border-radius: 28px;
+            padding: 28px 20px;
+            text-align: center;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            color: #1E293B;
+            border: 1px solid #E2E8F0;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+        }
+
+        .quick-card:hover {
+            transform: translateY(-4px);
+            border-color: #01AABD;
+            box-shadow: 0 12px 24px -12px rgba(1,170,189,0.2);
+            background: #ffffff;
+        }
+
+        .quick-icon {
+            font-size: 2.2rem;
+            margin-bottom: 16px;
+            display: inline-block;
+        }
+
+        .quick-card h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #0F172A;
+        }
+
+        .quick-card p {
+            font-size: 0.85rem;
+            color: #475569;
+            line-height: 1.4;
+        }
+
+        /* Адаптив */
+        @media (max-width: 1024px) {
+            .quick-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 20px;
+            }
+            .quick-section {
+                padding: 36px 32px;
+            }
+        }
+
+        @media (max-width: 680px) {
+            .quick-grid {
+                grid-template-columns: 1fr;
+            }
+            .section-title {
+                font-size: 1.5rem;
+            }
+        }
+
+        /* ===== НОВОСТИ ===== */
+        .news-section {
+            margin-bottom: 70px;
+        }
+
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-bottom: 20px;
+        }
+
+        .news-card {
+            background: white;
+            border-radius: 40px;
+            overflow: hidden;
+            text-decoration: none;
+            color: inherit;
+            box-shadow: 0 12px 24px -8px rgba(0,0,0,0.1);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .news-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 32px -12px rgba(0,0,0,0.15);
+        }
+
+        .news-img {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .news-card h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin: 18px 20px 8px;
+            font-family: 'PT Sans', 'Roboto', sans-serif;
+        }
+
+        .news-card p {
+            margin: 0 20px 20px;
+            color: #5f7f8c;
+            font-size: 0.9rem;
+        }
+
+        .news-badge {
+            display: inline-block;
+            background: #01AABD;
+            color: white;
+            padding: 5px 18px;
+            border-radius: 40px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            margin: 0 20px 20px;
+            font-family: inherit;
+        }
+
+        .more-news-btn {
+            background: #01AABD;
+            color: white;
+            border: none;
+            padding: 14px 28px;
+            border-radius: 60px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            width: 100%;
+            text-align: center;
+            transition: 0.2s;
+            margin-top: 20px;
+            font-family: inherit;
+        }
+
+        .more-news-btn:hover {
+            background: #018092;
+        }
+
+        /* ===== НАПРАВЛЕНИЯ ===== */
+        .directions {
+            background: #E8F3F5;
+            border-radius: 48px;
+            padding: 45px 40px;
+            margin-bottom: 70px;
+        }
+
+        .dir-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 24px;
+        }
+
+        .dir-item {
+            background: white;
+            border-radius: 40px;
+            padding: 20px;
+            display: flex;
+            gap: 18px;
+            align-items: center;
+            transition: 0.2s;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .dir-item:hover {
+            transform: translateX(8px);
+            box-shadow: 0 12px 20px -12px rgba(0,0,0,0.1);
+        }
+
+        .dir-img {
+            width: 65px;
+            height: 65px;
+            border-radius: 30px;
+            background-size: cover;
+            background-position: center;
+            flex-shrink: 0;
+        }
+
+        .dir-info h4 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .dir-arrow {
+            color: #01AABD;
+            font-weight: 600;
+            font-size: 0.85rem;
+        }
+
+        /* ===== КОНТАКТЫ ===== */
+        .contacts {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            background: linear-gradient(135deg, #1f3b4a, #0f2c38);
+            border-radius: 48px;
+            padding: 48px;
+            margin-bottom: 60px;
+            color: white;
+        }
+
+        .contact-line {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            font-size: 1rem;
+            margin-bottom: 24px;
+        }
+
+        .contact-icon {
+            background: rgba(255,255,255,0.15);
+            width: 52px;
+            height: 52px;
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.6rem;
+        }
+
+        .map {
+            border-radius: 32px;
+            overflow: hidden;
+        }
+
+        /* ===== АДАПТИВ ===== */
+        @media (max-width: 1024px) {
+            .wrapper { padding: 0 20px; }
+            .hero { flex-direction: column; text-align: center; padding: 36px 28px; }
+            .hero-image img { max-width: 240px; }
+            .quick-grid { grid-template-columns: 1fr; }
+            .dir-item { flex-direction: column; text-align: center; }
+            .contacts { grid-template-columns: 1fr; }
+        }
+
+        @media (max-width: 860px) {
+            .news-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="wrapper">
+    <div class="header">
+        <div class="logo"><img src="src/logoKTTO.jpg" alt="Логотип КТТО"></div>
+        <div class="nav">
+            <a href="index.html">Главная</a>
+            <a href="about.html" class="active">О нас</a>
+            <a href="admission.html">Поступление</a>
+            <a href="students.html">Студентам</a>
+            <a href="contacts.html">Контакты</a>
+        </div>
+    </div>
+
+    <div class="hero">
+        <div class="hero-text">
+            <h1>Кооперативный техникум<br><span class="accent">Тамбовского Облпотребсоюза</span></h1>
+            <p>Одно из старейших учебных заведений СПО России. Основан в 1923 году. Готовим специалистов для потребительской кооперации, государственного хозяйства и предпринимательства.</p>
+            <button class="btn">Поступить онлайн →</button>
+        </div>
+        <div class="hero-image">
+            <img src="src/tech.jpg" alt="Здание техникума">
+        </div>
+    </div>
+
+    <div class="quick-section">
+        <div class="section-title">Сведения об образовательной организации</div>
+        <div class="quick-grid">
+            <a href="#" class="quick-card">
+                <div class="quick-icon">🏛️</div>
+                <h3>Основные сведения</h3>
+                <p>История, лицензии, документы</p>
+            </a>
+            <a href="#" class="quick-card">
+                <div class="quick-icon">📚</div>
+                <h3>Образование</h3>
+                <p>Направления и формы обучения</p>
+            </a>
+            <a href="#" class="quick-card">
+                <div class="quick-icon">👥</div>
+                <h3>Руководство</h3>
+                <p>Администрация и преподаватели</p>
+            </a>
+            <a href="#" class="quick-card">
+                <div class="quick-icon">📢</div>
+                <h3>Приёмная комиссия</h3>
+                <p>Правила поступления и контакты</p>
+            </a>
+        </div>
+    </div>
+
+    <!-- НОВОСТИ: 6 карточек, без анимации -->
+    <div class="news-section">
+        <div class="section-title">📰 Новости КТТО</div>
+        <div class="news-grid" id="newsGrid"></div>
+        <button class="more-news-btn" id="moreNewsBtn">Другие новости →</button>
+    </div>
+
+    <div class="directions">
+        <div class="section-title">🎓 Направления подготовки</div>
+        <div class="dir-grid">
+            <a href="#" class="dir-item"><div class="dir-img" style="background-image: url('src/Банковское.png');"></div><div class="dir-info"><h4>Банковское дело</h4><span class="dir-arrow">Подробнее →</span></div></a>
+            <a href="#" class="dir-item"><div class="dir-img" style="background-image: url('src/Юриспруденция.png');"></div><div class="dir-info"><h4>Юриспруденция</h4><span class="dir-arrow">Подробнее →</span></div></a>
+            <a href="#" class="dir-item"><div class="dir-img" style="background-image: url('src/ЭкономикаИБухУчет.png');"></div><div class="dir-info"><h4>Экономика и бухучет</h4><span class="dir-arrow">Подробнее →</span></div></a>
+            <a href="#" class="dir-item"><div class="dir-img" style="background-image: url('src/Поварское.png');"></div><div class="dir-info"><h4>Поварское дело</h4><span class="dir-arrow">Подробнее →</span></div></a>
+            <a href="#" class="dir-item"><div class="dir-img" style="background-image: url('src/ИнформационныеСистемы.png');"></div><div class="dir-info"><h4>Информационные системы</h4><span class="dir-arrow">Подробнее →</span></div></a>
+            <a href="#" class="dir-item"><div class="dir-img" style="background-image: url('src/Финансы.png');"></div><div class="dir-info"><h4>Финансы</h4><span class="dir-arrow">Подробнее →</span></div></a>
+            <a href="#" class="dir-item"><div class="dir-img" style="background-image: url('src/Коммерция.png');"></div><div class="dir-info"><h4>Коммерция</h4><span class="dir-arrow">Подробнее →</span></div></a>
+        </div>
+    </div>
+
+    <div class="contacts">
+        <div>
+            <div class="contact-line"><div class="contact-icon">📞</div> +7 (4752) 55-66-77 — Приемная комиссия</div>
+            <div class="contact-line"><div class="contact-icon">💬</div> vk.com/cooptech68</div>
+            <div class="contact-line"><div class="contact-icon">✈️</div> @ktto_tambov</div>
+            <div class="contact-line"><div class="contact-icon">📍</div> г. Тамбов, ул. Советская, 123</div>
+        </div>
+        <div class="map">
+            <script type="text/javascript" charset="utf-8" async src="https://api-maps.yandex.ru/services/constructor/1.0/js/?um=constructor%3A2af0320f3819a376aedf8a87d5941800f455184d4a3337ac3abb1f91bc39bf0f&amp;width=100%25&amp;height=280&amp;lang=ru_RU&amp;scroll=true"></script>
+        </div>
+    </div>
+
+    <div style="text-align: center; padding: 30px 0 50px; color: #7c9aa8;">Кооперативный техникум Тамбовского Облпотребсоюза — качественное образование с 1923 года</div>
+</div>
+
+<script>
+    // 6 новостей (можно потом через FastAPI подтягивать)
+    const allNews = [
+        { img: 'src/newscard1.png', title: 'Экологический форум «Экокон»', desc: 'Студенты представили проекты по переработке отходов.', date: '28 мая' },
+        { img: 'src/newscard2.png', title: 'Агропромышленный форум', desc: 'Участие в выставке «АГРОПРОДУКЦИЯ».', date: '14 мая' },
+        { img: 'src/newscard3.jpg', title: 'День открытых дверей', desc: 'Приглашаем абитуриентов и родителей 15 июня.', date: '2 мая' },
+        { img: 'src/newscard1.png', title: 'Спортивная олимпиада', desc: 'Команда техникума заняла 1 место в волейболе.', date: '25 апреля' },
+        { img: 'src/newscard2.png', title: 'Профориентация', desc: 'Встречи со школьниками в районах области.', date: '18 апреля' },
+        { img: 'src/newscard3.jpg', title: 'Выпускной 2025', desc: 'Торжественное вручение дипломов выпускникам.', date: '10 апреля' }
+    ];
+
+    let visibleCount = 6;  // показываем все 6
+    const grid = document.getElementById('newsGrid');
+    const moreBtn = document.getElementById('moreNewsBtn');
+
+    function createCard(news) {
+        const card = document.createElement('a');
+        card.href = '#';
+        card.className = 'news-card';
+        card.innerHTML = `
+            <div class="news-img" style="background-image: url('${news.img}');"></div>
+            <h3>${news.date}</h3>
+            <h3 style="margin-top: -8px;">${news.title}</h3>
+            <p>${news.desc}</p>
+            <span class="news-badge">Читать →</span>
+        `;
+        return card;
+    }
+
+    function renderNews() {
+        grid.innerHTML = '';
+        const toShow = allNews.slice(0, visibleCount);
+        toShow.forEach(news => {
+            grid.appendChild(createCard(news));
+        });
+        if (visibleCount >= allNews.length) {
+            moreBtn.style.display = 'none';
+        } else {
+            moreBtn.style.display = 'block';
+        }
+    }
+
+    function loadMore() {
+        visibleCount = Math.min(visibleCount + 3, allNews.length);
+        renderNews();
+    }
+
+    renderNews();
+    moreBtn.addEventListener('click', loadMore);
+</script>
+</body>
+</html>
