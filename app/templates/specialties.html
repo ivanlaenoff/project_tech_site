@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>КТТО — Специальности</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Open Sans', 'Roboto', sans-serif;
+            color: #1f2e3a;
+            background: white;
+        }
+
+        .wrapper {
+            max-width: 1400px;
+            margin: auto;
+            padding: 0 30px;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            border-bottom: 3px solid #01AABD;
+            margin-bottom: 40px;
+        }
+
+        .logo img {
+            height: 55px;
+        }
+
+        .nav {
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav a {
+            text-decoration: none;
+            color: #1f2e3a;
+            font-weight: 600;
+        }
+
+        .page-title {
+            font-size: 42px;
+            margin-bottom: 30px;
+        }
+
+        .current-specialty {
+            background: #eefbfc;
+            border-radius: 40px;
+            padding: 50px;
+            margin-bottom: 50px;
+        }
+
+        .current-specialty h1 {
+            color: #01AABD;
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+
+        .current-specialty p {
+            font-size: 20px;
+            line-height: 1.6;
+            max-width: 800px;
+        }
+
+        .info {
+            margin-top: 30px;
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .info-box {
+            background: white;
+            padding: 20px;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px #0001;
+        }
+
+        .list-title {
+            font-size: 30px;
+            margin-bottom: 25px;
+        }
+
+        .dir-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+        }
+
+        .dir-item {
+            text-decoration: none;
+            color: #1f2e3a;
+            background: #f8fafc;
+            border-radius: 30px;
+            padding: 25px;
+            transition: .2s;
+        }
+
+        .dir-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .dir-item h3 {
+            color: #01AABD;
+        }
+
+        .dir-item span {
+            display: block;
+            margin-top: 15px;
+        }
+
+        @media(max-width:800px) {
+
+            .dir-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .header {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="header">
+            <div class="logo">
+                <img src="/src/logoKTTO.jpg">
+            </div>
+
+            <div class="nav">
+                <a href="/">Главная</a>
+                <a href="/about">О нас</a>
+                <a href="/admission">Поступление</a>
+                <a href="/students">Студентам</a>
+                <a href="/contacts">Контакты</a>
+            </div>
+        </div>
+        <div class="page-title">
+            Специальности
+        </div>
+        <div class="current-specialty">
+            <h1>
+                {{ current.title }}
+            </h1>
+            <p>
+                {{ current.desc }}
+            </p>
+            <div class="info">
+                <div class="info-box">
+                    Срок обучения:
+                    <br>
+                    {{ current.time }}
+                </div>
+                <div class="info-box">
+                    Квалификация:
+                    <br>
+                    Специалист
+                </div>
+                <div class="info-box">
+                    Форма обучения:
+                    <br>
+                    Очная
+                </div>
+
+            </div>
+        </div>
+        <h2 class="list-title">
+            Другие направления
+        </h2>
+        <div class="dir-grid">
+            {% for s in specialties %}
+            <a class="dir-item" href="/specialties?item={{s.id}}">
+                <h3>
+                    {{s.title}}
+                </h3>
+                <span>
+                    Подробнее →
+                </span>
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>

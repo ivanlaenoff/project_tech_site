@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Сведения об образовательной организации — КТТО</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: #ffffff;
+            font-family: 'Open Sans', 'Roboto', 'PT Sans', 'Segoe UI', system-ui, sans-serif;
+            color: #1f2e3a;
+            line-height: 1.5;
+        }
+        .wrapper { max-width: 1400px; margin: 0 auto; padding: 0 30px; }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            border-bottom: 3px solid #01AABD;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+        .logo img { height: 55px; width: auto; object-fit: contain; }
+        .nav { display: flex; gap: 24px; flex-wrap: wrap; }
+        .nav a {
+            text-decoration: none;
+            font-weight: 600;
+            color: #1f2e3a;
+            padding: 8px 18px;
+            border-radius: 50px;
+            transition: all 0.2s ease;
+        }
+        .nav a:hover { background: #01AABD; color: white; }
+
+        .page-header { margin: 30px 0 40px; }
+        .page-header h1 { font-size: 2.2rem; font-weight: 800; color: #0F172A; }
+
+        .svedeniya-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        .sved-card {
+            background: #F8FAFC;
+            border-radius: 32px;
+            padding: 24px 28px;
+            border: 1px solid #E2E8F0;
+            transition: 0.2s;
+        }
+        .sved-card:hover {
+            border-color: #01AABD;
+            box-shadow: 0 8px 20px rgba(1,170,189,0.08);
+        }
+        .sved-card h3 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #01AABD;
+            margin-bottom: 12px;
+        }
+        .sved-card ul {
+            list-style: none;
+            padding: 0;
+        }
+        .sved-card ul li {
+            padding: 4px 0;
+            border-bottom: 1px solid #E2E8F0;
+        }
+        .sved-card ul li:last-child { border-bottom: none; }
+        .sved-card a { color: #01AABD; text-decoration: none; }
+        .sved-card a:hover { text-decoration: underline; }
+
+        .back-link {
+            display: inline-block;
+            margin: 20px 0 50px;
+            color: #01AABD;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        @media (max-width: 1024px) {
+            .wrapper { padding: 0 20px; }
+            .header { flex-direction: column; text-align: center; }
+        }
+        @media (max-width: 680px) {
+            .svedeniya-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+<div class="wrapper">
+    <div class="header">
+        <div class="logo"><img src="/src/logoKTTO.jpg" alt="Логотип КТТО"></div>
+        <div class="nav">
+            <a href="/">Главная</a>
+            <a href="/about">О нас</a>
+            <a href="/admission">Поступление</a>
+            <a href="/students">Студентам</a>
+            <a href="/contacts">Контакты</a>
+            <a href="/svedeniya" style="background: #01AABD; color: white;">Сведения</a>
+        </div>
+    </div>
+
+    <div class="page-header">
+        <h1>Сведения об образовательной организации</h1>
+        <p style="color: #475569;">Информация в соответствии с Приказом Рособрнадзора № 1493</p>
+    </div>
+
+    <div class="svedeniya-grid">
+
+        <div class="sved-card">
+            <h3>Основные сведения</h3>
+            <ul>
+                <li><strong>Полное наименование:</strong> Кооперативный техникум Тамбовского Облпотребсоюза</li>
+                <li><strong>Сокращённое:</strong> КТТО</li>
+                <li><strong>Дата создания:</strong> 1923 год</li>
+                <li><strong>Учредитель:</strong> Тамбовский Облпотребсоюз</li>
+                <li><strong>Адрес:</strong> г. Тамбов, ул. Советская, 123</li>
+                <li><strong>Режим работы:</strong> Пн-Пт 8:00–17:00</li>
+                <li><strong>Телефон:</strong> +7 (4752) 55-66-77</li>
+                <li><strong>Email:</strong> ktto@obltambov.ru</li>
+            </ul>
+        </div>
+
+        <div class="sved-card">
+            <h3>Структура и органы управления</h3>
+            <ul>
+                <li><strong>Директор:</strong>Земской Николай Александрович</li>
+                <li><strong>Заместитель по УР:</strong> Петрова Анна Сергеевна</li>
+                <li><strong>Заместитель по ВР:</strong> Сидоров Дмитрий Петрович</li>
+                <li><strong>Главный бухгалтер:</strong> Смирнова Елена Викторовна</li>
+                <li><a href="#">Положение о структурных подразделениях</a></li>
+            </ul>
+        </div>
+
+        <div class="sved-card">
+            <h3>Документы</h3>
+            <ul>
+                <li><a href="#">Устав КТТО</a></li>
+                <li><a href="#">Лицензия на образовательную деятельность</a></li>
+                <li><a href="#">Правила внутреннего распорядка</a></li>
+                <li><a href="#">Коллективный договор</a></li>
+                <li><a href="#">Отчёт о самообследовании</a></li>
+            </ul>
+        </div>
+
+        <div class="sved-card">
+            <h3>Образование</h3>
+            <ul>
+                <li><strong>Информационные системы</strong> (09.02.07)</li>
+                <li><strong>Экономика и бухучет</strong> (38.02.01)</li>
+                <li><strong>Право и организация соцобеспечения</strong> (40.02.01)</li>
+                <li><strong>Банковское дело</strong> (38.02.07)</li>
+                <li><strong>Поварское дело</strong> (43.02.15)</li>
+                <li><a href="#">Образовательные программы</a></li>
+            </ul>
+        </div>
+
+        <div class="sved-card">
+            <h3>Руководство</h3>
+            <ul>
+                <li><strong>Директор:</strong> Иванов И.И. — +7 (4752) 55-66-70</li>
+                <li><strong>Заместитель по УР:</strong> Петрова А.С. — +7 (4752) 55-66-71</li>
+                <li><strong>Заместитель по ВР:</strong> Сидоров Д.П. — +7 (4752) 55-66-72</li>
+                <li><a href="#">Полный список руководства</a></li>
+            </ul>
+        </div>
+
+        <div class="sved-card">
+            <h3>Педагогический состав</h3>
+            <ul>
+                <li><strong>Иванова М.И.</strong> — Информатика, 15 лет</li>
+                <li><strong>Петров С.В.</strong> — Экономика, 20 лет</li>
+                <li><strong>Сидорова А.П.</strong> — Право, 10 лет</li>
+                <li><a href="#">Полный список преподавателей</a></li>
+            </ul>
+        </div>
+
+        <div class="sved-card">
+            <h3>Материально-техническое обеспечение</h3>
+            <ul>
+                <li>10 учебных кабинетов</li>
+                <li>2 компьютерных класса</li>
+                <li>Библиотека (5000 экземпляров)</li>
+                <li>Спортивный зал</li>
+                <li>Доступ к электронным ресурсам</li>
+            </ul>
+        </div>
+
+        <div class="sved-card">
+            <h3>Стипендии и меры поддержки</h3>
+            <ul>
+                <li>Государственная академическая стипендия</li>
+                <li>Социальная стипендия</li>
+                <li>Материальная помощь</li>
+                <li>Общежитие для иногородних</li>
+            </ul>
+        </div>
+
+        <div class="sved-card">
+            <h3>Вакантные места для приёма (перевода)</h3>
+            <ul>
+                <li><strong>Информационные системы:</strong> 25 бюджетных мест</li>
+                <li><strong>Экономика и бухучет:</strong> 30 бюджетных мест</li>
+                <li><strong>Право и соцобеспечение:</strong> 20 бюджетных мест</li>
+                <li><a href="#">Актуальные вакансии</a></li>
+            </ul>
+        </div>
+
+    </div>
+
+    <a href="/" class="back-link">← Вернуться на главную</a>
+</div>
+</body>
+</html>

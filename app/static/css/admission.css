@@ -1,0 +1,182 @@
+/* admission.css — стили для страницы "Поступление" */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: #fff;
+    font-family: 'Open Sans', 'Roboto', 'PT Sans', sans-serif;
+    color: #1f2e3a;
+}
+
+.wrapper {
+    max-width: 1400px;
+    margin: auto;
+    padding: 0 30px;
+}
+
+/* Шапка сайта */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 0;
+    border-bottom: 3px solid #01AABD;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.logo img {
+    height: 55px;
+}
+
+/* Навигация */
+.nav {
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.nav > a,
+.dropdown > a {
+    text-decoration: none;
+    color: #1f2e3a;
+    font-weight: 600;
+    padding: 8px 18px;
+    border-radius: 50px;
+    transition: .2s;
+}
+
+.nav a:hover,
+.nav .active {
+    background: #01AABD;
+    color: white;
+}
+
+/* Выпадающее меню */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: white;
+    min-width: 220px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    border-radius: 15px;
+    padding: 10px 0;
+    z-index: 1000;
+}
+
+.dropdown-menu a {
+    display: block;
+    padding: 10px 20px;
+    color: #1f2e3a;
+    text-decoration: none;
+    font-weight: 500;
+    border-radius: 0;
+    background: transparent;
+}
+
+.dropdown-menu a:hover {
+    background: #f0f8fa;
+    color: #01AABD;
+}
+
+.dropdown:hover .dropdown-menu {
+    display: block;
+}
+
+/* Плавная анимация (опционально) */
+.dropdown-menu {
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.dropdown:hover .dropdown-menu {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Заголовок страницы */
+.page-title {
+    font-size: 2.4rem;
+    font-weight: 700;
+    margin: 35px 0;
+    color: #0F172A;
+}
+
+.content-placeholder {
+    background: #F8FAFC;
+    border-radius: 48px;
+    padding: 60px 48px;
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.content-placeholder h2 {
+    color: #01AABD;
+    font-size: 2rem;
+    margin-bottom: 20px;
+}
+
+.content-placeholder p {
+    color: #475569;
+    max-width: 700px;
+    margin: auto;
+}
+
+.cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 25px;
+    margin-bottom: 60px;
+}
+
+.card {
+    background: white;
+    padding: 30px;
+    border-radius: 30px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, .08);
+}
+
+.card h3 {
+    color: #01AABD;
+    margin-bottom: 15px;
+}
+
+.card ul {
+    padding-left: 20px;
+}
+
+.card li {
+    margin-bottom: 10px;
+}
+
+/* Адаптивность */
+@media(max-width:860px) {
+    .wrapper {
+        padding: 0 20px;
+    }
+
+    .header {
+        flex-direction: column;
+    }
+
+    .nav {
+        justify-content: center;
+    }
+
+    .page-title {
+        text-align: center;
+    }
+}

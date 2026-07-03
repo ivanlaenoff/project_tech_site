@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Поступить онлайн - КТТО</title>
+    <style>
+        :root {
+            --primary: #00a0e3;
+            --text-dark: #2c3e50;
+            --text-muted: #7f8c8d;
+            --bg-light: #f4f7f6;
+            --success: #2ecc71;
+        }
+        * { box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Arial, sans-serif; margin: 0; background: var(--bg-light); color: var(--text-dark); }
+        
+        .header { background: white; padding: 15px 0; border-bottom: 1px solid #e1e8ed; position: sticky; top: 0; z-index: 100; }
+        .header-container { max-width: 1140px; margin: 0 auto; padding: 0 20px; display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 24px; font-weight: bold; color: var(--primary); text-decoration: none; display: flex; align-items: center; gap: 8px; }
+        .logo span { border-left: 2px solid var(--primary); padding-left: 8px; }
+        .nav-menu { display: flex; gap: 25px; }
+        .nav-menu a { text-decoration: none; color: var(--text-dark); font-size: 14px; font-weight: 500; }
+
+        .container { max-width: 800px; margin: 40px auto; padding: 0 20px; }
+        
+        h1 { font-size: 28px; margin-bottom: 10px; text-align: center; }
+        p.subtitle { text-align: center; color: var(--text-muted); margin-bottom: 30px; }
+
+        /* ТАБЛИЦА ДОКУМЕНТОВ */
+        .docs-section { background: white; border-radius: 20px; padding: 30px; box-shadow: 0 4px 20px rgba(0,0,0,0.02); margin-bottom: 30px; }
+        .docs-section h2 { font-size: 18px; margin-top: 0; margin-bottom: 20px; }
+        
+        table { width: 100%; border-collapse: collapse; text-align: left; font-size: 14px; }
+        th, td { padding: 12px 15px; border-bottom: 1px solid #e1e8ed; }
+        th { background: #f8fafc; font-weight: 600; color: var(--text-dark); }
+        td.required { color: #e74c3c; font-weight: bold; text-align: center; }
+
+        /* ФОРМА ПОДАЧИ */
+        .form-section { background: white; border-radius: 20px; padding: 30px; box-shadow: 0 4px 20px rgba(0,0,0,0.02); }
+        .form-section h2 { font-size: 18px; margin-top: 0; margin-bottom: 20px; }
+        
+        .form-group { margin-bottom: 20px; display: flex; flex-direction: column; gap: 8px; }
+        .form-group label { font-size: 14px; font-weight: 600; }
+        .form-group input { padding: 12px; border: 1px solid #cbd5e1; border-radius: 10px; font-size: 14px; outline: none; transition: border 0.2s; }
+        .form-group input:focus { border-color: var(--primary); }
+        
+        .btn-submit { background: var(--primary); color: white; border: none; padding: 14px; border-radius: 10px; font-weight: 600; font-size: 15px; cursor: pointer; transition: background 0.2s; width: 100%; }
+        .btn-submit:hover { background: #008ec9; }
+
+        /* ПЛАШКА УСПЕХА */
+        .success-box { background: #e8f8f0; border: 1px solid var(--success); border-radius: 20px; padding: 40px; text-align: center; color: #1e7e43; }
+        .success-icon { font-size: 48px; margin-bottom: 15px; display: block; }
+        .success-box h2 { margin: 0 0 10px 0; font-size: 22px; }
+        .success-box p { margin: 0; font-size: 16px; font-weight: 500; }
+
+        /* ===== МЕНЮ ===== */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            border-bottom: 3px solid #01AABD;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .logo img {
+            height: 55px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        .nav {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .nav a {
+            text-decoration: none;
+            font-weight: 600;
+            color: #1f2e3a;
+            padding: 8px 18px;
+            border-radius: 50px;
+            transition: all 0.2s ease;
+            font-size: 0.95rem;
+        }
+
+        .nav a:hover {
+            background: #01AABD;
+            color: white;
+        }
+
+        .nav a.sved-link {
+            background: #01AABD;
+            color: white;
+        }
+
+        .nav a.sved-link:hover {
+            background: #018092;
+        }
+    </style>
+</head>
+<body>
+
+        <div class="header">
+            <div class="logo"><img src="/src/logoKTTO.jpg" alt="Логотип КТТО"></div>
+            <div class="nav">
+                <a href="/">Главная</a>
+                <a href="/about">О нас</a>
+                <a href="/apply">Поступление</a>
+                <a href="/students">Студентам</a>
+                <a href="/contacts">Контакты</a>
+                <a href="/info" class="sved-link">Сведения</a>
+            </div>
+        </div>
+
+    <div class="container">
+        <h1>Поступление в КТТО онлайн</h1>
+        <p class="subtitle">Оставьте заявку, и наша приёмная комиссия свяжется с вами для оформления документов.</p>
+
+        <!-- БЛОК С ТАБЛИЦЕЙ ДОКУМЕНТОВ -->
+        <section class="docs-section">
+            <h2>📋 Перечень необходимых документов</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Наименование документа</th>
+                        <th>Количество</th>
+                        <th>Обязательно</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Паспорт абитуриента (главная + прописка)</td>
+                        <td>Копия / Скан</td>
+                        <td class="required">✓</td>
+                    </tr>
+                    <tr>
+                        <td>Аттестат об образовании (с приложением)</td>
+                        <td>Оригинал / Копия</td>
+                        <td class="required">✓</td>
+                    </tr>
+                    <tr>
+                        <td>Фотографии размером 3х4 см</td>
+                        <td>4 штуки</td>
+                        <td class="required">✓</td>
+                    </tr>
+                    <tr>
+                        <td>Медицинская справка (форма 086/у)</td>
+                        <td>1 оригинал</td>
+                        <td class="required">✓</td>
+                    </tr>
+                    <tr>
+                        <td>СНИЛС</td>
+                        <td>1 копия</td>
+                        <td class="required">✓</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- БЛОК С ФОРМОЙ ИЛИ ПЛАШКОЙ УСПЕХА -->
+        <section class="form-section">
+            {% if success %}
+                <!-- Если заявка успешно отправлена -->
+                <div class="success-box">
+                    <h2>Заявка успешно принята!</h2>
+                    <p>Мы Вам позвоним в ближайшее время.</p>
+                </div>
+            {% else %}
+                <!-- Обычное состояние формы -->
+                <h2>Заполните анкету обратной связи</h2>
+                <form action="/apply" method="POST">
+                    <div class="form-group">
+                        <label for="fio">ФИО Абитуриента</label>
+                        <input type="text" id="fio" name="fio" placeholder="Иванов Иван Иванович" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Номер телефона</label>
+                        <input type="tel" id="phone" name="phone" placeholder="+7 (999) 123-45-67" required>
+                    </div>
+                    <button type="submit" class="btn-submit">Отправить заявку →</button>
+                </form>
+            {% endif %}
+        </section>
+    </div>
+
+</body>
+</html>
