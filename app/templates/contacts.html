@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>КТТО — Контакты</title>
+    <link rel="stylesheet" href="/static/css/header.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: #ffffff;
+            font-family: 'Open Sans', 'Roboto', 'PT Sans', sans-serif;
+            color: #1f2e3a;
+        }
+        .wrapper { max-width: 1400px; margin: 0 auto; padding: 0 30px; }
+
+        .page-title {
+            font-size: 2.4rem;
+            font-weight: 700;
+            margin: 20px 0 40px;
+            color: #0F172A;
+        }
+        .contacts-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+        .contacts-info {
+            background: #F8FAFC;
+            border-radius: 48px;
+            padding: 48px;
+            border: 1px solid #E2E8F0;
+        }
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            margin-bottom: 32px;
+        }
+        .contact-icon {
+            background: white;
+            width: 54px;
+            height: 54px;
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.6rem;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+        .map {
+            border-radius: 48px;
+            overflow: hidden;
+            background: #E2E8F0;
+            min-height: 380px;
+        }
+        @media (max-width: 860px) {
+            .wrapper { padding: 0 20px; }
+            .page-title { font-size: 1.8rem; text-align: center; }
+            .contacts-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+<div class="wrapper">
+    {% include "components/header.html" %}
+
+    <div class="page-title">Контакты</div>
+    <div class="contacts-grid">
+        <div class="contacts-info">
+            <div class="contact-item"><div class="contact-icon">📞</div><div>+7 (4752) 55-66-77</div></div>
+            <div class="contact-item"><div class="contact-icon">✉️</div><div>ktto@obltambov.ru</div></div>
+            <div class="contact-item"><div class="contact-icon">💬</div><div>vk.com/cooptech68</div></div>
+            <div class="contact-item"><div class="contact-icon">✈️</div><div>@ktto_tambov</div></div>
+            <div class="contact-item"><div class="contact-icon">📍</div><div>г. Тамбов, ул. Советская, 123</div></div>
+        </div>
+        <div class="map">
+            <script type="text/javascript" charset="utf-8" async src="https://api-maps.yandex.ru/services/constructor/1.0/js/?um=constructor%3A2af0320f3819a376aedf8a87d5941800f455184d4a3337ac3abb1f91bc39bf0f&amp;width=100%25&amp;height=380&amp;lang=ru_RU&amp;scroll=true"></script>
+        </div>
+    </div>
+</div>
+</body>
+</html>

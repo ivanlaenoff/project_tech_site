@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>КТТО — О нас</title>
+    <link rel="stylesheet" href="/static/css/header.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #ffffff;
+            font-family: 'Open Sans', 'Roboto', 'PT Sans', sans-serif;
+            color: #1f2e3a;
+        }
+
+        .wrapper {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 30px;
+        }
+
+ 
+        /* ===== СТРАНИЦА ===== */
+        .page-title {
+            font-size: 2.4rem;
+            font-weight: 700;
+            margin: 20px 0 40px;
+            color: #0F172A;
+        }
+
+        .content-placeholder {
+            background: #F8FAFC;
+            border-radius: 48px;
+            padding: 60px 48px;
+            text-align: center;
+            margin-bottom: 60px;
+            border: 1px solid #E2E8F0;
+            min-height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .content-placeholder h2 {
+            font-size: 1.8rem;
+            color: #01AABD;
+        }
+
+        .content-placeholder p {
+            color: #475569;
+            max-width: 600px;
+        }
+
+        @media (max-width: 860px) {
+            .wrapper {
+                padding: 0 20px;
+            }
+
+
+        .page-title {
+            font-size: 1.8rem;
+            text-align: center;
+        }
+
+        .content-placeholder {
+            padding: 40px 24px;
+        }
+
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrapper">
+        {% include "components/header.html" %}
+
+        <div class="page-title">О нас</div>
+        <div class="content-placeholder">
+            <h2>История и традиции</h2>
+            <p>Здесь будет размещена информация о техникуме: история, руководство, достижения, лицензии и другая
+                официальная информация.</p>
+        </div>
+    </div>
+</body>
+
+</html>

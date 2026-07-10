@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>КТТО — Поступление</title>
+    <link rel="stylesheet" href="/static/css/header.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #fff;
+            font-family: 'Open Sans', 'Roboto', 'PT Sans', sans-serif;
+            color: #1f2e3a;
+        }
+
+        .wrapper {
+            max-width: 1400px;
+            margin: auto;
+            padding: 0 30px;
+        }
+
+
+        /* Заголовок страницы */
+        .page-title {
+            font-size: 2.4rem;
+            font-weight: 700;
+            margin: 35px 0;
+            color: #0F172A;
+        }
+
+        .content-placeholder {
+            background: #F8FAFC;
+            border-radius: 48px;
+            padding: 60px 48px;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .content-placeholder h2 {
+            color: #01AABD;
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+
+        .content-placeholder p {
+            color: #475569;
+            max-width: 700px;
+            margin: auto;
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin-bottom: 60px;
+        }
+
+        .card {
+            background: white;
+            padding: 30px;
+            border-radius: 30px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, .08);
+        }
+
+        .card h3 {
+            color: #01AABD;
+            margin-bottom: 15px;
+        }
+
+        .card ul {
+            padding-left: 20px;
+        }
+
+        .card li {
+            margin-bottom: 10px;
+        }
+
+        /* Адаптивность */
+        @media(max-width:860px) {
+            .wrapper {
+                padding: 0 20px;
+            }
+
+            .page-title {
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrapper">
+        {% include "components/header.html" %}
+
+        <div class="page-title">
+            Поступление
+        </div>
+        <div class="content-placeholder">
+            <h2>Правила приёма 2025</h2>
+            <p>
+                Здесь будут размещены условия поступления, сроки подачи документов,
+                специальности, проходные баллы и информация для абитуриентов.
+            </p>
+        </div>
+        <div class="cards">
+
+            <div class="card">
+                <h3>Документы</h3>
+                <ul>
+                    <li>Заявление</li>
+                    <li>Аттестат</li>
+                    <li>Паспорт</li>
+                    <li>Фотографии</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <h3>Сроки подачи</h3>
+                <p>
+                    Приём документов:
+                    <br><br>
+                    Июнь — Август 2025 года.
+                </p>
+            </div>
+
+            <div class="card">
+                <h3>Специальности</h3>
+                <ul>
+                    <li>Информационные системы</li>
+                    <li>Банковское дело</li>
+                    <li>Экономика</li>
+                    <li>Техническое обслуживание</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <h3>Баллы</h3>
+                <p>
+                    Проходные баллы будут опубликованы после завершения приёмной кампании.
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

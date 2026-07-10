@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>КТТО — Студентам</title>
+    <link rel="stylesheet" href="/static/css/header.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box
+        }
+
+        body {
+            background: #fff;
+            font-family: 'Open Sans', 'Roboto', 'PT Sans', sans-serif;
+            color: #1f2e3a
+        }
+
+        .wrapper {
+            max-width: 1400px;
+            margin: auto;
+            padding: 0 30px
+        }
+
+
+        .page-title {
+            font-size: 2.4rem;
+            font-weight: 700;
+            margin: 35px 0;
+            color: #0F172A
+        }
+
+        .intro {
+            background: #F8FAFC;
+            border-radius: 48px;
+            padding: 60px 48px;
+            text-align: center;
+            margin-bottom: 40px
+        }
+
+        .intro h2 {
+            color: #01AABD;
+            font-size: 2rem;
+            margin-bottom: 20px
+        }
+
+        .intro p {
+            color: #475569;
+            max-width: 700px;
+            margin: auto
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin-bottom: 60px
+        }
+
+        .card {
+            background: white;
+            padding: 30px;
+            border-radius: 30px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, .08);
+            transition: .2s
+        }
+
+        .card:hover {
+            transform: translateY(-5px)
+        }
+
+        .card h3 {
+            color: #01AABD;
+            margin-bottom: 15px
+        }
+
+        .card p,
+        .card li {
+            color: #475569
+        }
+
+        .card ul {
+            padding-left: 20px
+        }
+
+        .card li {
+            margin-bottom: 10px
+        }
+
+        @media(max-width:860px) {
+            .wrapper {
+                padding: 0 20px
+            }
+
+            .page-title {
+                text-align: center
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrapper">
+        {% include "components/header.html" %}
+
+        <div class="page-title">🎓 Студентам</div>
+
+        <div class="intro">
+            <h2>🎓 Учебный процесс и жизнь студентов</h2>
+            <p>Расписание, стипендии, общежитие, внеучебная деятельность, практика, библиотека и другие сервисы для
+                студентов.</p>
+        </div>
+
+        <div class="cards">
+
+            <div class="card">
+                <h3>Расписание</h3>
+                <p>Актуальное расписание занятий, изменения и информация об учебном процессе.</p>
+            </div>
+
+            <div class="card">
+                <h3>Стипендии</h3>
+                <p>Информация о видах стипендий, условиях получения и выплатах.</p>
+            </div>
+
+            <div class="card">
+                <h3>Общежитие</h3>
+                <p>Условия проживания, правила заселения и необходимые документы.</p>
+            </div>
+
+            <div class="card">
+                <h3>Внеучебная деятельность</h3>
+                <p>Мероприятия, кружки, студенческие проекты и творчество.</p>
+            </div>
+
+            <div class="card">
+                <h3>Практика</h3>
+                <p>Информация о прохождении практики и сотрудничестве с организациями.</p>
+            </div>
+
+            <div class="card">
+                <h3>Библиотека</h3>
+                <p>Учебная литература, электронные ресурсы и помощь студентам.</p>
+            </div>
+
+        </div>
+    </div>
+</body>
+
+</html>

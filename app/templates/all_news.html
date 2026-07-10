@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Все новости — КТТО</title>
+    <link rel="stylesheet" href="/static/css/header.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: #ffffff;
+            font-family: 'Open Sans', 'Roboto', 'PT Sans', 'Segoe UI', system-ui, sans-serif;
+            color: #1f2e3a;
+            line-height: 1.5;
+        }
+        .wrapper { max-width: 1400px; margin: 0 auto; padding: 0 30px; }
+
+        .page-header { text-align: center; margin: 20px 0 40px; }
+        .page-header h1 { font-size: 2.2rem; font-weight: 800; color: #0F172A; }
+
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+        .news-card {
+            position: relative;
+            background-size: cover;
+            background-position: center;
+            border-radius: 40px;
+            overflow: hidden;
+            text-decoration: none;
+            color: white;
+            display: block;
+            aspect-ratio: 4 / 3;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .news-card:hover { transform: translateY(-6px); box-shadow: 0 20px 32px -12px rgba(0,0,0,0.3); }
+        .news-content-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 20px;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+            border-radius: 40px;
+        }
+        .news-date-overlay { font-size: 0.85rem; color: #01AABD; margin-bottom: 6px; font-weight: 600; }
+        .news-title-overlay { font-size: 1.2rem; font-weight: 700; margin-bottom: 8px; color: white; }
+        .news-desc-overlay { font-size: 0.85rem; color: rgba(255,255,255,0.9); margin-bottom: 12px; }
+        .news-badge {
+            display: inline-block;
+            background: #01AABD;
+            color: white;
+            padding: 5px 18px;
+            border-radius: 40px;
+            font-size: 0.7rem;
+            font-weight: 600;
+        }
+
+        .pagination {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin: 40px 0 60px;
+            flex-wrap: wrap;
+        }
+        .pagination a, .pagination span {
+            display: inline-block;
+            padding: 8px 16px;
+            border-radius: 40px;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .pagination a { background: #f1f5f9; color: #1e293b; }
+        .pagination a:hover { background: #01AABD; color: white; }
+        .pagination .active { background: #01AABD; color: white; }
+        .disabled { opacity: 0.5; pointer-events: none; }
+
+        .back-home { text-align: center; margin: 20px 0 50px; }
+        .back-home a {
+            display: inline-block;
+            background: #e2e8f0;
+            color: #1e293b;
+            padding: 12px 28px;
+            border-radius: 60px;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        .back-home a:hover { background: #cbd5e1; }
+
+        @media (max-width: 1024px) {
+            .wrapper { padding: 0 20px; }
+        }
+        @media (max-width: 860px) {
+            .news-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        {% include "components/header.html" %}
+
+        <div class="page-header">
+            <h1>Все новости техникума</h1>
+        </div>
+
+        <div class="news-grid">
+            {% for item in news %}
+            <a href="/news/{{ item.id }}" class="news-card" style="background-image: linear-gradient(to top, rgba(0,0,0,0.7), rgba(0,0,0,0.2)), url('{{ item.image_url or '/static/placeholder.jpg' }}'); background-size: cover; background-position: center;">
+                <div class="news-content-overlay">
+                    <div class="news-date-overlay">{{ item.date }}</div>
+                    <div class="news-title-overlay">{{ item.title }}</div>
+                    <span class="news-badge">Читать →</span>
+                </div>
+            </a>
+            {% endfor %}
+        </div>
+
+        {% if total_pages > 1 %}
+        <div class="pagination">
+            {% if current_page > 1 %}<a href="?page={{ current_page - 1 }}">← Предыдущая</a>{% else %}<span class="disabled">← Предыдущая</span>{% endif %}
+            {% for p in range(1, total_pages + 1) %}
+                {% if p == current_page %}<span class="active">{{ p }}</span>{% else %}<a href="?page={{ p }}">{{ p }}</a>{% endif %}
+            {% endfor %}
+            {% if current_page < total_pages %}<a href="?page={{ current_page + 1 }}">Следующая →</a>{% else %}<span class="disabled">Следующая →</span>{% endif %}
+        </div>
+        {% endif %}
+
+        <div class="back-home"><a href="/">← Вернуться на главную</a></div>
+    </div>
+</body>
+</html>

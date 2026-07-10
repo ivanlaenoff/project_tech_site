@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>КТТО — Специальности</title>
+    <link rel="stylesheet" href="/static/css/header.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Open Sans', 'Roboto', sans-serif;
+            color: #1f2e3a;
+            background: white;
+        }
+
+        .wrapper {
+            max-width: 1400px;
+            margin: auto;
+            padding: 0 30px;
+        }
+
+        .page-title {
+            font-size: 42px;
+            margin-bottom: 30px;
+        }
+
+        .current-specialty {
+            background: #eefbfc;
+            border-radius: 40px;
+            padding: 50px;
+            margin-bottom: 50px;
+        }
+
+        .current-specialty h1 {
+            color: #01AABD;
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+
+        .current-specialty p {
+            font-size: 20px;
+            line-height: 1.6;
+            max-width: 800px;
+        }
+
+        .info {
+            margin-top: 30px;
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .info-box {
+            background: white;
+            padding: 20px;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px #0001;
+        }
+
+        .list-title {
+            font-size: 30px;
+            margin-bottom: 25px;
+        }
+
+        .dir-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+        }
+
+        .dir-item {
+            text-decoration: none;
+            color: #1f2e3a;
+            background: #f8fafc;
+            border-radius: 30px;
+            padding: 25px;
+            transition: .2s;
+        }
+
+        .dir-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .dir-item h3 {
+            color: #01AABD;
+        }
+
+        .dir-item span {
+            display: block;
+            margin-top: 15px;
+        }
+
+        @media(max-width:800px) {
+            .dir-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        {% include "components/header.html" %}
+        <div class="page-title">
+            Специальности
+        </div>
+        <div class="current-specialty">
+            <h1>
+                {{ current.title }}
+            </h1>
+            <p>
+                {{ current.desc }}
+            </p>
+            <div class="info">
+                <div class="info-box">
+                    Срок обучения:
+                    <br>
+                    {{ current.time }}
+                </div>
+                <div class="info-box">
+                    Квалификация:
+                    <br>
+                    Специалист
+                </div>
+                <div class="info-box">
+                    Форма обучения:
+                    <br>
+                    Очная
+                </div>
+
+            </div>
+        </div>
+        <h2 class="list-title">
+            Другие направления
+        </h2>
+        <div class="dir-grid">
+            {% for s in specialties %}
+            <a class="dir-item" href="/specialties?item={{s.id}}">
+                <h3>
+                    {{s.title}}
+                </h3>
+                <span>
+                    Подробнее →
+                </span>
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>
