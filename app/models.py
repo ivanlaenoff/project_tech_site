@@ -6,31 +6,58 @@ from enum import Enum
 
 class News(Base):
     __tablename__ = "news"
+
     id = Column(Integer, primary_key=True, index=True)
     title = Column(String)
     description = Column(String)
     date = Column(String)
     image_url = Column(String, nullable=True)
-    
-    images = relationship("NewsImage", back_populates="news", cascade="all, delete-orphan")
+    video_url = Column(String, nullable=True)  # Путь к файлу видео
+    video_order = Column(Integer, nullable=True) # Порядковый номер
+
+    images = relationship(
+        "NewsImage",
+        back_populates="news",
+        cascade="all, delete-orphan"
+    )
+
+    documents = relationship(
+        "NewsDocument",
+        back_populates="news",
+        cascade="all, delete-orphan"
+    )
 
 class NewsImage(Base):
     __tablename__ = "news_images"
+
     id = Column(Integer, primary_key=True, index=True)
     news_id = Column(Integer, ForeignKey("news.id", ondelete="CASCADE"))
     image_url = Column(String)
-    
+    order = Column(Integer, default=0)
+
     news = relationship("News", back_populates="images")
-    
+
     def __repr__(self):
-        # Показываем имя файла вместо объекта
         if self.image_url:
-            filename = self.image_url.split('/')[-1]
+            filename = self.image_url.split("/")[-1]
             return f"📷 {filename}"
         return "📷 Без фото"
-    
+
+
     def __str__(self):
         return self.__repr__()
+
+    
+class NewsDocument(Base):
+    __tablename__ = "news_documents"
+
+    id = Column(Integer, primary_key=True, index=True)
+    news_id = Column(Integer, ForeignKey("news.id", ondelete="CASCADE"))
+    file_name = Column(String)
+    file_url = Column(String)
+
+    news = relationship("News", back_populates="documents")
+
 
 class Specialty(Base):
     __tablename__ = "specialties"

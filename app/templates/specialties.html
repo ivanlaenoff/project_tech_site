@@ -6,24 +6,6 @@
     <title>КТТО — Специальности</title>
     <link rel="stylesheet" href="/static/css/header.css">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Open Sans', 'Roboto', sans-serif;
-            color: #1f2e3a;
-            background: white;
-        }
-
-        .wrapper {
-            max-width: 1400px;
-            margin: auto;
-            padding: 0 30px;
-        }
-
         .page-title {
             font-size: 42px;
             margin-bottom: 30px;
@@ -119,7 +101,9 @@
                 <div class="info-box">
                     Срок обучения:
                     <br>
-                    {{ current.time }}
+                    После 9 кл: {{ current.time_9 }}
+                    <br>
+                    После 11 кл: {{ current.time_11 }}
                 </div>
                 <div class="info-box">
                     Квалификация:
@@ -150,5 +134,6 @@
             {% endfor %}
         </div>
     </div>
+    {% include "components/footer.html" %}
 </body>
 </html>

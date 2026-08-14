@@ -3,114 +3,126 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Поступить онлайн - КТТО</title>
+    <title>Поступить онлайн — КТТО</title>
     <link rel="stylesheet" href="/static/css/header.css">
     <style>
         :root {
-            --primary: #00a0e3;
-            --text-dark: #2c3e50;
-            --text-muted: #7f8c8d;
-            --bg-light: #f4f7f6;
+            --primary: #01AABD;
+            --text-dark: #0F172A;
+            --text-muted: #64748b;
+            --bg-light: #F8FAFC;
             --success: #2ecc71;
         }
-        * { margin: 0; box-sizing: border-box; padding: 0; }
-        body { font-family: 'Segoe UI', Arial, sans-serif; margin: 0; background: var(--bg-light); color: var(--text-dark); line-height: 1.5;}
-
-        .container { max-width: 800px; margin: 40px auto; padding: 0 20px; }
+        .container { max-width: 1000px; margin: 40px auto; padding: 0 20px; }
         
-        h1 { font-size: 28px; margin-bottom: 10px; text-align: center; }
-        p.subtitle { text-align: center; color: var(--text-muted); margin-bottom: 30px; }
+        h1 { font-size: 2.2rem; font-weight: 800; color: var(--text-dark); margin-bottom: 10px; text-align: center; }
+        p.subtitle { text-align: center; color: var(--text-muted); margin-bottom: 40px; font-size: 1.1rem; }
 
-        /* ТАБЛИЦА ДОКУМЕНТОВ */
-        .docs-section { background: white; border-radius: 20px; padding: 30px; box-shadow: 0 4px 20px rgba(0,0,0,0.02); margin-bottom: 30px; }
-        .docs-section h2 { font-size: 18px; margin-top: 0; margin-bottom: 20px; }
+        /* СЕКЦИИ ДОКУМЕНТОВ */
+        .docs-section { background: white; border-radius: 32px; padding: 35px; box-shadow: 0 4px 20px rgba(0,0,0,0.04); border: 1px solid #E2E8F0; margin-bottom: 30px; }
+        .docs-section h2 { font-size: 1.4rem; margin-top: 0; margin-bottom: 20px; color: var(--text-dark); }
+        .docs-section h3 { font-size: 1.1rem; margin: 20px 0 12px; color: var(--primary); }
         
-        table { width: 100%; border-collapse: collapse; text-align: left; font-size: 14px; }
-        th, td { padding: 12px 15px; border-bottom: 1px solid #e1e8ed; }
-        th { background: #f8fafc; font-weight: 600; color: var(--text-dark); }
-        td.required { color: #e74c3c; font-weight: bold; text-align: center; }
+        .docs-list {
+            list-style: none;
+            padding: 0;
+        }
+        .docs-list li {
+            padding: 8px 0;
+            border-bottom: 1px solid #F1F5F9;
+            font-size: 0.95rem;
+            color: var(--text-dark);
+        }
+        .docs-list li:last-child { border-bottom: none; }
+
+        .docs-note {
+            margin-top: 20px;
+            font-style: italic;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            text-align: center;
+        }
+
+        .terms-badge {
+            background: #E6F7F9;
+            color: var(--primary);
+            padding: 15px 25px;
+            border-radius: 16px;
+            text-align: center;
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+            border: 1px solid rgba(1, 170, 189, 0.2);
+        }
 
         /* ФОРМА ПОДАЧИ */
-        .form-section { background: white; border-radius: 20px; padding: 30px; box-shadow: 0 4px 20px rgba(0,0,0,0.02); }
-        .form-section h2 { font-size: 18px; margin-top: 0; margin-bottom: 20px; }
+        .form-section { background: white; border-radius: 32px; padding: 35px; box-shadow: 0 4px 20px rgba(0,0,0,0.04); border: 1px solid #E2E8F0; }
+        .form-section h2 { font-size: 1.4rem; margin-top: 0; margin-bottom: 20px; color: var(--text-dark); }
         
         .form-group { margin-bottom: 20px; display: flex; flex-direction: column; gap: 8px; }
-        .form-group label { font-size: 14px; font-weight: 600; }
-        .form-group input { padding: 12px; border: 1px solid #cbd5e1; border-radius: 10px; font-size: 14px; outline: none; transition: border 0.2s; }
-        .form-group input:focus { border-color: var(--primary); }
+        .form-group label { font-size: 0.95rem; font-weight: 600; color: var(--text-dark); }
+        .form-group input { padding: 14px; border: 1px solid #CBD5E1; border-radius: 14px; font-size: 1rem; outline: none; transition: border 0.2s; }
+        .form-group input:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(1, 170, 189, 0.1); }
         
-        .btn-submit { background: var(--primary); color: white; border: none; padding: 14px; border-radius: 10px; font-weight: 600; font-size: 15px; cursor: pointer; transition: background 0.2s; width: 100%; }
-        .btn-submit:hover { background: #008ec9; }
+        .btn-submit { background: var(--primary); color: white; border: none; padding: 16px; border-radius: 14px; font-weight: 700; font-size: 1rem; cursor: pointer; transition: background 0.2s, opacity 0.2s; width: 100%; }
+        .btn-submit:hover { opacity: 0.9; }
 
         /* ПЛАШКА УСПЕХА */
-        .success-box { background: #e8f8f0; border: 1px solid var(--success); border-radius: 20px; padding: 40px; text-align: center; color: #1e7e43; }
-        .success-icon { font-size: 48px; margin-bottom: 15px; display: block; }
-        .success-box h2 { margin: 0 0 10px 0; font-size: 22px; }
-        .success-box p { margin: 0; font-size: 16px; font-weight: 500; }
-
-        
-        
+        .success-box { background: #E8F8F0; border: 1px solid var(--success); border-radius: 20px; padding: 40px; text-align: center; color: #1E7E43; }
+        .success-box h2 { margin: 0 0 10px 0; font-size: 1.5rem; }
+        .success-box p { margin: 0; font-size: 1rem; font-weight: 500; }
     </style>
 </head>
 <body>
 
-    {% include "components/header.html" %}
+    <div class="wrapper">
+        {% include "components/header.html" %}
+    </div>
 
     <div class="container">
-        <h1>Поступление в КТТО онлайн</h1>
+        <h1>Поступление в КТТО</h1>
         <p class="subtitle">Оставьте заявку, и наша приёмная комиссия свяжется с вами для оформления документов.</p>
 
-        <!-- БЛОК С ТАБЛИЦЕЙ ДОКУМЕНТОВ -->
+        <!-- СРОКИ ПРИЕМА -->
+        <div class="terms-badge">
+            📅 ПРИЁМ ДОКУМЕНТОВ: По очной форме обучения — с 1 июня по 30 августа
+        </div>
+
+        <!-- СПИСОК ДОКУМЕНТОВ -->
         <section class="docs-section">
-            <h2>📋 Перечень необходимых документов</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Наименование документа</th>
-                        <th>Количество</th>
-                        <th>Обязательно</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Паспорт абитуриента (главная + прописка)</td>
-                        <td>Копия / Скан</td>
-                        <td class="required">✓</td>
-                    </tr>
-                    <tr>
-                        <td>Аттестат об образовании (с приложением)</td>
-                        <td>Оригинал / Копия</td>
-                        <td class="required">✓</td>
-                    </tr>
-                    <tr>
-                        <td>Фотографии размером 3х4 см</td>
-                        <td>4 штуки</td>
-                        <td class="required">✓</td>
-                    </tr>
-                    <tr>
-                        <td>Медицинская справка (форма 086/у)</td>
-                        <td>1 оригинал</td>
-                        <td class="required">✓</td>
-                    </tr>
-                    <tr>
-                        <td>СНИЛС</td>
-                        <td>1 копия</td>
-                        <td class="required">✓</td>
-                    </tr>
-                </tbody>
-            </table>
+            <h2>📋 Документы при поступлении</h2>
+            
+            <h3>Абитуриента:</h3>
+            <ul class="docs-list">
+                <li>1. Аттестат / Диплом</li>
+                <li>2. Медицинская справка ф. 086-У</li>
+                <li>3. Паспорт (с копией)</li>
+                <li>4. 4 фотографии (3 x 4)</li>
+                <li>5. Сертификат прививок (с копией)</li>
+                <li>6. Медицинский полис (с копией)</li>
+                <li>7. Флюорография (с копией)</li>
+                <li>8. СНИЛС (с копией)</li>
+                <li>9. Свидетельство о постановке на учёт физического лица в налоговом органе по месту нахождения на территории РФ – ИНН (с копией)</li>
+            </ul>
+
+            <h3>Родителя, опекуна (на кого оформляется договор):</h3>
+            <ul class="docs-list">
+                <li>1. Паспорт (с копией)</li>
+                <li>2. СНИЛС (с копией)</li>
+                <li>3. Свидетельство о постановке на учёт физического лица в налоговом органе по месту нахождения на территории РФ – ИНН (с копией)</li>
+            </ul>
+
+            <p class="docs-note">При необходимости сделаем копии документов на месте.</p>
         </section>
 
-        <!-- БЛОК С ФОРМОЙ ИЛИ ПЛАШКОЙ УСПЕХА -->
+        <!-- ФОРМА ЗАЯВКИ -->
         <section class="form-section">
             {% if success %}
-                <!-- Если заявка успешно отправлена -->
                 <div class="success-box">
                     <h2>Заявка успешно принята!</h2>
                     <p>Мы Вам позвоним в ближайшее время.</p>
                 </div>
             {% else %}
-                <!-- Обычное состояние формы -->
                 <h2>Заполните анкету обратной связи</h2>
                 <form action="/apply" method="POST">
                     <div class="form-group">
@@ -127,5 +139,6 @@
         </section>
     </div>
 
+    {% include "components/footer.html" %}
 </body>
 </html>

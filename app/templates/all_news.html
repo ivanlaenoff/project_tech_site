@@ -1,22 +1,22 @@
 <!DOCTYPE html>
 <html lang="ru">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>Все новости — КТТО</title>
     <link rel="stylesheet" href="/static/css/header.css">
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            background: #ffffff;
-            font-family: 'Open Sans', 'Roboto', 'PT Sans', 'Segoe UI', system-ui, sans-serif;
-            color: #1f2e3a;
-            line-height: 1.5;
+        .page-header {
+            text-align: center;
+            margin: 20px 0 40px;
         }
-        .wrapper { max-width: 1400px; margin: 0 auto; padding: 0 30px; }
 
-        .page-header { text-align: center; margin: 20px 0 40px; }
-        .page-header h1 { font-size: 2.2rem; font-weight: 800; color: #0F172A; }
+        .page-header h1 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: #0F172A;
+        }
 
         .news-grid {
             display: grid;
@@ -24,6 +24,7 @@
             gap: 30px;
             margin-bottom: 50px;
         }
+
         .news-card {
             position: relative;
             background-size: cover;
@@ -36,19 +37,42 @@
             aspect-ratio: 4 / 3;
             transition: transform 0.2s, box-shadow 0.2s;
         }
-        .news-card:hover { transform: translateY(-6px); box-shadow: 0 20px 32px -12px rgba(0,0,0,0.3); }
+
+        .news-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 32px -12px rgba(0, 0, 0, 0.3);
+        }
+
         .news-content-overlay {
             position: absolute;
             bottom: 0;
             left: 0;
             right: 0;
             padding: 20px;
-            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
             border-radius: 40px;
         }
-        .news-date-overlay { font-size: 0.85rem; color: #01AABD; margin-bottom: 6px; font-weight: 600; }
-        .news-title-overlay { font-size: 1.2rem; font-weight: 700; margin-bottom: 8px; color: white; }
-        .news-desc-overlay { font-size: 0.85rem; color: rgba(255,255,255,0.9); margin-bottom: 12px; }
+
+        .news-date-overlay {
+            font-size: 0.85rem;
+            color: #01AABD;
+            margin-bottom: 6px;
+            font-weight: 600;
+        }
+
+        .news-title-overlay {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: white;
+        }
+
+        .news-desc-overlay {
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 12px;
+        }
+
         .news-badge {
             display: inline-block;
             background: #01AABD;
@@ -66,19 +90,41 @@
             margin: 40px 0 60px;
             flex-wrap: wrap;
         }
-        .pagination a, .pagination span {
+
+        .pagination a,
+        .pagination span {
             display: inline-block;
             padding: 8px 16px;
             border-radius: 40px;
             text-decoration: none;
             font-weight: 500;
         }
-        .pagination a { background: #f1f5f9; color: #1e293b; }
-        .pagination a:hover { background: #01AABD; color: white; }
-        .pagination .active { background: #01AABD; color: white; }
-        .disabled { opacity: 0.5; pointer-events: none; }
 
-        .back-home { text-align: center; margin: 20px 0 50px; }
+        .pagination a {
+            background: #f1f5f9;
+            color: #1e293b;
+        }
+
+        .pagination a:hover {
+            background: #01AABD;
+            color: white;
+        }
+
+        .pagination .active {
+            background: #01AABD;
+            color: white;
+        }
+
+        .disabled {
+            opacity: 0.5;
+            pointer-events: none;
+        }
+
+        .back-home {
+            text-align: center;
+            margin: 20px 0 50px;
+        }
+
         .back-home a {
             display: inline-block;
             background: #e2e8f0;
@@ -88,47 +134,223 @@
             text-decoration: none;
             font-weight: 600;
         }
-        .back-home a:hover { background: #cbd5e1; }
+
+        .back-home a:hover {
+            background: #cbd5e1;
+        }
 
         @media (max-width: 1024px) {
-            .wrapper { padding: 0 20px; }
+            .wrapper {
+                padding: 0 20px;
+            }
         }
+
         @media (max-width: 860px) {
-            .news-grid { grid-template-columns: 1fr; }
+            .news-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Общий контейнер страницы с колонками */
+        .content-layout {
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 40px;
+            align-items: start;
+        }
+
+        .sidebar {
+            background: #f8fafc;
+            padding: 20px;
+            border-radius: 20px;
+            border: 1px solid #e2e8f0;
+        }
+
+        @media (max-width: 1024px) {
+            .content-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .calendar-widget {
+            margin-top: 0;
+            background: #fff;
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, .08);
+            border: 1px solid #e5e7eb;
+        }
+
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 18px;
+        }
+
+        .calendar-header span {
+            font-size: 18px;
+            font-weight: 700;
+            color: #1e293b;
+        }
+
+        .calendar-header button {
+            border: none;
+            background: #01AABD;
+            color: #fff;
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.2s;
+        }
+
+        .calendar-header button:hover {
+            opacity: 0.9;
+        }
+
+        .calendar-weekdays {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            text-align: center;
+            margin-bottom: 8px;
+            font-weight: 700;
+            color: #64748b;
+            font-size: 13px;
+        }
+
+        .calendar-days {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 6px;
+            text-align: center;
+        }
+
+        .calendar-days div {
+            height: 38px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: .2s;
+            color: #1e293b;
+        }
+
+        .calendar-days div:hover {
+            background: #e6f7f9;
+        }
+
+        .calendar-days .has-news {
+            background: #01AABD;
+            color: #fff;
+            font-weight: 700;
+        }
+
+        .calendar-days .has-news:hover {
+            opacity: 0.9;
+        }
+
+        .calendar-days .today {
+            border: 2px solid #01AABD;
+            font-weight: 700;
         }
     </style>
 </head>
+
 <body>
+
+    <div
+        style="background: #000; color: #00ff00; padding: 10px; font-family: monospace; text-align: center; font-size: 16px; z-index: 9999; position: relative;">
+        ДЕБАГ: Переданная дата в шаблоне = [<strong>{{ selected_date }}</strong>] | Всего найдено новостей = {{
+        news|length }}
+    </div>
+
+
+
     <div class="wrapper">
         {% include "components/header.html" %}
 
         <div class="page-header">
             <h1>Все новости техникума</h1>
         </div>
-
-        <div class="news-grid">
-            {% for item in news %}
-            <a href="/news/{{ item.id }}" class="news-card" style="background-image: linear-gradient(to top, rgba(0,0,0,0.7), rgba(0,0,0,0.2)), url('{{ item.image_url or '/static/placeholder.jpg' }}'); background-size: cover; background-position: center;">
-                <div class="news-content-overlay">
-                    <div class="news-date-overlay">{{ item.date }}</div>
-                    <div class="news-title-overlay">{{ item.title }}</div>
-                    <span class="news-badge">Читать →</span>
+        <div class="content-layout">
+            <!-- ЛЕВАЯ КОЛОНКА -->
+            <main>
+                <div class="news-grid">
+                    {% for item in news %}
+                    <a href="/news/{{ item.id }}{% if selected_date %}?date={{ selected_date }}{% endif %}"
+                        class="news-card"
+                        style="background-image: linear-gradient(to top, rgba(0,0,0,0.7), rgba(0,0,0,0.2)), url('{{ item.image_url or '/static/placeholder.jpg' }}'); background-size: cover; background-position: center;">
+                        <div class="news-content-overlay">
+                            <div class="news-date-overlay">{{ item.date }}</div>
+                            <div class="news-title-overlay">{{ item.title }}</div>
+                            <span class="news-badge">Читать →</span>
+                        </div>
+                    </a>
+                    {% endfor %}
                 </div>
-            </a>
-            {% endfor %}
-        </div>
 
-        {% if total_pages > 1 %}
-        <div class="pagination">
-            {% if current_page > 1 %}<a href="?page={{ current_page - 1 }}">← Предыдущая</a>{% else %}<span class="disabled">← Предыдущая</span>{% endif %}
-            {% for p in range(1, total_pages + 1) %}
-                {% if p == current_page %}<span class="active">{{ p }}</span>{% else %}<a href="?page={{ p }}">{{ p }}</a>{% endif %}
-            {% endfor %}
-            {% if current_page < total_pages %}<a href="?page={{ current_page + 1 }}">Следующая →</a>{% else %}<span class="disabled">Следующая →</span>{% endif %}
-        </div>
-        {% endif %}
+                {% if total_pages > 1 %}
+                <div class="pagination">
+                    {% if current_page > 1 %}
+                    <a href="?page={{ current_page - 1 }}{% if selected_date %}&date={{ selected_date }}{% endif %}">←
+                        Предыдущая</a>
+                    {% else %}
+                    <span class="disabled">← Предыдущая</span>
+                    {% endif %}
 
+                    {% for p in range(1, total_pages + 1) %}
+                    {% if p == current_page %}
+                    <span class="active">{{ p }}</span>
+                    {% else %}
+                    <a href="?page={{ p }}{% if selected_date %}&date={{ selected_date }}{% endif %}">{{ p }}</a>
+                    {% endif %}
+                    {% endfor %}
+
+                    {% if current_page < total_pages %} <a
+                        href="?page={{ current_page + 1 }}{% if selected_date %}&date={{ selected_date }}{% endif %}">
+                        Следующая →</a>
+                        {% else %}
+                        <span class="disabled">Следующая →</span>
+                        {% endif %}
+                </div>
+                {% endif %}
+            </main>
+
+            <!-- ПРАВАЯ КОЛОНКА (календарь, который вы копировали из другой страницы) -->
+            <aside class="sidebar">
+                <div class="calendar-widget">
+                    <div class="calendar-header">
+                        <button id="prevMonth">❮</button>
+                        <span id="calendarTitle"></span>
+                        <button id="nextMonth">❯</button>
+                    </div>
+
+                    <div class="calendar-weekdays">
+                        <div>Пн</div>
+                        <div>Вт</div>
+                        <div>Ср</div>
+                        <div>Чт</div>
+                        <div>Пт</div>
+                        <div>Сб</div>
+                        <div>Вс</div>
+                    </div>
+
+                    <div class="calendar-days" id="calendarDays"></div>
+                </div>
+            </aside>
+
+        </div> <!-- КОНЕЦ ОБЁРТКИ .content-layout -->
         <div class="back-home"><a href="/">← Вернуться на главную</a></div>
     </div>
+    <script src="/static/js/calendar.js"></script>
+    {% include "components/footer.html" %}
 </body>
+
 </html>

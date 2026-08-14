@@ -136,3 +136,62 @@ body {
         padding: 6px 12px;
     }
 }
+
+/* ============================================================
+   ПОДВАЛ (FOOTER)
+   ============================================================ */
+.footer {
+    background: #0F172A;
+    color: #cbd5e1;
+    padding: 50px 0 20px;
+    margin-top: 60px;
+}
+.footer-content {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 30px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 40px;
+    margin-bottom: 40px;
+}
+.footer-col h3 {
+    color: white;
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+}
+.footer-col h4 {
+    color: white;
+    font-size: 1.1rem;
+    margin-bottom: 15px;
+}
+.footer-col p {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    margin-bottom: 10px;
+}
+.footer-col ul {
+    list-style: none;
+    padding: 0;
+}
+.footer-col ul li {
+    margin-bottom: 8px;
+}
+.footer-col ul li a {
+    color: #cbd5e1;
+    text-decoration: none;
+    transition: color 0.2s;
+    font-size: 0.9rem;
+}
+.footer-col ul li a:hover {
+    color: #01AABD;
+}
+.footer-bottom {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 20px 30px 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    text-align: center;
+    font-size: 0.85rem;
+    color: #94a3b8;
+}

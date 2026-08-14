@@ -7,78 +7,145 @@
     <title>КТТО — Поступление</title>
     <link rel="stylesheet" href="/static/css/header.css">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            background: #fff;
-            font-family: 'Open Sans', 'Roboto', 'PT Sans', sans-serif;
-            color: #1f2e3a;
-        }
-
-        .wrapper {
-            max-width: 1400px;
-            margin: auto;
-            padding: 0 30px;
-        }
-
-
         /* Заголовок страницы */
         .page-title {
             font-size: 2.4rem;
             font-weight: 700;
-            margin: 35px 0;
+            margin: 35px 0 20px;
             color: #0F172A;
         }
 
         .content-placeholder {
             background: #F8FAFC;
-            border-radius: 48px;
-            padding: 60px 48px;
-            text-align: center;
-            margin-bottom: 40px;
+            border-radius: 40px;
+            padding: 40px;
+            margin-bottom: 30px;
+            border: 1px solid #E2E8F0;
         }
 
         .content-placeholder h2 {
             color: #01AABD;
-            font-size: 2rem;
-            margin-bottom: 20px;
+            font-size: 1.8rem;
+            margin-bottom: 15px;
         }
 
         .content-placeholder p {
             color: #475569;
-            max-width: 700px;
-            margin: auto;
+            line-height: 1.6;
+            margin-bottom: 15px;
         }
 
-        .cards {
+        .info-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 25px;
-            margin-bottom: 60px;
+            gap: 20px;
+            margin-top: 25px;
         }
 
+        .info-item {
+            background: white;
+            padding: 20px 25px;
+            border-radius: 20px;
+            border: 1px solid #E2E8F0;
+        }
+
+        .info-item h4 {
+            color: #01AABD;
+            margin-bottom: 8px;
+            font-size: 1.1rem;
+        }
+
+        .info-item p {
+            margin: 0;
+            font-size: 0.95rem;
+            color: #334155;
+        }
+
+        /* КАРТОЧКА ДОКУМЕНТОВ НА ВСЮ ШИРИНУ */
         .card {
             background: white;
-            padding: 30px;
-            border-radius: 30px;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, .08);
+            padding: 40px;
+            border-radius: 40px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, .05);
+            border: 1px solid #E2E8F0;
+            margin-bottom: 30px;
         }
 
         .card h3 {
             color: #01AABD;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+        }
+
+        .card h4 {
+            color: #0F172A;
+            margin: 20px 0 12px;
+            font-size: 1.1rem;
         }
 
         .card ul {
             padding-left: 20px;
+            color: #334155;
+            font-size: 1rem;
         }
 
         .card li {
             margin-bottom: 10px;
+            line-height: 1.5;
+        }
+
+        /* ТАБЛИЦА СПЕЦИАЛЬНОСТЕЙ */
+        .specs-section {
+            background: white;
+            border-radius: 40px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, .05);
+            border: 1px solid #E2E8F0;
+            margin-bottom: 60px;
+        }
+
+        .specs-section h2 {
+            color: #01AABD;
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .table-responsive {
+            width: 100%;
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+            font-size: 0.95rem;
+        }
+
+        th, td {
+            padding: 14px 16px;
+            border-bottom: 1px solid #E2E8F0;
+            color: #334155;
+        }
+
+        th {
+            background: #F8FAFC;
+            font-weight: 700;
+            color: #0F172A;
+            text-align: center;
+        }
+
+        th:nth-child(2), td:nth-child(2) {
+            text-align: left;
+        }
+
+        td {
+            text-align: center;
+        }
+
+        td:nth-child(2) {
+            text-align: left;
         }
 
         /* Адаптивность */
@@ -86,9 +153,11 @@
             .wrapper {
                 padding: 0 20px;
             }
-
             .page-title {
                 text-align: center;
+            }
+            .specs-section, .content-placeholder, .card {
+                padding: 20px;
             }
         }
     </style>
@@ -101,51 +170,116 @@
         <div class="page-title">
             Поступление
         </div>
+
+        <!-- Шапка с правилами приёма, сроками и баллами -->
         <div class="content-placeholder">
-            <h2>Правила приёма 2025</h2>
+            <h2>Правила приёма</h2>
             <p>
-                Здесь будут размещены условия поступления, сроки подачи документов,
-                специальности, проходные баллы и информация для абитуриентов.
+                Приём на обучение по образовательным программам среднего профессионального образования по очной форме обучения осуществляется с 1 июня по 30 августа. Успейте поступить на бюджетные места! При необходимости сделаем копии документов на месте.Проходные баллы будут опубликованы после завершения приёмной кампании.
             </p>
         </div>
-        <div class="cards">
+        <!-- Блок документов на всю ширину -->
+        <div class="card">
+            <h3>📋 Документы при поступлении</h3>
+            
+            <h4>Абитуриента:</h4>
+            <ul>
+                <li>Аттестат / Диплом</li>
+                <li>Медицинская справка ф. 086-У</li>
+                <li>Паспорт (с копией)</li>
+                <li>4 фотографии (3 x 4)</li>
+                <li>Сертификат прививок (с копией)</li>
+                <li>Медицинский полис (с копией)</li>
+                <li>Флюорография (с копией)</li>
+                <li>СНИЛС (с копией)</li>
+                <li>ИНН (с копией)</li>
+            </ul>
 
-            <div class="card">
-                <h3>Документы</h3>
-                <ul>
-                    <li>Заявление</li>
-                    <li>Аттестат</li>
-                    <li>Паспорт</li>
-                    <li>Фотографии</li>
-                </ul>
-            </div>
+            <h4>Родителя, опекуна (для договора):</h4>
+            <ul>
+                <li>Паспорт (с копией)</li>
+                <li>СНИЛС (с копией)</li>
+                <li>ИНН (с копией)</li>
+            </ul>
+        </div>
 
-            <div class="card">
-                <h3>Сроки подачи</h3>
-                <p>
-                    Приём документов:
-                    <br><br>
-                    Июнь — Август 2025 года.
-                </p>
-            </div>
-
-            <div class="card">
-                <h3>Специальности</h3>
-                <ul>
-                    <li>Информационные системы</li>
-                    <li>Банковское дело</li>
-                    <li>Экономика</li>
-                    <li>Техническое обслуживание</li>
-                </ul>
-            </div>
-
-            <div class="card">
-                <h3>Баллы</h3>
-                <p>
-                    Проходные баллы будут опубликованы после завершения приёмной кампании.
-                </p>
+        <!-- Таблица специальностей -->
+        <div class="specs-section">
+            <h2>Наши специальности</h2>
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Код</th>
+                            <th>Наименование специальности</th>
+                            <th>Квалификация</th>
+                            <th>На базе 9 классов<br>(очно)</th>
+                            <th>На базе 11 классов<br>(очно)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>40.02.04</strong></td>
+                            <td>Юриспруденция</td>
+                            <td>юрист</td>
+                            <td>2 года 10 месяцев</td>
+                            <td>1 год 10 месяцев</td>
+                        </tr>
+                        <tr>
+                            <td><strong>38.02.01</strong></td>
+                            <td>Экономика и бухгалтерский учет (по отраслям)</td>
+                            <td>бухгалтер</td>
+                            <td>2 года 10 месяцев</td>
+                            <td>1 год 10 месяцев</td>
+                        </tr>
+                        <tr>
+                            <td><strong>38.02.07</strong></td>
+                            <td>Банковское дело</td>
+                            <td>специалист банковского дела</td>
+                            <td>2 года 10 месяцев</td>
+                            <td>1 год 10 месяцев</td>
+                        </tr>
+                        <tr>
+                            <td><strong>38.02.06</strong></td>
+                            <td>Финансы</td>
+                            <td>финансист</td>
+                            <td>2 года 10 месяцев</td>
+                            <td>1 год 10 месяцев</td>
+                        </tr>
+                        <tr>
+                            <td><strong>38.02.04</strong></td>
+                            <td>Коммерция (по отраслям)</td>
+                            <td>менеджер по продажам</td>
+                            <td>2 года 10 месяцев</td>
+                            <td>1 год 10 месяцев</td>
+                        </tr>
+                        <tr>
+                            <td><strong>38.02.05</strong></td>
+                            <td>Товароведение и экспертиза качества потребительских товаров</td>
+                            <td>товаровед-эксперт</td>
+                            <td>2 года 10 месяцев</td>
+                            <td>1 год 10 месяцев</td>
+                        </tr>
+                        <tr>
+                            <td><strong>09.02.07</strong></td>
+                            <td>Информационные системы и программирование</td>
+                            <td>специалист по информационным системам</td>
+                            <td>3 года 10 месяцев</td>
+                            <td>2 года 10 месяцев</td>
+                        </tr>
+                        <tr>
+                            <td><strong>43.02.15</strong></td>
+                            <td>Поварское и кондитерское дело</td>
+                            <td>специалист по поварскому и кондитерскому делу</td>
+                            <td>3 года 10 месяцев</td>
+                            <td>2 года 10 месяцев</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
+
+    {% include "components/footer.html" %}
 </body>
 </html>

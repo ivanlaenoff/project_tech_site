@@ -4,40 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Сведения об образовательной организации — КТТО</title>
+    <link rel="stylesheet" href="/static/css/header.css">
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            background: #ffffff;
-            font-family: 'Open Sans', 'Roboto', 'PT Sans', 'Segoe UI', system-ui, sans-serif;
-            color: #1f2e3a;
-            line-height: 1.5;
+        .page-header { 
+            margin: 30px 0 40px; 
         }
-        .wrapper { max-width: 1400px; margin: 0 auto; padding: 0 30px; }
-
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px 0;
-            border-bottom: 3px solid #01AABD;
-            flex-wrap: wrap;
-            gap: 20px;
-            margin-bottom: 40px;
+        .page-header h1 { 
+            font-size: 2.2rem; 
+            font-weight: 800; 
+            color: #0F172A; 
         }
-        .logo img { height: 55px; width: auto; object-fit: contain; }
-        .nav { display: flex; gap: 24px; flex-wrap: wrap; }
-        .nav a {
-            text-decoration: none;
-            font-weight: 600;
-            color: #1f2e3a;
-            padding: 8px 18px;
-            border-radius: 50px;
-            transition: all 0.2s ease;
-        }
-        .nav a:hover { background: #01AABD; color: white; }
-
-        .page-header { margin: 30px 0 40px; }
-        .page-header h1 { font-size: 2.2rem; font-weight: 800; color: #0F172A; }
 
         .svedeniya-grid {
             display: grid;
@@ -83,10 +59,6 @@
             font-weight: 500;
         }
 
-        @media (max-width: 1024px) {
-            .wrapper { padding: 0 20px; }
-            .header { flex-direction: column; text-align: center; }
-        }
         @media (max-width: 680px) {
             .svedeniya-grid { grid-template-columns: 1fr; }
         }
@@ -94,17 +66,7 @@
 </head>
 <body>
 <div class="wrapper">
-    <div class="header">
-        <div class="logo"><img src="/src/logoKTTO.jpg" alt="Логотип КТТО"></div>
-        <div class="nav">
-            <a href="/">Главная</a>
-            <a href="/about">О нас</a>
-            <a href="/admission">Поступление</a>
-            <a href="/students">Студентам</a>
-            <a href="/contacts">Контакты</a>
-            <a href="/svedeniya" style="background: #01AABD; color: white;">Сведения</a>
-        </div>
-    </div>
+    {% include "components/header.html" %}
 
     <div class="page-header">
         <h1>Сведения об образовательной организации</h1>
@@ -116,14 +78,15 @@
         <div class="sved-card">
             <h3>Основные сведения</h3>
             <ul>
-                <li><strong>Полное наименование:</strong> Кооперативный техникум Тамбовского Облпотребсоюза</li>
-                <li><strong>Сокращённое:</strong> КТТО</li>
-                <li><strong>Дата создания:</strong> 1923 год</li>
+                <li><strong>Полное наименование:</strong> Автономная некоммерческая профессиональная образовательная организация «Кооперативный техникум Тамбовского облпотребсоюза»</li>
+                <li><strong>Сокращённое:</strong> АНПОО КТТО</li>
+                <li><strong>Дата создания:</strong> 18 июля 1958г. </li>
                 <li><strong>Учредитель:</strong> Тамбовский Облпотребсоюз</li>
-                <li><strong>Адрес:</strong> г. Тамбов, ул. Советская, 123</li>
-                <li><strong>Режим работы:</strong> Пн-Пт 8:00–17:00</li>
-                <li><strong>Телефон:</strong> +7 (4752) 55-66-77</li>
-                <li><strong>Email:</strong> ktto@obltambov.ru</li>
+                <li><strong>Адрес:</strong> г. Тамбов, ул. Пролетарская, 252/2 </li>
+                <li><strong>Режим работы:</strong> Пн-Сб 8:00–16:30</li>
+                <li><strong>Телефон директора:</strong> 8(4752) 53-53-70</li>
+                <li><strong>Телефон приёмной комиссии:</strong> 8(4752) 53-65-60</li>
+                <li><strong>Email:</strong> tkt33@inbox.ru</li>
             </ul>
         </div>
 
@@ -216,5 +179,6 @@
 
     <a href="/" class="back-link">← Вернуться на главную</a>
 </div>
+{% include "components/footer.html" %}
 </body>
 </html>

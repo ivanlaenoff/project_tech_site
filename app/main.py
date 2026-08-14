@@ -1,15 +1,20 @@
 import os
+from pyexpat import model
 import shutil
+from typing import Optional
 import uuid
-from fastapi import FastAPI, Depends, HTTPException, Form
-from fastapi.responses import HTMLResponse, RedirectResponse  # НОВОЕ: добавил RedirectResponse
+from xml.parsers.expat import model
+from fastapi import FastAPI, Depends, HTTPException, Form, Query
+from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
+from sqlalchemy import Column, ForeignKey, Integer, String, cast, func, or_
 from starlette.requests import Request
 from starlette.middleware.sessions import SessionMiddleware
-from sqlalchemy.orm import Session
+from sqlalchemy.orm import Session, relationship
 from sqladmin import Admin, ModelView
 from wtforms import FileField
+from app.data import SPECIALTIES
 
 import app.models as models
 from app.database import engine, SessionLocal, Base
@@ -47,7 +52,6 @@ def get_db():
 
 
 # ========== РОУТЫ(пр) ==========
-
 @app.get("/", response_class=HTMLResponse)
 async def read_root(request: Request, db: Session = Depends(get_db)):
     news_items = db.query(models.News).order_by(models.News.id.desc()).limit(6).all()
@@ -58,7 +62,6 @@ async def read_root(request: Request, db: Session = Depends(get_db)):
         **add_user_context(request)
     })
 
-
 @app.get("/news/{news_id}", response_class=HTMLResponse)
 async def read_news_item(request: Request, news_id: int, db: Session = Depends(get_db)):
     news_item = db.query(models.News).filter(models.News.id == news_id).first()
@@ -66,6 +69,10 @@ async def read_news_item(request: Request, news_id: int, db: Session = Depends(g
         raise HTTPException(status_code=404, detail="Новость не найдена")
     
     images = db.query(models.NewsImage).filter(models.NewsImage.news_id == news_id).all()
+
+    documents = db.query(models.NewsDocument).filter(
+        models.NewsDocument.news_id == news_id
+).all()
     
     # Получаем другие свежие новости (исключая открытую сейчас)
     other_news = db.query(models.News).filter(models.News.id != news_id).order_by(models.News.id.desc()).limit(5).all()
@@ -75,27 +82,63 @@ async def read_news_item(request: Request, news_id: int, db: Session = Depends(g
         "request": request,
         "post": news_item,
         "images": images,
+        "documents": documents,
         "other_news": other_news,
         **add_user_context(request)
     })
 
-
-@app.get("/all-news", response_class=HTMLResponse)
-async def get_all_news(request: Request, page: int = 1, db: Session = Depends(get_db)):
+@app.get("/all_news", response_class=HTMLResponse)
+def get_all_news(
+    request: Request,
+    page: int = 1, 
+    date: Optional[str] = Query(None),
+    db: Session = Depends(get_db)
+):
     per_page = 6
-    offset = (page - 1) * per_page
-    total = db.query(models.News).count()
-    news_items = db.query(models.News).order_by(models.News.id.desc()).offset(offset).limit(per_page).all()
-    total_pages = (total + per_page - 1) // per_page
-    # НОВОЕ: добавил add_user_context
-    return templates.TemplateResponse(request, "all_news.html", {
-        "request": request,
-        "news": news_items,
-        "current_page": page,
-        "total_pages": total_pages,
-        **add_user_context(request)
-    })
+    query = db.query(models.News)
+    
+    if date:
+        # date приходит в формате "YYYY-MM-DD" (например, "2026-06-16")
+        # Конвертируем также в формат "DD.MM.YYYY" для надежности, если в базе точки
+        parts = date.split('-')
+        date_dotted = f"{parts[2]}.{parts[1]}.{parts[0]}" if len(parts) == 3 else ""
+        
+        # Фильтруем: ищем либо совпадение по строке, либо через функцию даты SQL
+        query = query.filter(
+            or_(
+                cast(models.News.date, String).like(f"%{date}%"),
+                cast(models.News.date, String).like(f"%{date_dotted}%")
+            )
+        )
+        
+    total_news = query.count()
+    total_pages = (total_news + per_page - 1) // per_page
+    
+    news = query.offset((page - 1) * per_page).limit(per_page).all()
+    
+    user_ctx = {}
+    try:
+        if 'add_user_context' in globals():
+            res = add_user_context(request)
+            if isinstance(res, dict):
+                user_ctx = res
+    except Exception:
+        pass
 
+    context_data = {
+        "request": request,
+        "news": news,
+        "current_page": page,
+        "total_pages": max(total_pages, 1),
+        "selected_date": date,
+    }
+    context_data.update(user_ctx)
+    
+    return templates.TemplateResponse(
+        request=request,
+        name="all_news.html",
+        context=context_data
+    )
 
 @app.get("/about", response_class=HTMLResponse)
 async def get_about_page(request: Request):
@@ -164,62 +207,49 @@ async def specialties_page(
     request: Request,
     item: str = None
 ):
-    specialties=[
-        {
-            "id":"bank",
-            "title":"Банковское дело",
-            "desc":"Подготовка специалистов банковской сферы",
-            "time":"2 года 10 месяцев"
-        },
-        {
-            "id":"law",
-            "title":"Юриспруденция",
-            "desc":"Подготовка специалистов в области права",
-            "time":"2 года 10 месяцев"
-        },
-        {
-            "id":"cook",
-            "title":"Поварское дело",
-            "desc":"Технология приготовления пищи",
-            "time":"3 года 10 месяцев"
-        },
-        {
-            "id":"info",
-            "title":"Информационные системы",
-            "desc":"Разработка и сопровождение информационных систем",
-            "time":"3 года 10 месяцев"
-        },
-        {
-            "id":"finance",
-            "title":"Финансы",
-            "desc":"Финансовая деятельность организаций",
-            "time":"2 года 10 месяцев"
-        },
-        {
-            "id":"commerce",
-            "title":"Коммерция",
-            "desc":"Организация продаж и торговли",
-            "time":"2 года 10 месяцев"
-        }
-    ]
-
-    current=specialties[0]
+    current = SPECIALTIES[0]
 
     if item:
-        for s in specialties:
-            if s["id"]==item:
-                current=s
+        for s in SPECIALTIES:
+            if s["id"] == item:
+                current = s
 
     return templates.TemplateResponse(
         request,
         "specialties.html",
         {
-            "request":request,
-            "current":current,
-            "specialties":specialties,
+            "request": request,
+            "current": current,
+            "specialties": SPECIALTIES,
             **add_user_context(request)
         }
     )
+
+@app.get("/api/news-dates")
+def get_news_dates(db: Session = Depends(get_db)):
+    news_items = db.query(models.News).all()
+    dates = set()
+    
+    for item in news_items:
+        if item.date:
+            # Поддержка формата datetime/date или строк вида "15.07.2026"
+            if hasattr(item.date, 'strftime'):
+                dates.add(item.date.strftime('%Y-%m-%d'))
+            else:
+                date_str = str(item.date).strip()
+                parts = date_str.split('.')
+                if len(parts) == 3:
+                    # Конвертируем из DD.MM.YYYY в YYYY-MM-DD
+                    dates.add(f"{parts[2]}-{parts[1]}-{parts[0]}")
+                else:
+                    dates.add(date_str)
+                    
+    return {"dates": list(dates)}
+
+@app.get("/info", response_class=HTMLResponse)
+async def get_info_page(request: Request):
+    return templates.TemplateResponse(request, "info.html", {"request": request})
+
 # ========== НОВЫЕ РОУТЫ ДЛЯ АУТЕНТИФИКАЦИИ ==========
 
 @app.get("/login", response_class=HTMLResponse)
@@ -394,7 +424,7 @@ async def profile_page(
         **add_user_context(request)
     }
     
-    # Добавляем данные профиля в зависимости от роли
+    # данные профиля в зависимости от роли
     if user.role == models.UserRole.STUDENT:
         profile = db.query(models.StudentProfile).filter(
             models.StudentProfile.user_id == user.id
@@ -430,34 +460,51 @@ async def add_news_page(
 
 
 # ========== АДМИНКА ==========
-
 class NewsAdmin(ModelView, model=models.News):
     column_list = [models.News.id, models.News.title, models.News.date]
     name_plural = "Новости"
-    form_columns = ["title", "description", "date"]
+    form_columns = [
+        "title", 
+        "description", 
+        "date",
+    ]
     
     async def scaffold_form(self, *args, **kwargs):
         from wtforms import FileField, StringField
         form_class = await super().scaffold_form(*args, **kwargs)
         
+        # Добавляем поля в форму для рендеринга интерфейса, 
+        # но SQLAlchemy не будет пытаться искать их в базе данных
         form_class.image_file = FileField("Загрузить картинку (обложка)")
+        form_class.video_upload = FileField("Загрузить видео файл")
         form_class.gallery_files = FileField(
             "Дополнительные фото (можно выбрать несколько)", 
             render_kw={"multiple": True}
         )
-        form_class.date = StringField(
-            "Дата",
-            render_kw={"type": "date", "style": "width: 100%; padding: 8px;"}
+        form_class.document_files = FileField(
+            "Документы",
+            render_kw={"multiple": True}
         )
+        form_class.video_order = StringField(
+            "Порядковый номер видео",
+            default="0",
+            render_kw={"style": "width: 100%; padding: 8px;"}
+        )
+
         return form_class
     
     async def on_model_change(self, data, model, is_created, request):
         from datetime import datetime
+
         form_data = await request.form()
+        print("ВСЕ ПОЛЯ И ФАЙЛЫ В ФОРМЕ:", list(form_data.keys()))
+        for key in form_data.keys():
+            print(f"Ключ: {key}, Значение: {form_data.get(key)}")
+        print("ВСЕ ПОЛЯ И ФАЙЛЫ В ФОРМЕ:", list(form_data.keys()))
         
         # Обложка
         file = form_data.get("image_file")
-        if file and file.filename:
+        if file and hasattr(file, "filename") and file.filename:
             ext = file.filename.split('.')[-1] if '.' in file.filename else 'jpg'
             filename = f"news_{uuid.uuid4().hex[:8]}.{ext}"
             filepath = os.path.join(STATIC_DIR, "news", filename)
@@ -465,6 +512,22 @@ class NewsAdmin(ModelView, model=models.News):
                 shutil.copyfileobj(file.file, f)
             model.image_url = f"/static/news/{filename}"
         
+        # Видео файл (берем из video_upload и пишем строковый путь в model.video_url)
+        video_file = form_data.get("video_upload")
+        if video_file and hasattr(video_file, "filename") and video_file.filename:
+            ext = video_file.filename.split('.')[-1] if '.' in video_file.filename else 'mp4'
+            filename = f"video_{uuid.uuid4().hex[:8]}.{ext}"
+            
+            video_dir = os.path.join(STATIC_DIR, "news", "videos")
+            os.makedirs(video_dir, exist_ok=True)
+            
+            filepath = os.path.join(video_dir, filename)
+            with open(filepath, "wb") as f:
+                shutil.copyfileobj(video_file.file, f)
+            
+            model.video_url = f"/static/news/videos/{filename}"
+
+            print("УСПЕХ! ЗАПИСАЛИ В MODEL.VIDEO_URL:", model.video_url)
         # Дата
         if model.date:
             try:
@@ -473,13 +536,18 @@ class NewsAdmin(ModelView, model=models.News):
             except:
                 pass
         
+        # Порядковый номер видео
+        raw_order = form_data.get("video_order")
+        model.video_order = int(raw_order) if raw_order and raw_order.isdigit() else 0
+        
         self._pending_gallery = form_data.getlist("gallery_files")
+        self._pending_documents = form_data.getlist("document_files")
 
     async def after_model_change(self, data, model, is_created, request):
         db = SessionLocal()
         try:
             for file in self._pending_gallery:
-                if file and file.filename:
+                if file and hasattr(file, "filename") and file.filename:
                     ext = file.filename.split('.')[-1] if '.' in file.filename else 'jpg'
                     filename = f"gallery_{uuid.uuid4().hex[:8]}.{ext}"
                     filepath = os.path.join(STATIC_DIR, "news", filename)
@@ -490,13 +558,37 @@ class NewsAdmin(ModelView, model=models.News):
                         news_id=model.id,
                         image_url=f"/static/news/{filename}"
                     ))
+
+            for file in self._pending_documents:
+                if file and hasattr(file, "filename") and file.filename:
+                    ext = file.filename.split(".")[-1]
+                    filename = f"doc_{uuid.uuid4().hex[:8]}.{ext}"
+                    filepath = os.path.join(STATIC_DIR, "news", filename)
+                    with open(filepath, "wb") as f:
+                        shutil.copyfileobj(file.file, f)
+
+                    db.add(models.NewsDocument(
+                        news_id=model.id,
+                        file_name=file.filename,
+                        file_url=f"/static/news/{filename}"
+                    ))
             db.commit()
         except Exception as e:
             db.rollback()
         finally:
             db.close()
             self._pending_gallery = []
+            self._pending_documents = []
 
+class ApplicationAdmin(ModelView, model=models.Application):
+    column_list = [models.Application.id, models.Application.fio, models.Application.phone, models.Application.created_at]
+    name_plural = "Заявки на поступление"
+    can_create = False
+
+
+admin = Admin(app, engine, base_url="/admin")
+admin.add_view(NewsAdmin)
+admin.add_view(ApplicationAdmin)
 
 class ApplicationAdmin(ModelView, model=models.Application):
     column_list = [models.Application.id, models.Application.fio, models.Application.phone, models.Application.created_at]
