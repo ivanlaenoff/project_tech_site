@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>КТТО — О нас</title>
+    <link rel="stylesheet" href="/static/css/header.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #ffffff;
+            font-family: 'Open Sans', 'Roboto', 'PT Sans', sans-serif;
+            color: #1f2e3a;
+        }
+
+        .wrapper {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 30px;
+        }
+
+        /* ===== СТРАНИЦА ===== */
+        .page-title {
+            font-size: 2.4rem;
+            font-weight: 700;
+            margin: 20px 0 30px;
+            color: #0F172A;
+        }
+
+        /* Главная карточка «Техникум сегодня» */
+        .about-hero {
+            background: #F8FAFC;
+            border-radius: 40px;
+            padding: 50px;
+            margin-bottom: 40px;
+            border: 1px solid #E2E8F0;
+        }
+
+        .about-hero h2 {
+            font-size: 2rem;
+            color: #01AABD;
+            margin-bottom: 20px;
+        }
+
+        .about-hero p {
+            color: #475569;
+            line-height: 1.7;
+            font-size: 1.05rem;
+            margin-bottom: 15px;
+        }
+
+        /* Сетка преимуществ */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 25px;
+            margin-bottom: 50px;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 30px;
+            border-radius: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, .04);
+            border: 1px solid #E2E8F0;
+        }
+
+        .feature-card h3 {
+            color: #01AABD;
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+        }
+
+        .feature-card ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .feature-card li {
+            position: relative;
+            padding-left: 20px;
+            margin-bottom: 10px;
+            color: #334155;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        .feature-card li::before {
+            content: "•";
+            color: #01AABD;
+            font-weight: bold;
+            font-size: 1.2rem;
+            position: absolute;
+            left: 0;
+            top: -1px;
+        }
+
+        /* Лицензии и документы */
+        .licenses-section {
+            background: #E6F7F9;
+            border-radius: 30px;
+            padding: 40px;
+            border: 1px solid rgba(1, 170, 189, 0.2);
+            margin-bottom: 60px;
+        }
+
+        .licenses-section h2 {
+            color: #0F172A;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+        }
+
+        .licenses-section p {
+            color: #334155;
+            line-height: 1.6;
+            margin-bottom: 10px;
+            font-size: 0.95rem;
+        }
+
+        @media (max-width: 860px) {
+            .wrapper {
+                padding: 0 20px;
+            }
+
+            .page-title {
+                font-size: 1.8rem;
+                text-align: center;
+            }
+
+            .about-hero, .licenses-section {
+                padding: 30px 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrapper">
+        {% include "components/header.html" %}
+
+        <div class="page-title">О нас</div>
+        
+        <!-- Главный блок -->
+        <div class="about-hero">
+            <h2>Кооперативный техникум Тамбовского облпотребсоюза</h2>
+            <p>
+                <strong>67 лет успешной деятельности</strong> в профессиональном образовании. Мы осуществляем подготовку квалифицированных специалистов, востребованных в различных отраслях экономики.
+            </p>
+            <p>
+                Техникум проводит обучение в строгом соответствии с Федеральными государственными образовательными стандартами по очной форме обучения, предоставляет возможность поступить на бюджетные места и выдает диплом государственного образца.
+            </p>
+        </div>
+
+        <!-- Преимущества и условия -->
+        <div class="features-grid">
+            <div class="feature-card">
+                <h3>Материально-техническая база</h3>
+                <ul>
+                    <li>Специализированные аудитории и лаборатории</li>
+                    <li>Компьютерные классы в локальной сети с выходом в Интернет</li>
+                    <li>Библиотека и читальный зал с бесплатным доступом к электронной библиотеке</li>
+                    <li>Спортивный и тренажёрный залы, открытый стадион</li>
+                    <li>Столовая и медицинский пункт</li>
+                </ul>
+            </div>
+
+            <div class="feature-card">
+                <h3>Дополнительные возможности</h3>
+                <ul>
+                    <li>Получение дополнительной рабочей профессии в период обучения (продавец, официант, бармен, секретарь, делопроизводитель, оператор ЭВМ, пользователь 1С, повар, кондитер)</li>
+                    <li>Право получить высшее профессиональное образование по профилю в сокращённые сроки</li>
+                    <li>Гарантированная карьера в торговле, на производстве, госслужбе и в финансовой сфере</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Лицензии и аккредитация -->
+        <div class="licenses-section">
+            <h2>Официальные документы</h2>
+            <p>
+                <strong>Лицензия</strong> на осуществление образовательной деятельности 68Л01 № 0000598 от 15 февраля 2016 года, бессрочно, регистрационный номер 19/26.
+            </p>
+            <p>
+                <strong>Свидетельство о государственной аккредитации</strong> № А007-01289-68/01149434 от 15 марта 2019 года, бессрочно.
+            </p>
+        </div>
+    </div>
+
+    {% include "components/footer.html" %}
+</body>
+
+</html>
