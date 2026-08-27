@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html lang="ru">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>КТТО — Контакты</title>
+<<<<<<< Updated upstream:contacts.html
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
@@ -35,48 +37,133 @@
         }
         .nav a:hover, .nav a.active { background: #01AABD; color: white; }
 
+=======
+    <link rel="stylesheet" href="/static/css/header.css">
+    <link rel="stylesheet" href="/static/css/main.css">
+    <style>
+        /* ===== УНИКАЛЬНЫЕ СТИЛИ ДЛЯ CONTACTS ===== */
+>>>>>>> Stashed changes:app/templates/contacts.html
         .page-title {
             font-size: 2.4rem;
             font-weight: 700;
-            margin: 20px 0 40px;
-            color: #0F172A;
+            margin: 20px 0 30px;
+            color: #0F1E2F;
+            text-shadow: 0 1px 2px rgba(255, 255, 255, 0.2);
         }
+
         .contacts-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 40px;
             margin-bottom: 60px;
         }
+
         .contacts-info {
-            background: #F8FAFC;
-            border-radius: 48px;
-            padding: 48px;
-            border: 1px solid #E2E8F0;
+            padding: 40px 44px;
+            background: rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(24px) saturate(200%);
+            -webkit-backdrop-filter: blur(24px) saturate(200%);
+            border-radius: 60px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 10px 40px rgba(15, 30, 47, 0.04),
+                inset 0 1px 0 rgba(255, 255, 255, 0.5);
+            position: relative;
+            overflow: hidden;
         }
+
+        .contacts-info::before {
+            content: '';
+            position: absolute;
+            top: -40%;
+            right: -15%;
+            width: 60%;
+            height: 180%;
+            background: radial-gradient(ellipse at 70% 30%, rgba(255, 255, 255, 0.2), transparent 70%);
+            pointer-events: none;
+            border-radius: 60px;
+        }
+
         .contact-item {
             display: flex;
             align-items: center;
             gap: 18px;
-            margin-bottom: 32px;
+            margin-bottom: 28px;
+            position: relative;
+            z-index: 1;
         }
+
+        .contact-item:last-child {
+            margin-bottom: 0;
+        }
+
         .contact-icon {
-            background: white;
-            width: 54px;
-            height: 54px;
-            border-radius: 30px;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            width: 56px;
+            height: 56px;
+            border-radius: 28px;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 1.6rem;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            color: #2D9CDB;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            flex-shrink: 0;
         }
-        .map {
-            border-radius: 48px;
+
+        .contact-text {
+            font-size: 1.05rem;
+            color: #1A2F44;
+            font-weight: 500;
+            line-height: 1.4;
+        }
+
+        .contact-text a {
+            color: #2D9CDB;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .contact-text a:hover {
+            color: #0F1E2F;
+            text-decoration: underline;
+        }
+
+        .map-container {
+            border-radius: 60px;
             overflow: hidden;
-            background: #E2E8F0;
-            min-height: 380px;
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 2px solid rgba(255, 255, 255, 0.15);
+            min-height: 420px;
+            position: relative;
         }
+
+        .map-container iframe {
+            width: 100%;
+            height: 100%;
+            min-height: 420px;
+            border: none;
+            display: block;
+        }
+
+        @media (max-width: 1024px) {
+            .contacts-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            .map-container {
+                min-height: 320px;
+            }
+            .map-container iframe {
+                min-height: 320px;
+            }
+        }
+
         @media (max-width: 860px) {
+<<<<<<< Updated upstream:contacts.html
             .wrapper { padding: 0 20px; }
             .header { flex-direction: column; align-items: stretch; text-align: center; }
             .nav { justify-content: center; gap: 12px; }
@@ -113,5 +200,93 @@
         </div>
     </div>
 </div>
+=======
+            .wrapper {
+                padding: 0 20px;
+            }
+            .page-title {
+                font-size: 1.8rem;
+                text-align: center;
+            }
+            .contacts-info {
+                padding: 28px 24px;
+            }
+            .contact-item {
+                gap: 14px;
+                margin-bottom: 20px;
+            }
+            .contact-icon {
+                width: 48px;
+                height: 48px;
+                font-size: 1.3rem;
+            }
+            .contact-text {
+                font-size: 0.95rem;
+            }
+            .map-container {
+                min-height: 260px;
+            }
+            .map-container iframe {
+                min-height: 260px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .contact-item {
+                flex-wrap: wrap;
+                gap: 10px;
+            }
+            .contact-icon {
+                width: 44px;
+                height: 44px;
+                font-size: 1.1rem;
+            }
+            .contact-text {
+                font-size: 0.9rem;
+                flex: 1;
+                min-width: 140px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrapper">
+        {% include "components/header.html" %}
+
+        <div class="page-title">Контакты</div>
+
+        <div class="contacts-grid">
+            <div class="contacts-info">
+                <div class="contact-item">
+                    <div class="contact-icon">📞</div>
+                    <div class="contact-text">8(4752) 53-53-70</div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">✉️</div>
+                    <div class="contact-text"><a href="mailto:tkt33@inbox.ru">tkt33@inbox.ru</a></div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">💬</div>
+                    <div class="contact-text"><a href="https://vk.com/cooptech68" target="_blank">vk.com/cooptech68</a>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">📍</div>
+                    <div class="contact-text">г. Тамбов, ул. Пролетарская, 252/2</div>
+                </div>
+            </div>
+
+            <div class="map-container">
+                <iframe
+                    src="https://api-maps.yandex.ru/services/constructor/1.0/js/?um=constructor%3A2af0320f3819a376aedf8a87d5941800f455184d4a3337ac3abb1f91bc39bf0f&amp;width=100%25&amp;height=420&amp;lang=ru_RU&amp;scroll=true">
+                </iframe>
+            </div>
+        </div>
+    </div>
+
+    {% include "components/footer.html" %}
+>>>>>>> Stashed changes:app/templates/contacts.html
 </body>
+
 </html>

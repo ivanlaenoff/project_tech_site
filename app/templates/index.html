@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>КТТО — Кооперативный техникум</title>
+    <link rel="stylesheet" href="/static/css/header.css">
+    <link rel="stylesheet" href="/static/css/main.css">
+    <!-- УНИКАЛЬНЫЕ СТИЛИ ДЛЯ ГЛАВНОЙ (ПОЧТИ НЕТ, ВСЁ В MAIN.CSS) -->
+</head>
+
+<body>
+
+    <div class="wrapper">
+        {% include "components/header.html" %}
+
+        <!-- ====== ГЕРОЙ ====== -->
+        <div class="hero">
+            <div class="hero-text">
+                <h1>Кооперативный техникум<br><span class="accent">Тамбовского Облпотребсоюза</span></h1>
+                <p>Одно из старейших учебных заведений СПО России. Основан в 1923 году. Готовим специалистов для
+                    потребительской кооперации, государственного хозяйства и предпринимательства.</p>
+                <button class="btn-primary" onclick="location.href='/apply'">Поступить онлайн →</button>
+            </div>
+            <div class="hero-image">
+                <img src="/src/tech.jpg" alt="Здание техникума">
+            </div>
+        </div>
+
+        <!-- ====== СВЕДЕНИЯ ====== -->
+        <div class="quick-section">
+            <div class="section-title">Сведения об образовательной организации</div>
+            <div class="quick-grid">
+                <a href="/info" class="quick-card">
+                    <div class="quick-icon">🏛️</div>
+                    <h3>Основные сведения</h3>
+                    <p>История, лицензии, документы</p>
+                </a>
+                <a href="/info" class="quick-card">
+                    <div class="quick-icon">📚</div>
+                    <h3>Образование</h3>
+                    <p>Направления и формы обучения</p>
+                </a>
+                <a href="/info" class="quick-card">
+                    <div class="quick-icon">👥</div>
+                    <h3>Руководство</h3>
+                    <p>Администрация и преподаватели</p>
+                </a>
+                <a href="/info" class="quick-card">
+                    <div class="quick-icon">📢</div>
+                    <h3>Приёмная комиссия</h3>
+                    <p>Правила поступления и контакты</p>
+                </a>
+            </div>
+        </div>
+
+        <!-- ====== НОВОСТИ ====== -->
+        <div class="news-section">
+            <div class="section-title">Новости КТТО</div>
+            <div class="news-grid">
+                {% for item in news[:3] %}
+                <a href="/news/{{ item.id }}" class="news-card"
+                    style="background-image: linear-gradient(to top, rgba(15,30,47,0.8), rgba(15,30,47,0.1)), url('{{ item.image_url or '/static/placeholder.jpg' }}'); background-size: cover; background-position: center;">
+                    <div class="news-content-overlay">
+                        <div class="news-date-overlay">{{ item.date }}</div>
+                        <div class="news-title-overlay">{{ item.title }}</div>
+                        <span class="news-badge">Читать →</span>
+                    </div>
+                </a>
+                {% endfor %}
+            </div>
+            <div class="news-text-center">
+                <a href="/all_news" class="btn-secondary">Смотреть все новости →</a>
+            </div>
+        </div>
+
+        <!-- ====== НАПРАВЛЕНИЯ ====== -->
+        <div class="directions">
+            <div class="directions-badge">⭐ 7 ключевых направлений</div>
+            <div class="section-title" style="margin-top: -4px;">🎓 Направления подготовки</div>
+            <div class="dir-grid">
+
+                <a href="/specialties?item=bank" class="dir-item">
+                    <div class="dir-img" style="background-image:url('/src/Банковское.png');"></div>
+                    <div class="dir-info">
+                        <h4>Банковское дело</h4>
+                        <span class="dir-arrow">Подробнее →</span>
+                    </div>
+                </a>
+
+                <a href="/specialties?item=law" class="dir-item">
+                    <div class="dir-img" style="background-image:url('/src/Юриспруденция.png');"></div>
+                    <div class="dir-info">
+                        <h4>Юриспруденция</h4>
+                        <span class="dir-arrow">Подробнее →</span>
+                    </div>
+                </a>
+
+                <a href="/specialties?item=accounting" class="dir-item">
+                    <div class="dir-img" style="background-image:url('/src/ЭкономикаИБухУчет.png');"></div>
+                    <div class="dir-info">
+                        <h4>Экономика и бухучет</h4>
+                        <span class="dir-arrow">Подробнее →</span>
+                    </div>
+                </a>
+
+                <a href="/specialties?item=cook" class="dir-item">
+                    <div class="dir-img" style="background-image:url('/src/Поварское.png');"></div>
+                    <div class="dir-info">
+                        <h4>Поварское дело</h4>
+                        <span class="dir-arrow">Подробнее →</span>
+                    </div>
+                </a>
+
+                <a href="/specialties?item=info" class="dir-item">
+                    <div class="dir-img" style="background-image:url('/src/ИнформационныеСистемы.png');"></div>
+                    <div class="dir-info">
+                        <h4>Информационные системы</h4>
+                        <span class="dir-arrow">Подробнее →</span>
+                    </div>
+                </a>
+
+                <a href="/specialties?item=finance" class="dir-item">
+                    <div class="dir-img" style="background-image:url('/src/Финансы.png');"></div>
+                    <div class="dir-info">
+                        <h4>Финансы</h4>
+                        <span class="dir-arrow">Подробнее →</span>
+                    </div>
+                </a>
+
+                <a href="/specialties?item=commerce" class="dir-item">
+                    <div class="dir-img" style="background-image:url('/src/Коммерция.png');"></div>
+                    <div class="dir-info">
+                        <h4>Коммерция</h4>
+                        <span class="dir-arrow">Подробнее →</span>
+                    </div>
+                </a>
+
+                <a href="/specialties?item=goods" class="dir-item">
+                    <div class="dir-img" style="background-image:url('/src/Товароведение.png');"></div>
+                    <div class="dir-info">
+                        <h4>Товароведение и экспертиза</h4>
+                        <span class="dir-arrow">Подробнее →</span>
+                    </div>
+                </a>
+
+            </div>
+        </div>
+
+        <!-- ====== КОНТАКТЫ ====== -->
+        <div class="contacts">
+            <div>
+                <div class="contact-line">
+                    <div class="contact-icon">📞</div> 8(4752) 53-65-60 — Приемная комиссия
+                </div>
+                <div class="contact-line">
+                    <div class="contact-icon">💬</div> tkt33@inbox.ru
+                </div>
+                <div class="contact-line">
+                    <div class="contact-icon">✈️</div> tkt33@inbox.ru
+                </div>
+                <div class="contact-line">
+                    <div class="contact-icon">📍</div> г. Тамбов, ул. Пролетарская, 252/2
+                </div>
+            </div>
+            <div class="map">
+                <iframe
+                    src="https://api-maps.yandex.ru/services/constructor/1.0/js/?um=constructor%3A2af0320f3819a376aedf8a87d5941800f455184d4a3337ac3abb1f91bc39bf0f&amp;width=100%25&amp;height=280&amp;lang=ru_RU&amp;scroll=true"
+                    allowfullscreen>
+                </iframe>
+            </div>
+        </div>
+    </div>
+
+    {% include "components/footer.html" %}
+</body>
+
+</html>

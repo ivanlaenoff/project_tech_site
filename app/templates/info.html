@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Сведения об образовательной организации — КТТО</title>
+    <link rel="stylesheet" href="/static/css/header.css">
+    <link rel="stylesheet" href="/static/css/main.css">
+    <style>
+        /* ===== УНИКАЛЬНЫЕ СТИЛИ ДЛЯ INFO ===== */
+        .page-header {
+            margin: 20px 0 40px;
+        }
+
+        .page-header h1 {
+            font-size: 2.4rem;
+            font-weight: 800;
+            color: #0F1E2F;
+            text-shadow: 0 1px 2px rgba(255, 255, 255, 0.2);
+        }
+
+        .page-header p {
+            color: #1A2F44;
+            opacity: 0.7;
+            font-size: 1.05rem;
+            margin-top: 4px;
+        }
+
+        .svedeniya-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        .sved-card {
+            padding: 28px 32px;
+            background: rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border-radius: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.3);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .sved-card::before {
+            content: '';
+            position: absolute;
+            top: -30%;
+            right: -15%;
+            width: 60%;
+            height: 160%;
+            background: radial-gradient(ellipse at 70% 20%, rgba(255, 255, 255, 0.15), transparent 70%);
+            pointer-events: none;
+            border-radius: 40px;
+        }
+
+        .sved-card:hover {
+            transform: translateY(-4px);
+            background: rgba(255, 255, 255, 0.2);
+            border-color: rgba(255, 255, 255, 0.35);
+        }
+
+        .sved-card h3 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #2D9CDB;
+            margin-bottom: 16px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .sved-card ul {
+            list-style: none;
+            padding: 0;
+            position: relative;
+            z-index: 1;
+        }
+
+        .sved-card ul li {
+            padding: 6px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            color: #1A2F44;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        .sved-card ul li:last-child {
+            border-bottom: none;
+        }
+
+        .sved-card ul li strong {
+            color: #0F1E2F;
+            font-weight: 700;
+        }
+
+        .sved-card a {
+            color: #2D9CDB;
+            text-decoration: none;
+            transition: color 0.2s;
+            font-weight: 600;
+        }
+
+        .sved-card a:hover {
+            color: #0F1E2F;
+            text-decoration: underline;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin: 0 0 50px;
+            padding: 12px 28px;
+            background: rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border-radius: 60px;
+            color: #0F1E2F;
+            text-decoration: none;
+            font-weight: 600;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .back-link:hover {
+            background: rgba(45, 156, 219, 0.12);
+            border-color: rgba(45, 156, 219, 0.3);
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 860px) {
+            .wrapper {
+                padding: 0 20px;
+            }
+            .page-header h1 {
+                font-size: 1.8rem;
+                text-align: center;
+            }
+            .page-header p {
+                text-align: center;
+            }
+            .svedeniya-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            .sved-card {
+                padding: 22px 24px;
+            }
+            .back-link {
+                display: block;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrapper">
+        {% include "components/header.html" %}
+
+        <div class="page-header">
+            <h1>Сведения об образовательной организации</h1>
+            <p>Информация в соответствии с Приказом Рособрнадзора № 1493</p>
+        </div>
+
+        <div class="svedeniya-grid">
+
+            <div class="sved-card">
+                <h3>Основные сведения</h3>
+                <ul>
+                    <li><strong>Полное наименование:</strong> Автономная некоммерческая профессиональная образовательная
+                        организация «Кооперативный техникум Тамбовского облпотребсоюза»</li>
+                    <li><strong>Сокращённое:</strong> АНПОО КТТО</li>
+                    <li><strong>Дата создания:</strong> 18 июля 1958г.</li>
+                    <li><strong>Учредитель:</strong> Тамбовский Облпотребсоюз</li>
+                    <li><strong>Адрес:</strong> г. Тамбов, ул. Пролетарская, 252/2</li>
+                    <li><strong>Режим работы:</strong> Пн-Сб 8:00–16:30</li>
+                    <li><strong>Телефон директора:</strong> 8(4752) 53-53-70</li>
+                    <li><strong>Телефон приёмной комиссии:</strong> 8(4752) 53-65-60</li>
+                    <li><strong>Email:</strong> tkt33@inbox.ru</li>
+                </ul>
+            </div>
+
+            <div class="sved-card">
+                <h3>Структура и органы управления</h3>
+                <ul>
+                    <li><strong>Директор:</strong> Земской Николай Александрович</li>
+                    <li><strong>Заместитель по УР:</strong> Петрова Анна Сергеевна</li>
+                    <li><strong>Заместитель по ВР:</strong> Сидоров Дмитрий Петрович</li>
+                    <li><strong>Главный бухгалтер:</strong> Смирнова Елена Викторовна</li>
+                    <li><a href="#">Положение о структурных подразделениях</a></li>
+                </ul>
+            </div>
+
+            <div class="sved-card">
+                <h3>Документы</h3>
+                <ul>
+                    <li><a href="#">Устав КТТО</a></li>
+                    <li><a href="#">Лицензия на образовательную деятельность</a></li>
+                    <li><a href="#">Правила внутреннего распорядка</a></li>
+                    <li><a href="#">Коллективный договор</a></li>
+                    <li><a href="#">Отчёт о самообследовании</a></li>
+                </ul>
+            </div>
+
+            <div class="sved-card">
+                <h3>Образование</h3>
+                <ul>
+                    <li><strong>Информационные системы</strong> (09.02.07)</li>
+                    <li><strong>Экономика и бухучет</strong> (38.02.01)</li>
+                    <li><strong>Право и организация соцобеспечения</strong> (40.02.01)</li>
+                    <li><strong>Банковское дело</strong> (38.02.07)</li>
+                    <li><strong>Поварское дело</strong> (43.02.15)</li>
+                    <li><a href="#">Образовательные программы</a></li>
+                </ul>
+            </div>
+
+            <div class="sved-card">
+                <h3>Руководство</h3>
+                <ul>
+                    <li><strong>Директор:</strong> Иванов И.И. — +7 (4752) 55-66-70</li>
+                    <li><strong>Заместитель по УР:</strong> Петрова А.С. — +7 (4752) 55-66-71</li>
+                    <li><strong>Заместитель по ВР:</strong> Сидоров Д.П. — +7 (4752) 55-66-72</li>
+                    <li><a href="#">Полный список руководства</a></li>
+                </ul>
+            </div>
+
+            <div class="sved-card">
+                <h3>Педагогический состав</h3>
+                <ul>
+                    <li><strong>Иванова М.И.</strong> — Информатика, 15 лет</li>
+                    <li><strong>Петров С.В.</strong> — Экономика, 20 лет</li>
+                    <li><strong>Сидорова А.П.</strong> — Право, 10 лет</li>
+                    <li><a href="#">Полный список преподавателей</a></li>
+                </ul>
+            </div>
+
+            <div class="sved-card">
+                <h3>Материально-техническое обеспечение</h3>
+                <ul>
+                    <li>10 учебных кабинетов</li>
+                    <li>2 компьютерных класса</li>
+                    <li>Библиотека (5000 экземпляров)</li>
+                    <li>Спортивный зал</li>
+                    <li>Доступ к электронным ресурсам</li>
+                </ul>
+            </div>
+
+            <div class="sved-card">
+                <h3>Стипендии и меры поддержки</h3>
+                <ul>
+                    <li>Государственная академическая стипендия</li>
+                    <li>Социальная стипендия</li>
+                    <li>Материальная помощь</li>
+                    <li>Общежитие для иногородних</li>
+                </ul>
+            </div>
+
+            <div class="sved-card">
+                <h3>Вакантные места для приёма (перевода)</h3>
+                <ul>
+                    <li><strong>Информационные системы:</strong> 25 бюджетных мест</li>
+                    <li><strong>Экономика и бухучет:</strong> 30 бюджетных мест</li>
+                    <li><strong>Право и соцобеспечение:</strong> 20 бюджетных мест</li>
+                    <li><a href="#">Актуальные вакансии</a></li>
+                </ul>
+            </div>
+
+        </div>
+
+        <a href="/" class="back-link">← Вернуться на главную</a>
+    </div>
+
+    {% include "components/footer.html" %}
+</body>
+
+</html>

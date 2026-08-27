@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Поступить онлайн — КТТО</title>
+    <link rel="stylesheet" href="/static/css/header.css">
+    <link rel="stylesheet" href="/static/css/main.css">
+    <style>
+        /* ===== УНИКАЛЬНЫЕ СТИЛИ ДЛЯ APPLY ===== */
+        .page-title {
+            font-size: 2.4rem;
+            font-weight: 700;
+            margin: 20px 0 10px;
+            color: #0F1E2F;
+            text-align: center;
+            text-shadow: 0 1px 2px rgba(255, 255, 255, 0.2);
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #1A2F44;
+            margin-bottom: 40px;
+            font-size: 1.1rem;
+            opacity: 0.8;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto 40px;
+        }
+
+        .terms-badge {
+            padding: 16px 28px;
+            margin-bottom: 30px;
+            background: rgba(45, 156, 219, 0.12);
+            backdrop-filter: blur(16px) saturate(180%);
+            -webkit-backdrop-filter: blur(16px) saturate(180%);
+            border-radius: 60px;
+            text-align: center;
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: #0F1E2F;
+            border: 1px solid rgba(45, 156, 219, 0.15);
+        }
+
+        .docs-section {
+            padding: 40px 48px;
+            margin-bottom: 30px;
+            background: rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(24px) saturate(200%);
+            -webkit-backdrop-filter: blur(24px) saturate(200%);
+            border-radius: 60px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 10px 40px rgba(15, 30, 47, 0.04),
+                inset 0 1px 0 rgba(255, 255, 255, 0.5);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .docs-section::before {
+            content: '';
+            position: absolute;
+            top: -40%;
+            right: -15%;
+            width: 60%;
+            height: 180%;
+            background: radial-gradient(ellipse at 70% 30%, rgba(255, 255, 255, 0.2), transparent 70%);
+            pointer-events: none;
+            border-radius: 60px;
+        }
+
+        .docs-section h2 {
+            font-size: 1.5rem;
+            color: #2D9CDB;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .docs-section h3 {
+            font-size: 1.1rem;
+            color: #0F1E2F;
+            margin: 20px 0 12px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .docs-list {
+            list-style: none;
+            padding: 0;
+            position: relative;
+            z-index: 1;
+        }
+
+        .docs-list li {
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.95rem;
+            color: #1A2F44;
+        }
+
+        .docs-list li:last-child {
+            border-bottom: none;
+        }
+
+        .docs-note {
+            margin-top: 20px;
+            font-style: italic;
+            color: #1A2F44;
+            font-size: 0.9rem;
+            text-align: center;
+            opacity: 0.7;
+            position: relative;
+            z-index: 1;
+        }
+
+        .form-section {
+            padding: 40px 48px;
+            margin-bottom: 60px;
+            background: rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(24px) saturate(200%);
+            -webkit-backdrop-filter: blur(24px) saturate(200%);
+            border-radius: 60px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 10px 40px rgba(15, 30, 47, 0.04),
+                inset 0 1px 0 rgba(255, 255, 255, 0.5);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .form-section::before {
+            content: '';
+            position: absolute;
+            bottom: -40%;
+            left: -15%;
+            width: 60%;
+            height: 180%;
+            background: radial-gradient(ellipse at 30% 70%, rgba(255, 255, 255, 0.2), transparent 70%);
+            pointer-events: none;
+            border-radius: 60px;
+        }
+
+        .form-section h2 {
+            font-size: 1.5rem;
+            color: #2D9CDB;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .form-group label {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #0F1E2F;
+        }
+
+        .form-group input {
+            padding: 14px 18px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 16px;
+            font-size: 1rem;
+            outline: none;
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(8px);
+            color: #0F1E2F;
+        }
+
+        .form-group input:focus {
+            border-color: #2D9CDB;
+            box-shadow: 0 0 0 3px rgba(45, 156, 219, 0.15);
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .form-group input::placeholder {
+            color: #1A2F44;
+            opacity: 0.5;
+        }
+
+        .btn-submit {
+            background: #2D9CDB;
+            color: #FFFFFF;
+            border: none;
+            padding: 16px;
+            border-radius: 60px;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 28px rgba(45, 156, 219, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            width: 100%;
+            position: relative;
+            z-index: 1;
+        }
+
+        .btn-submit:hover {
+            background: #0F1E2F;
+            transform: translateY(-3px) scale(1.01);
+            box-shadow: 0 12px 36px rgba(15, 30, 47, 0.2);
+        }
+
+        .success-box {
+            padding: 40px;
+            background: rgba(46, 204, 113, 0.12);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-radius: 40px;
+            text-align: center;
+            color: #1A7E43;
+            border: 1px solid rgba(46, 204, 113, 0.2);
+            position: relative;
+            z-index: 1;
+        }
+
+        .success-box h2 {
+            margin: 0 0 10px 0;
+            font-size: 1.5rem;
+            color: #1A7E43;
+        }
+
+        .success-box p {
+            margin: 0;
+            font-size: 1rem;
+            font-weight: 500;
+        }
+
+        @media (max-width: 860px) {
+            .wrapper {
+                padding: 0 20px;
+            }
+            .page-title {
+                font-size: 1.8rem;
+            }
+            .docs-section,
+            .form-section {
+                padding: 24px 20px;
+            }
+            .container {
+                padding: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrapper">
+        {% include "components/header.html" %}
+    </div>
+
+    <div class="container">
+        <div class="page-title">Поступление в КТТО</div>
+        <p class="subtitle">Оставьте заявку, и наша приёмная комиссия свяжется с вами для оформления документов.</p>
+
+        <div class="terms-badge">
+            📅 ПРИЁМ ДОКУМЕНТОВ: По очной форме обучения — с 1 июня по 30 августа
+        </div>
+
+        <section class="docs-section">
+            <h2>📋 Документы при поступлении</h2>
+
+            <h3>Абитуриента:</h3>
+            <ul class="docs-list">
+                <li>1. Аттестат / Диплом</li>
+                <li>2. Медицинская справка ф. 086-У</li>
+                <li>3. Паспорт (с копией)</li>
+                <li>4. 4 фотографии (3 x 4)</li>
+                <li>5. Сертификат прививок (с копией)</li>
+                <li>6. Медицинский полис (с копией)</li>
+                <li>7. Флюорография (с копией)</li>
+                <li>8. СНИЛС (с копией)</li>
+                <li>9. ИНН (с копией)</li>
+            </ul>
+
+            <h3>Родителя, опекуна (на кого оформляется договор):</h3>
+            <ul class="docs-list">
+                <li>1. Паспорт (с копией)</li>
+                <li>2. СНИЛС (с копией)</li>
+                <li>3. ИНН (с копией)</li>
+            </ul>
+
+            <p class="docs-note">При необходимости сделаем копии документов на месте.</p>
+        </section>
+
+        <section class="form-section">
+            {% if success %}
+            <div class="success-box">
+                <h2>Заявка успешно принята!</h2>
+                <p>Мы Вам позвоним в ближайшее время.</p>
+            </div>
+            {% else %}
+            <h2>Заполните анкету обратной связи</h2>
+            <form action="/apply" method="POST">
+                <div class="form-group">
+                    <label for="fio">ФИО Абитуриента</label>
+                    <input type="text" id="fio" name="fio" placeholder="Иванов Иван Иванович" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Номер телефона</label>
+                    <input type="tel" id="phone" name="phone" placeholder="+7 (999) 123-45-67" required>
+                </div>
+                <button type="submit" class="btn-submit">Отправить заявку →</button>
+            </form>
+            {% endif %}
+        </section>
+    </div>
+
+    {% include "components/footer.html" %}
+</body>
+
+</html>

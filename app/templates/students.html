@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>КТТО — Студентам</title>
+    <link rel="stylesheet" href="/static/css/header.css">
+    <link rel="stylesheet" href="/static/css/main.css">
+    <style>
+        /* ===== УНИКАЛЬНЫЕ СТИЛИ ДЛЯ STUDENTS ===== */
+        .page-title {
+            font-size: 2.4rem;
+            font-weight: 700;
+            margin: 20px 0 30px;
+            color: #0F1E2F;
+            text-shadow: 0 1px 2px rgba(255, 255, 255, 0.2);
+        }
+
+        .intro {
+            padding: 48px 52px;
+            margin-bottom: 40px;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(24px) saturate(200%);
+            -webkit-backdrop-filter: blur(24px) saturate(200%);
+            border-radius: 60px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 10px 40px rgba(15, 30, 47, 0.04),
+                inset 0 1px 0 rgba(255, 255, 255, 0.5);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .intro::before {
+            content: '';
+            position: absolute;
+            top: -40%;
+            right: -15%;
+            width: 60%;
+            height: 180%;
+            background: radial-gradient(ellipse at 70% 30%, rgba(255, 255, 255, 0.2), transparent 70%);
+            pointer-events: none;
+            border-radius: 60px;
+        }
+
+        .intro h2 {
+            color: #2D9CDB;
+            font-size: 2rem;
+            margin-bottom: 16px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .intro p {
+            color: #1A2F44;
+            max-width: 700px;
+            margin: 0 auto;
+            font-size: 1.05rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-bottom: 60px;
+        }
+
+        .card {
+            padding: 32px 28px;
+            background: rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border-radius: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.3);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: -30%;
+            right: -15%;
+            width: 60%;
+            height: 160%;
+            background: radial-gradient(ellipse at 70% 20%, rgba(255, 255, 255, 0.15), transparent 70%);
+            pointer-events: none;
+            border-radius: 40px;
+        }
+
+        .card:hover {
+            transform: translateY(-6px);
+            background: rgba(255, 255, 255, 0.25);
+            border-color: rgba(255, 255, 255, 0.4);
+            box-shadow: 0 15px 40px rgba(45, 156, 219, 0.06);
+        }
+
+        .card h3 {
+            color: #2D9CDB;
+            font-size: 1.3rem;
+            margin-bottom: 12px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .card p {
+            color: #1A2F44;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            position: relative;
+            z-index: 1;
+        }
+
+        .card ul {
+            padding-left: 20px;
+            color: #1A2F44;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            position: relative;
+            z-index: 1;
+        }
+
+        .card ul li {
+            margin-bottom: 6px;
+        }
+
+        @media (max-width: 860px) {
+            .wrapper {
+                padding: 0 20px;
+            }
+            .page-title {
+                font-size: 1.8rem;
+                text-align: center;
+            }
+            .intro {
+                padding: 32px 24px;
+            }
+            .intro h2 {
+                font-size: 1.5rem;
+            }
+            .cards {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+            .card {
+                padding: 24px 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrapper">
+        {% include "components/header.html" %}
+
+        <div class="page-title">🎓 Студентам</div>
+
+        <div class="intro">
+            <h2>Учебный процесс и жизнь студентов</h2>
+            <p>Расписание, стипендии, общежитие, внеучебная деятельность, практика, библиотека и другие сервисы для
+                студентов.</p>
+        </div>
+
+        <div class="cards">
+
+            <div class="card">
+                <h3>📅 Расписание</h3>
+                <p>Актуальное расписание занятий, изменения и информация об учебном процессе.</p>
+            </div>
+
+            <div class="card">
+                <h3>💰 Стипендии</h3>
+                <p>Информация о видах стипендий, условиях получения и выплатах.</p>
+            </div>
+
+            <div class="card">
+                <h3>🏠 Общежитие</h3>
+                <p>Условия проживания, правила заселения и необходимые документы.</p>
+            </div>
+
+            <div class="card">
+                <h3>🎭 Внеучебная деятельность</h3>
+                <p>Мероприятия, кружки, студенческие проекты и творчество.</p>
+            </div>
+
+            <div class="card">
+                <h3>💼 Практика</h3>
+                <p>Информация о прохождении практики и сотрудничестве с организациями.</p>
+            </div>
+
+            <div class="card">
+                <h3>📚 Библиотека</h3>
+                <p>Учебная литература, электронные ресурсы и помощь студентам.</p>
+            </div>
+
+        </div>
+    </div>
+
+    {% include "components/footer.html" %}
+</body>
+
+</html>
