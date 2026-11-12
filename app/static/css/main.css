@@ -1,6 +1,6 @@
 /* ============================================================
    ОСНОВНОЙ CSS ДЛЯ ВСЕГО САЙТА
-   Версия: 2.0 (стекло + контраст)
+   Версия: 3.0 (стекло + контраст + синяя свежесть)
    ============================================================ */
 
 /* ============================================================
@@ -54,13 +54,13 @@ a {
 }
 
 /* ============================================================
-   ШАПКА (СТЕКЛЯННАЯ) — ИСПРАВЛЕННАЯ
+   ШАПКА (СТЕКЛЯННАЯ)
    ============================================================ */
 .header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 16px 32px; /* Увеличил отступы слева/справа */
+    padding: 16px 32px;
     margin-top: 20px;
     margin-bottom: 40px;
     flex-wrap: wrap;
@@ -92,17 +92,19 @@ a {
 .logo {
     display: flex;
     align-items: center;
-    flex-shrink: 0; /* Чтобы лого не сжималось */
+    flex-shrink: 0;
 }
 
 .logo img {
     height: 50px;
     width: auto;
-    max-width: 200px; /* Ограничиваем ширину, чтобы не вылазило */
+    max-width: 180px;
     object-fit: contain;
     position: relative;
     z-index: 1;
     display: block;
+    background: transparent;
+    mix-blend-mode: multiply;
 }
 
 /* ============================================================
@@ -159,7 +161,7 @@ a {
 .dropdown {
     position: relative;
 }
-.dropdown>a {
+.dropdown > a {
     cursor: pointer;
 }
 .dropdown-menu {
@@ -198,6 +200,7 @@ a {
     background: transparent;
     backdrop-filter: none;
     border: none;
+    white-space: nowrap;
 }
 .dropdown-menu a:hover {
     background: #2D9CDB;
@@ -404,9 +407,12 @@ a {
     color: #0F1E2F;
     border: 1px solid rgba(255, 255, 255, 0.25);
     cursor: pointer;
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4);
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeInUp 0.7s ease forwards;
     position: relative;
     overflow: hidden;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4);
 }
 
 .quick-card::before {
@@ -745,29 +751,7 @@ a {
 }
 
 /* ============================================================
-   ПОДВАЛ (ФУТЕР)
-   ============================================================ */
-.footer {
-    background: rgba(15, 30, 47, 0.8);
-    backdrop-filter: blur(16px) saturate(180%);
-    -webkit-backdrop-filter: blur(16px) saturate(180%);
-    color: rgba(255, 255, 255, 0.4);
-    padding: 32px 0 24px;
-    margin-top: 20px;
-    text-align: center;
-    border-top: 1px solid rgba(255, 255, 255, 0.05);
-}
-
-.footer p {
-    font-size: 0.9rem;
-}
-
-.footer strong {
-    color: #FFFFFF;
-}
-
-/* ============================================================
-   АНИМАЦИЯ ПОЯВЛЕНИЯ (ДЛЯ КАРТОЧЕК)
+   АНИМАЦИЯ ПОЯВЛЕНИЯ
    ============================================================ */
 @keyframes fadeInUp {
     0% {
@@ -818,7 +802,7 @@ a {
 }
 
 /* ============================================================
-   АДАПТИВ (ДЛЯ ВСЕХ СТРАНИЦ)
+   АДАПТИВ
    ============================================================ */
 @media (max-width: 1024px) {
     .wrapper {

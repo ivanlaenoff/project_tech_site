@@ -43,7 +43,7 @@
     object-fit: contain;
     display: block;
     background: transparent;
-    mix-blend-mode: multiply; /* Убирает белый фон у PNG */
+    mix-blend-mode: multiply;
 }
 
 .nav {
@@ -96,50 +96,69 @@
     cursor: pointer;
 }
 
+/* Базовое состояние */
 .dropdown-menu {
     position: absolute;
-    top: 48px;
+    top: 100%;              /* вплотную к кнопке */
     left: 0;
-    background: rgba(255, 255, 255, 0.65);
+    margin-top: 0;          /* БЕЗ отступа — чтобы hover не рвался */
+    padding-top: 12px;      /* но визуальный отступ делаем через padding */
+
+    /* Стеклянный эффект */
+    background: rgba(255, 255, 255, 0.45);
     backdrop-filter: blur(30px) saturate(200%);
     -webkit-backdrop-filter: blur(30px) saturate(200%);
+
     min-width: 240px;
     border-radius: 20px;
     padding: 12px;
     box-shadow: 0 20px 40px rgba(15, 30, 47, 0.12),
         inset 0 1px 0 rgba(255, 255, 255, 0.8);
-    opacity: 0;
-    visibility: hidden;
-    transform: translateY(10px) scale(0.98);
-    transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
-    z-index: 9999;
     border: 1px solid rgba(255, 255, 255, 0.5);
+    z-index: 9999;
+
+    /* Скрытое состояние */
+    opacity: 0;
+    transform: translateY(10px) scale(0.98);
     pointer-events: none;
+
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    transition-delay: 0s;
 }
 
-.dropdown:hover .dropdown-menu {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0) scale(1);
-    pointer-events: auto;
+/* Невидимая зона-мостик над меню (закрывает разрыв между кнопкой и меню) */
+.dropdown-menu::before {
+    content: '';
+    position: absolute;
+    top: -12px;
+    left: 0;
+    width: 100%;
+    height: 12px;
+    background: transparent;
+    pointer-events: auto;   /* важно: ловит hover в разрыве */
 }
 
+/* Пункты меню */
 .dropdown-menu a {
     display: block;
     padding: 10px 16px;
     border-radius: 14px;
     color: #0F1E2F;
     font-weight: 600;
-    transition: 0.2s;
+    font-size: 0.95rem;
+    transition: background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
     background: transparent;
-    border: none;
+    border: 1px solid transparent;  /* чтобы не дёргалось при hover */
     white-space: nowrap;
+    text-decoration: none;
 }
 
+/* Вот оно — обводка при наведении */
 .dropdown-menu a:hover {
     background: #2D9CDB;
     color: #FFFFFF;
-    box-shadow: 0 4px 12px rgba(45, 156, 219, 0.2);
+    border-color: rgba(255, 255, 255, 0.3);
+    box-shadow: 0 4px 12px rgba(45, 156, 219, 0.25);
 }
 
 /* ===== АДАПТИВ ===== */

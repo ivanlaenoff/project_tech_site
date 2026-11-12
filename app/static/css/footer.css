@@ -1,0 +1,117 @@
+/* ============================================================
+   ПОДВАЛ (ФУТЕР) — компактный, 3 колонки
+   ============================================================ */
+
+.footer {
+    background: rgba(15, 30, 47, 0.85);
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    color: rgba(255, 255, 255, 0.75);
+    padding: 36px 0 20px;
+    margin-top: 40px;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+/* Контент футера: 3 колонки */
+.footer-content {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 30px;
+    display: grid;
+    grid-template-columns: 1.2fr 1fr 1.2fr;
+    gap: 40px;
+    align-items: start;
+}
+
+/* Колонки */
+.footer-col h3 {
+    font-size: 1.2rem;
+    font-weight: 800;
+    color: #FFFFFF;
+    margin-bottom: 10px;
+    letter-spacing: 0.5px;
+}
+
+.footer-col h4 {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #2D9CDB;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    font-size: 0.85rem;
+}
+
+.footer-col p {
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.65);
+    margin-bottom: 6px;
+}
+
+/* Быстрые ссылки */
+.footer-col ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer-col ul li {
+    margin-bottom: 4px;
+}
+
+.footer-col ul li a {
+    color: rgba(255, 255, 255, 0.7);
+    text-decoration: none;
+    font-size: 0.85rem;
+    transition: color 0.2s, transform 0.2s;
+    display: inline-block;
+}
+
+.footer-col ul li a:hover {
+    color: #2D9CDB;
+    transform: translateX(3px);
+}
+
+/* Нижняя полоса с копирайтом */
+.footer-bottom {
+    max-width: 1400px;
+    margin: 24px auto 0;
+    padding: 16px 30px 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    text-align: center;
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.4);
+}
+
+/* ============================================================
+   АДАПТИВ
+   ============================================================ */
+@media (max-width: 1024px) {
+    .footer-content {
+        grid-template-columns: 1fr 1fr;
+        gap: 30px;
+    }
+    .footer-col:first-child {
+        grid-column: 1 / -1; /* Название — на всю ширину сверху */
+    }
+}
+
+@media (max-width: 680px) {
+    .footer {
+        padding: 28px 0 16px;
+    }
+    .footer-content {
+        grid-template-columns: 1fr;
+        gap: 24px;
+        padding: 0 20px;
+    }
+    .footer-col:first-child {
+        grid-column: auto;
+    }
+    .footer-bottom {
+        padding: 12px 20px 0;
+        margin-top: 18px;
+    }
+}
