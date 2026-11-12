@@ -751,6 +751,35 @@ a {
 }
 
 /* ============================================================
+   БЫСТРЫЕ ССЫЛКИ НА ПОДРАЗДЕЛЫ
+   ============================================================ */
+.section-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin: 0 0 40px;
+}
+
+.section-links a {
+    padding: 10px 22px;
+    border-radius: 60px;
+    background: rgba(255, 255, 255, 0.22);
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    color: #0F1E2F;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: all 0.25s ease;
+}
+
+.section-links a:hover {
+    background: #2D9CDB;
+    border-color: #2D9CDB;
+    color: #FFFFFF;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(45, 156, 219, 0.25);
+}
+
+/* ============================================================
    АНИМАЦИЯ ПОЯВЛЕНИЯ
    ============================================================ */
 @keyframes fadeInUp {

@@ -15,6 +15,7 @@ from sqlalchemy.orm import Session, relationship
 from sqladmin import Admin, ModelView
 from wtforms import FileField
 from app.data import SPECIALTIES
+from app.content import PAGES
 
 import app.models as models
 from app.database import engine, SessionLocal, Base
@@ -249,6 +250,33 @@ def get_news_dates(db: Session = Depends(get_db)):
 @app.get("/info", response_class=HTMLResponse)
 async def get_info_page(request: Request):
     return templates.TemplateResponse(request, "info.html", {"request": request})
+
+
+# ========== ВНУТРЕННИЕ СТРАНИЦЫ (контент из app/content.py) ==========
+def _make_page_view(slug: str, page: dict):
+    async def view(request: Request):
+        related = [
+            {"slug": other_slug, "title": other["title"], "menu_title": other.get("menu_title")}
+            for other_slug, other in PAGES.items()
+            if other["parent"]["href"] == page["parent"]["href"] and other_slug != slug
+        ]
+        return templates.TemplateResponse(request, "info_page.html", {
+            "request": request,
+            "page": page,
+            "related": related,
+            **add_user_context(request),
+        })
+    return view
+
+
+for _slug, _page in PAGES.items():
+    app.add_api_route(
+        f"/{_slug}",
+        _make_page_view(_slug, _page),
+        response_class=HTMLResponse,
+        name=f"info_page_{_slug.replace('/', '_')}",
+        methods=["GET"],
+    )
 
 # ========== НОВЫЕ РОУТЫ ДЛЯ АУТЕНТИФИКАЦИИ ==========
 
