@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>КТТО — Расписание{% if group_name %} группы {{ group_name }}{% endif %}</title>
+    <link rel="stylesheet" href="/static/css/header.css">
+    <link rel="stylesheet" href="/static/css/main.css">
+    <link rel="stylesheet" href="/static/css/page.css">
+    <link rel="stylesheet" href="/static/css/account.css">
+    <link rel="stylesheet" href="/static/css/footer.css">
+</head>
+
+<body>
+    <div class="wrapper">
+        {% include "components/header.html" %}
+
+        <div class="crumbs">
+            <a href="/">Главная</a>
+            <span>/</span>
+            <span class="crumbs-current">Расписание</span>
+        </div>
+
+        <div class="page-head">
+            <div>
+                <h1>Расписание занятий</h1>
+                <p>
+                    {% if is_student_view %}
+                    Расписание вашей группы{% if group_name %} <strong>{{ group_name }}</strong>{% endif %}.
+                    Изменения публикуются на стенде учебной части.
+                    {% else %}
+                    Выберите группу — расписание обновляется преподавателями и учебной частью.
+                    {% endif %}
+                </p>
+            </div>
+            <div class="sched-tabs">
+                <span class="sched-tab is-current">{{ group_name or '—' }}</span>
+            </div>
+        </div>
+
+        {% if not is_student_view %}
+        <div class="sched-controls">
+            <div class="sched-tabs">
+                {% for g in groups %}
+                <a href="/schedule?group={{ g.name }}"
+                    class="sched-tab {% if g.name == group_name %}is-current{% endif %}">{{ g.name }}</a>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+
+        <div class="panel">
+            <div class="panel-title">
+                Неделя
+                <span class="panel-hint">
+                    {{ current_group.curator if current_group and current_group.curator else 'Куратор не указан' }}
+                </span>
+            </div>
+
+            <div class="sched-wrap">
+                <table class="sched-table">
+                    <thead>
+                        <tr>
+                            <th>Пара</th>
+                            {% for d, name in weekdays.items() %}
+                            <th class="{% if d == today_weekday %}is-today{% endif %}">
+                                {{ name }}{% if d == today_weekday %} · сегодня{% endif %}
+                            </th>
+                            {% endfor %}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for l in [1, 2, 3, 4, 5] %}
+                        <tr>
+                            <td>
+                                <div class="sched-lesson-no">{{ l }} пара</div>
+                                <div class="sched-lesson-time">{{ lesson_times.get(l, '') }}</div>
+                            </td>
+                            {% for d in [1, 2, 3, 4, 5, 6] %}
+                            {% set lesson = grid.get(d, {}).get(l) %}
+                            <td>
+                                {% if lesson %}
+                                <span class="sched-cell {% if d == today_weekday %}today{% endif %}">
+                                    <span class="sched-subject">{{ lesson.subject }}</span>
+                                    <span class="sched-meta">
+                                        {{ lesson.teacher_name or '' }}<br>
+                                        каб. {{ lesson.room or '—' }}
+                                    </span>
+                                    <span class="sched-type {% if lesson.lesson_type == 'Лабораторная' %}lab{% elif lesson.lesson_type == 'Лекция' %}lec{% endif %}">
+                                        {{ lesson.lesson_type }}
+                                    </span>
+                                </span>
+                                {% else %}
+                                <span class="sched-empty">—</span>
+                                {% endif %}
+                            </td>
+                            {% endfor %}
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="dash-grid">
+            <div class="panel">
+                <div class="panel-title">Расписание звонков</div>
+                <div class="table-scroll">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Пара</th>
+                                <th>Время</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for n, t in lesson_times.items() %}
+                            <tr>
+                                <td><strong>{{ n }} пара</strong></td>
+                                <td>{{ t }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="panel">
+                <div class="panel-title">Полезно знать</div>
+                <ul class="dot-list">
+                    <li>Первая пара начинается в 08:30 — приходите за 10 минут до звонка.</li>
+                    <li>В субботу занятия проходят по сокращённому расписанию (3 пары).</li>
+                    <li>Об изменениях сообщают старосты групп и учебная часть.</li>
+                    <li>Пропущенные занятия отрабатываются по согласованию с преподавателем.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    {% include "components/footer.html" %}
+</body>
+
+</html>

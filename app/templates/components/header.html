@@ -1,46 +1,13 @@
 <header class="header">
     <div class="logo">
-        <a href="/">
+        <a href="/" aria-label="Кооперативный техникум — на главную">
             <img src="/src/logoKTTO.png" alt="Логотип КТТО">
         </a>
     </div>
-    <nav class="nav">
-        <a href="/">Главная</a>
 
-        <div class="dropdown">
-            <a href="/about">О нас ▾</a>
-            <div class="dropdown-menu">
-                <a href="/about/history">История и традиции</a>
-                <a href="/about/leadership">Руководство</a>
-                <a href="/about/achievements">Достижения</a>
-                <a href="/about/documents">Документы</a>
-                <a href="/about/licenses">Лицензии</a>
-            </div>
-        </div>
-
-        <div class="dropdown">
-            <a href="/admission">Поступление ▾</a>
-            <div class="dropdown-menu">
-                <a href="/admission/conditions">Условия поступления</a>
-                <a href="/admission/documents">Документы</a>
-                <a href="/specialties">Специальности</a>
-                <a href="/apply">Подать заявку</a>
-                <a href="/admission/scores">Проходные баллы</a>
-            </div>
-        </div>
-
-        <div class="dropdown">
-            <a href="/students">Студентам ▾</a>
-            <div class="dropdown-menu">
-                <a href="/students/schedule">Расписание</a>
-                <a href="/students/scholarships">Стипендии</a>
-                <a href="/students/dormitory">Общежитие</a>
-                <a href="/students/practice">Практика</a>
-                <a href="/students/library">Библиотека</a>
-                <a href="/students/activities">Внеучебная деятельность</a>
-            </div>
-        </div>
-
-        <a href="/contacts" class="sved-link">Контакты</a>
-    </nav>
+    {% if is_authenticated %}
+    {% include "components/navbar_auth.html" %}
+    {% else %}
+    {% include "components/navbar.html" %}
+    {% endif %}
 </header>

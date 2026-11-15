@@ -4,211 +4,492 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>КТТО — Специальности</title>
+    <title>КТТО — {{ current.title }}</title>
     <link rel="stylesheet" href="/static/css/header.css">
     <link rel="stylesheet" href="/static/css/main.css">
     <link rel="stylesheet" href="/static/css/footer.css">
+    <link rel="stylesheet" href="/static/css/page.css">
     <style>
-        /* ===== УНИКАЛЬНЫЕ СТИЛИ ДЛЯ SPECIALTIES ===== */
-        .page-title {
-            font-size: 2.4rem;
-            font-weight: 700;
-            margin: 20px 0 30px;
-            color: #0F1E2F;
-            text-shadow: 0 1px 2px rgba(255, 255, 255, 0.2);
+        /* ===== СТРАНИЦА СПЕЦИАЛЬНОСТИ ===== */
+
+        .spec-hero .p-badge {
+            max-width: 100%;
+            white-space: normal;
+            line-height: 1.45;
         }
 
-        .current-specialty {
-            padding: 40px 48px;
-            margin-bottom: 50px;
-            background: rgba(255, 255, 255, 0.12);
-            backdrop-filter: blur(24px) saturate(200%);
-            -webkit-backdrop-filter: blur(24px) saturate(200%);
-            border-radius: 60px;
-            border: 2px solid rgba(255, 255, 255, 0.2);
-            box-shadow: 0 10px 40px rgba(15, 30, 47, 0.04),
-                inset 0 1px 0 rgba(255, 255, 255, 0.5);
+        .spec-hero h1 {
+            font-size: 2.45rem;
+            line-height: 1.16;
+        }
+
+        /* картинка направления в герое */
+        .spec-hero-media {
+            flex: 0 0 300px;
+            align-self: stretch;
+            min-height: 240px;
+            border-radius: 40px;
+            background-size: cover;
+            background-position: center;
+            border: 2px solid rgba(255, 255, 255, 0.4);
+            box-shadow: 0 16px 40px rgba(15, 30, 47, 0.14),
+                inset 0 1px 0 rgba(255, 255, 255, 0.3);
             position: relative;
-            overflow: hidden;
+            z-index: 1;
         }
 
-        .current-specialty::before {
+        .spec-hero-media::after {
             content: '';
             position: absolute;
-            top: -40%;
-            right: -15%;
-            width: 60%;
-            height: 180%;
-            background: radial-gradient(ellipse at 70% 30%, rgba(255, 255, 255, 0.2), transparent 70%);
+            inset: 0;
+            border-radius: 38px;
+            background: linear-gradient(160deg, rgba(45, 156, 219, 0.18), rgba(15, 30, 47, 0.1));
             pointer-events: none;
-            border-radius: 60px;
         }
 
-        .current-specialty h1 {
-            color: #2D9CDB;
-            font-size: 2rem;
-            margin-bottom: 16px;
-            position: relative;
-            z-index: 1;
-        }
-
-        .current-specialty p {
-            font-size: 1.05rem;
-            line-height: 1.7;
-            max-width: 800px;
-            color: #1A2F44;
-            position: relative;
-            z-index: 1;
-        }
-
-        .info {
-            margin-top: 30px;
+        /* профильные предметы в герое */
+        .spec-subjects {
             display: flex;
-            gap: 20px;
             flex-wrap: wrap;
+            align-items: center;
+            gap: 8px;
+            margin-top: 20px;
             position: relative;
             z-index: 1;
         }
 
-        .info-box {
-            background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-            padding: 16px 24px;
-            border-radius: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            font-size: 0.95rem;
-            color: #1A2F44;
-            line-height: 1.6;
-            min-width: 140px;
-        }
-
-        .info-box strong {
-            color: #0F1E2F;
-            display: block;
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            opacity: 0.6;
-            margin-bottom: 2px;
-        }
-
-        .list-title {
-            font-size: 1.8rem;
+        .spec-subjects-label {
+            font-size: 0.78rem;
             font-weight: 700;
-            margin-bottom: 25px;
-            color: #0F1E2F;
+            text-transform: uppercase;
+            letter-spacing: 0.7px;
+            color: rgba(15, 30, 47, 0.55);
+            margin-right: 4px;
         }
 
-        .dir-grid {
+        .spec-subject-chip {
+            padding: 6px 15px;
+            border-radius: 60px;
+            font-size: 0.82rem;
+            font-weight: 700;
+            color: #1A4A6E;
+            background: rgba(255, 255, 255, 0.5);
+            border: 1px solid rgba(45, 156, 219, 0.25);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7);
+        }
+
+        /* текстовые значения в блоке цифр */
+        .spec-stat-text .p-stat-value {
+            font-size: 1.15rem;
+            line-height: 1.35;
+            letter-spacing: -0.2px;
+        }
+
+        /* «фишки» направления */
+        .spec-highlights {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 25px;
-            margin-bottom: 60px;
+            gap: 16px;
+            margin-bottom: 26px;
         }
 
-        .dir-item {
-            text-decoration: none;
-            color: #0F1E2F;
-            padding: 28px 30px;
-            background: rgba(255, 255, 255, 0.12);
-            backdrop-filter: blur(20px) saturate(180%);
-            -webkit-backdrop-filter: blur(20px) saturate(180%);
-            border-radius: 40px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.3);
-            transition: all 0.3s ease;
+        .spec-highlight {
+            display: flex;
+            gap: 12px;
+            align-items: flex-start;
+            padding: 18px 22px;
+            border-radius: 28px;
+            background: rgba(45, 156, 219, 0.1);
+            border: 1px solid rgba(45, 156, 219, 0.18);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.45);
+            font-size: 0.9rem;
+            line-height: 1.5;
+            font-weight: 600;
+            color: #1A2F44;
+        }
+
+        .spec-highlight b {
+            color: #2D9CDB;
+            font-size: 1.05rem;
+            line-height: 1.3;
+            flex-shrink: 0;
+        }
+
+        /* двухколоночный макет: контент + липкий сайдбар */
+        .spec-layout {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) 330px;
+            gap: 26px;
+            align-items: start;
+        }
+
+        .spec-main > :last-child {
+            margin-bottom: 0;
+        }
+
+        /* карточки навыков */
+        .spec-skill {
+            display: flex;
+            gap: 14px;
+            align-items: flex-start;
+        }
+
+        .spec-skill-num {
+            flex-shrink: 0;
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            font-weight: 800;
+            color: #FFFFFF;
+            background: #2D9CDB;
+            box-shadow: 0 6px 16px rgba(45, 156, 219, 0.3);
+        }
+
+        .spec-skill p {
+            font-size: 0.92rem;
+            line-height: 1.5;
+            color: #1A2F44;
+            opacity: 1;
+            padding-top: 5px;
+        }
+
+        /* дисциплины — цветные пилюли */
+        .spec-chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .spec-chip {
+            padding: 9px 18px;
+            border-radius: 60px;
+            font-size: 0.87rem;
+            font-weight: 600;
+            line-height: 1.35;
+            border: 1px solid transparent;
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5);
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        .spec-chip:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(15, 30, 47, 0.08);
+        }
+
+        .spec-chip:nth-child(3n+1) {
+            background: rgba(45, 156, 219, 0.14);
+            border-color: rgba(45, 156, 219, 0.28);
+            color: #14527A;
+        }
+
+        .spec-chip:nth-child(3n+2) {
+            background: rgba(72, 187, 138, 0.14);
+            border-color: rgba(72, 187, 138, 0.3);
+            color: #1D6647;
+        }
+
+        .spec-chip:nth-child(3n) {
+            background: rgba(219, 156, 45, 0.14);
+            border-color: rgba(219, 156, 45, 0.3);
+            color: #7A5214;
+        }
+
+        /* учебный план */
+        .spec-timeline .p-timeline-year {
+            flex: 0 0 96px;
+        }
+
+        .spec-course-list {
+            list-style: none;
+            margin: 8px 0 0;
+            padding: 0;
+        }
+
+        .spec-course-list li {
             position: relative;
-            overflow: hidden;
+            padding: 5px 0 5px 20px;
+            font-size: 0.92rem;
+            line-height: 1.55;
+            color: #1A2F44;
         }
 
-        .dir-item::before {
+        .spec-course-list li::before {
             content: '';
             position: absolute;
-            top: -30%;
-            right: -15%;
-            width: 60%;
-            height: 160%;
-            background: radial-gradient(ellipse at 70% 20%, rgba(255, 255, 255, 0.15), transparent 70%);
-            pointer-events: none;
-            border-radius: 40px;
+            left: 2px;
+            top: 13px;
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: rgba(45, 156, 219, 0.55);
         }
 
-        .dir-item:hover {
-            transform: translateY(-6px);
-            background: rgba(255, 255, 255, 0.25);
-            border-color: rgba(255, 255, 255, 0.4);
-            box-shadow: 0 15px 40px rgba(45, 156, 219, 0.06);
+        /* зарплата */
+        .spec-salary {
+            margin-top: 20px;
+            padding: 22px 26px;
+            border-radius: 28px;
+            background: rgba(15, 30, 47, 0.78);
+            color: #FFFFFF;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            box-shadow: 0 14px 34px rgba(15, 30, 47, 0.16);
         }
 
-        .dir-item h3 {
-            color: #2D9CDB;
-            font-size: 1.2rem;
-            margin-bottom: 8px;
-            position: relative;
-            z-index: 1;
-        }
-
-        .dir-item .dir-code {
-            font-size: 0.85rem;
-            color: #1A2F44;
-            opacity: 0.5;
-            font-weight: 600;
-            position: relative;
-            z-index: 1;
-        }
-
-        .dir-item .dir-arrow {
-            display: inline-block;
-            margin-top: 14px;
-            color: #2D9CDB;
+        .spec-salary-label {
+            display: block;
+            font-size: 0.72rem;
             font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            color: #7FC7F0;
+            margin-bottom: 6px;
+        }
+
+        .spec-salary p {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        /* липкий сайдбар */
+        .spec-aside {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+            position: sticky;
+            top: 20px;
+        }
+
+        .spec-aside-card {
+            padding: 28px 26px;
+            border-radius: 38px;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(22px) saturate(190%);
+            -webkit-backdrop-filter: blur(22px) saturate(190%);
+            border: 2px solid rgba(255, 255, 255, 0.32);
+            box-shadow: 0 12px 36px rgba(15, 30, 47, 0.06),
+                inset 0 1px 0 rgba(255, 255, 255, 0.6);
+        }
+
+        .spec-aside-title {
+            font-size: 1.15rem;
+            font-weight: 800;
+            color: #0F1E2F;
+            margin-bottom: 16px;
+            letter-spacing: -0.2px;
+        }
+
+        .spec-aside-title::after {
+            content: '';
+            display: block;
+            width: 34px;
+            height: 3px;
+            background: #2D9CDB;
+            border-radius: 10px;
+            margin-top: 7px;
+        }
+
+        .spec-aside-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            gap: 12px;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(15, 30, 47, 0.08);
             font-size: 0.9rem;
-            opacity: 0.7;
-            transition: 0.3s;
-            position: relative;
-            z-index: 1;
         }
 
-        .dir-item:hover .dir-arrow {
+        .spec-aside-row:last-of-type {
+            border-bottom: none;
+        }
+
+        .spec-aside-row span {
+            color: rgba(26, 47, 68, 0.72);
+            line-height: 1.4;
+        }
+
+        .spec-aside-row b {
+            color: #0F1E2F;
+            font-weight: 800;
+            white-space: nowrap;
+        }
+
+        .spec-aside-row b.is-accent {
+            color: #2D9CDB;
+        }
+
+        /* длинные значения (например, квалификация) переносятся на новую строку */
+        .spec-aside-row.is-stacked {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 2px;
+        }
+
+        .spec-aside-row.is-stacked b {
+            white-space: normal;
+            text-align: left;
+            line-height: 1.35;
+        }
+
+        .spec-aside-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 18px;
+        }
+
+        .spec-aside-actions .btn-primary,
+        .spec-aside-actions .btn-secondary {
+            display: block;
+            width: 100%;
+            text-align: center;
+            padding: 13px 20px;
+            font-size: 0.95rem;
+        }
+
+        .spec-aside-note {
+            margin-top: 16px;
+            font-size: 0.8rem;
+            line-height: 1.5;
+            color: rgba(26, 47, 68, 0.6);
+            padding-left: 12px;
+            border-left: 3px solid rgba(45, 156, 219, 0.35);
+        }
+
+        /* другие направления */
+        .spec-dir-section {
+            margin-top: 34px;
+        }
+
+        .spec-dir-grid {
+            grid-template-columns: repeat(3, 1fr);
+            margin-bottom: 30px;
+        }
+
+        .spec-dir-grid .dir-item {
+            animation: none;
             opacity: 1;
-            transform: translateX(4px);
+            align-items: flex-start;
         }
 
-        @media (max-width: 1024px) {
-            .dir-grid {
+        .spec-dir-grid .dir-info {
+            min-width: 0;
+        }
+
+        .spec-dir-grid .dir-code {
+            display: block;
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 0.3px;
+            color: rgba(26, 47, 68, 0.5);
+            margin-bottom: 4px;
+        }
+
+        .spec-dir-grid .dir-info h4 {
+            font-size: 1rem;
+            line-height: 1.35;
+        }
+
+        .spec-dir-grid .dir-arrow {
+            display: block;
+            margin-top: 6px;
+            font-size: 0.85rem;
+        }
+
+        /* адаптив */
+        @media (max-width: 1200px) {
+            .spec-layout {
+                grid-template-columns: minmax(0, 1fr) 300px;
+            }
+
+            .spec-dir-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
         }
 
-        @media (max-width: 860px) {
-            .wrapper {
-                padding: 0 20px;
-            }
-            .page-title {
-                font-size: 1.8rem;
-                text-align: center;
-            }
-            .current-specialty {
-                padding: 28px 24px;
-            }
-            .current-specialty h1 {
-                font-size: 1.5rem;
-            }
-            .dir-grid {
+        @media (max-width: 1024px) {
+            .spec-layout {
                 grid-template-columns: 1fr;
-                gap: 16px;
             }
-            .list-title {
-                font-size: 1.4rem;
-                text-align: center;
+
+            .spec-aside {
+                position: static;
+                top: auto;
             }
-            .info {
-                flex-direction: column;
+
+            .spec-highlights {
+                grid-template-columns: 1fr;
                 gap: 12px;
             }
-            .info-box {
-                padding: 14px 18px;
+
+            .spec-hero-media {
+                flex: 0 0 auto;
+                width: 100%;
+                min-height: 0;
+                height: 220px;
+            }
+
+            .spec-hero h1 {
+                font-size: 2.05rem;
+            }
+        }
+
+        @media (max-width: 680px) {
+            .spec-hero-media {
+                height: 170px;
+                border-radius: 28px;
+            }
+
+            .spec-hero h1 {
+                font-size: 1.65rem;
+            }
+
+            .spec-subjects {
+                margin-top: 16px;
+            }
+
+            .spec-highlights {
+                margin-bottom: 20px;
+            }
+
+            .spec-highlight {
+                padding: 15px 18px;
+                border-radius: 24px;
+            }
+
+            .spec-dir-grid {
+                grid-template-columns: 1fr;
+                gap: 14px;
+            }
+
+            .spec-aside-card {
+                padding: 22px 20px;
+                border-radius: 30px;
+            }
+
+            .spec-salary {
+                padding: 18px 20px;
+                border-radius: 24px;
+            }
+
+            .spec-timeline .p-timeline-year {
+                flex: none;
+            }
+
+            .spec-chip {
+                font-size: 0.83rem;
+                padding: 8px 14px;
+            }
+        }
+
+        @media (max-width: 420px) {
+            .spec-aside-row {
+                flex-direction: column;
+                gap: 2px;
             }
         }
     </style>
@@ -218,38 +499,232 @@
     <div class="wrapper">
         {% include "components/header.html" %}
 
-        <div class="page-title">Специальности</div>
+        <nav class="crumbs" aria-label="Хлебные крошки">
+            <a href="/">Главная</a>
+            <span>/</span>
+            <a href="/specialties">Специальности</a>
+            <span>/</span>
+            <span class="crumbs-current">{{ current.title }}</span>
+        </nav>
 
-        <div class="current-specialty">
-            <h1>{{ current.title }}</h1>
-            <p>{{ current.desc }}</p>
-            <div class="info">
-                <div class="info-box">
-                    <strong>Срок обучения</strong>
-                    После 9 кл: {{ current.time_9 }}<br>
-                    После 11 кл: {{ current.time_11 }}
+        <!-- ===== ГЕРОЙ ===== -->
+        <section class="p-hero spec-hero">
+            <div class="p-hero-main">
+                <div class="p-badge">{{ current.code }} · {{ current.title }}</div>
+                <h1>{{ current.title }}</h1>
+                <p class="p-lead">{{ current.desc }}</p>
+
+                {% if current.subjects %}
+                <div class="spec-subjects">
+                    <span class="spec-subjects-label">Профильные предметы</span>
+                    {% for subject in current.subjects %}
+                    <span class="spec-subject-chip">{{ subject }}</span>
+                    {% endfor %}
                 </div>
-                <div class="info-box">
-                    <strong>Квалификация</strong>
-                    Специалист
-                </div>
-                <div class="info-box">
-                    <strong>Форма обучения</strong>
-                    Очная
-                </div>
+                {% endif %}
+            </div>
+
+            <div class="spec-hero-media" style="background-image:url('{{ current.image }}');" role="img"
+                aria-label="{{ current.title }}"></div>
+        </section>
+
+        <!-- ===== ЦИФРЫ ===== -->
+        <div class="p-stats spec-stats">
+            <div class="p-stat spec-stat-text">
+                <div class="p-stat-value">{{ current.time_9 }}</div>
+                <div class="p-stat-label">Срок обучения после 9 класса</div>
+            </div>
+            <div class="p-stat spec-stat-text">
+                <div class="p-stat-value">{{ current.time_11 }}</div>
+                <div class="p-stat-label">Срок обучения после 11 класса</div>
+            </div>
+            <div class="p-stat spec-stat-text">
+                <div class="p-stat-value">{{ current.qualification }}</div>
+                <div class="p-stat-label">Квалификация по окончании</div>
+            </div>
+            <div class="p-stat">
+                <div class="p-stat-value">{{ current.budget_places }}</div>
+                <div class="p-stat-label">Бюджетных мест в плане приёма</div>
             </div>
         </div>
 
-        <h2 class="list-title">Другие направления</h2>
-
-        <div class="dir-grid">
-            {% for s in specialties %}
-            <a class="dir-item" href="/specialties?item={{ s.id }}">
-                <div class="dir-code">{{ s.code if s.code else '' }}</div>
-                <h3>{{ s.title }}</h3>
-                <span class="dir-arrow">Подробнее →</span>
-            </a>
+        {% if current.highlights %}
+        <div class="spec-highlights">
+            {% for highlight in current.highlights %}
+            <div class="spec-highlight"><b>✦</b><span>{{ highlight }}</span></div>
             {% endfor %}
+        </div>
+        {% endif %}
+
+        <div class="spec-layout">
+            <div class="spec-main">
+
+                <!-- ===== НАВЫКИ ===== -->
+                <section class="p-panel">
+                    <h2 class="p-panel-title">Чему вы научитесь</h2>
+                    <div class="p-cards">
+                        {% for skill in current.skills %}
+                        <div class="p-card">
+                            <div class="spec-skill">
+                                <div class="spec-skill-num">{{ loop.index }}</div>
+                                <p>{{ skill }}</p>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    <p class="p-note">Навыки отрабатываются на учебной практике и закрепляются на производственной
+                        практике в организациях Тамбова.</p>
+                </section>
+
+                <!-- ===== ДИСЦИПЛИНЫ ===== -->
+                <section class="p-panel">
+                    <h2 class="p-panel-title">Дисциплины и профессиональные модули</h2>
+                    <div class="spec-chips">
+                        {% for discipline in current.disciplines %}
+                        <span class="spec-chip">{{ discipline }}</span>
+                        {% endfor %}
+                    </div>
+                    <p class="p-note">Учебный план включает общеобразовательные предметы, профессиональные модули и
+                        практики. Расписание занятий составляется по семестрам.</p>
+                </section>
+
+                <!-- ===== УЧЕБНЫЙ ПЛАН ===== -->
+                <section class="p-panel">
+                    <h2 class="p-panel-title">Учебный план по курсам</h2>
+                    <ol class="p-timeline spec-timeline">
+                        {% for course in current.courses %}
+                        <li class="p-timeline-item">
+                            <div class="p-timeline-year">{{ course.course }}</div>
+                            <div class="p-timeline-body">
+                                <ul class="spec-course-list">
+                                    {% for point in course['items'] %}
+                                    <li>{{ point }}</li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </li>
+                        {% endfor %}
+                    </ol>
+                    <p class="p-note">План приведён по очной форме обучения на базе 9 классов. Для выпускников 11
+                        классов срок обучения сокращается, часть предметов изучается в сжатые сроки.</p>
+                </section>
+
+                <!-- ===== ПРАКТИКА ===== -->
+                <section class="p-panel">
+                    <h2 class="p-panel-title">Практика</h2>
+                    <p class="p-text">Практика проходит на действующих предприятиях Тамбова и области: студенты
+                        работают под руководством наставников от организации и преподавателей техникума, ведут дневник
+                        практики и готовят отчёт с оценкой профессиональных компетенций.</p>
+                    <ul class="dot-list">
+                        {% for place in current.practice %}
+                        <li>{{ place }}</li>
+                        {% endfor %}
+                    </ul>
+                    <p class="p-note">По итогам практики проводится дифференцированный зачёт. Лучшие студенты
+                        получают приглашение на стажировку с возможностью трудоустройства.</p>
+                </section>
+
+                <!-- ===== КАРЬЕРА ===== -->
+                <section class="p-panel">
+                    <h2 class="p-panel-title">Карьера после выпуска</h2>
+                    <ul class="dot-list">
+                        {% for position in current.career %}
+                        <li>{{ position }}</li>
+                        {% endfor %}
+                    </ul>
+                    <div class="spec-salary">
+                        <span class="spec-salary-label">Оплата труда</span>
+                        <p>{{ current.details.salary }}</p>
+                    </div>
+                    <p class="p-note">Карьерный рост начинается с должностей специалиста и помощника: через 2–3 года
+                        выпускники становятся старшими специалистами, руководителями отделов и открывают собственную
+                        практику или дело.</p>
+                </section>
+
+                <!-- ===== ДРУГИЕ НАПРАВЛЕНИЯ ===== -->
+                <section class="spec-dir-section">
+                    <h2 class="p-panel-title">Другие направления</h2>
+                    <div class="dir-grid spec-dir-grid">
+                        {% for s in specialties if s.id != current.id %}
+                        <a class="dir-item" href="/specialties?item={{ s.id }}">
+                            <div class="dir-img" style="background-image:url('{{ s.image }}');"></div>
+                            <div class="dir-info">
+                                <h4>{{ s.title }}</h4>
+                                <span class="dir-code">{{ s.code }}</span>
+                                <span class="dir-arrow">Подробнее →</span>
+                            </div>
+                        </a>
+                        {% endfor %}
+                    </div>
+                </section>
+            </div>
+
+            <!-- ===== САЙДБАР ===== -->
+            <aside class="spec-aside">
+                <div class="spec-aside-card">
+                    <div class="spec-aside-title">Поступление</div>
+                    <div class="spec-aside-row">
+                        <span>Бюджетных мест</span>
+                        <b class="is-accent">{{ current.budget_places }}</b>
+                    </div>
+                    <div class="spec-aside-row">
+                        <span>Мест с оплатой обучения</span>
+                        <b>{{ current.paid_places }}</b>
+                    </div>
+                    <div class="spec-aside-row">
+                        <span>Форма обучения</span>
+                        <b>{{ current.form }}</b>
+                    </div>
+                    <div class="spec-aside-row">
+                        <span>После 9 класса</span>
+                        <b>{{ current.time_9 }}</b>
+                    </div>
+                    <div class="spec-aside-row">
+                        <span>После 11 класса</span>
+                        <b>{{ current.time_11 }}</b>
+                    </div>
+                    <div class="spec-aside-row is-stacked">
+                        <span>Квалификация</span>
+                        <b>{{ current.qualification }}</b>
+                    </div>
+                    <div class="spec-aside-actions">
+                        <a href="/apply" class="btn-primary">Подать заявку</a>
+                        <a href="/admission/documents" class="btn-secondary">Документы</a>
+                    </div>
+                    <p class="spec-aside-note">Приёмная комиссия: 8(4752) 53-65-60, Пн–Пт с 8:00 до 16:30.
+                        г. Тамбов, ул. Пролетарская, 252/2.</p>
+                </div>
+
+                <div class="spec-aside-card">
+                    <div class="spec-aside-title">Коротко о направлении</div>
+                    <div class="spec-aside-row">
+                        <span>Код специальности</span>
+                        <b>{{ current.code }}</b>
+                    </div>
+                    <div class="spec-aside-row">
+                        <span>Профессиональных модулей</span>
+                        <b>{{ current.disciplines|length }}</b>
+                    </div>
+                    <div class="spec-aside-row">
+                        <span>Курсов обучения</span>
+                        <b>{{ current.courses|length }}</b>
+                    </div>
+                    <div class="spec-aside-row">
+                        <span>Баз практики</span>
+                        <b>{{ current.practice|length }}</b>
+                    </div>
+                    <p class="spec-aside-note">{{ current.details.about_prof }}</p>
+                </div>
+            </aside>
+        </div>
+
+        <!-- ===== СМОТРИТЕ ТАКЖЕ ===== -->
+        <div class="p-related">
+            <span class="p-related-label">Смотрите также:</span>
+            <a href="/specialties" class="p-related-link">Все специальности</a>
+            <a href="/admission" class="p-related-link">Поступление</a>
+            <a href="/admission/conditions" class="p-related-link">Условия поступления</a>
+            <a href="/apply" class="p-related-link">Подать заявку</a>
         </div>
     </div>
 

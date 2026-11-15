@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>КТТО — Жизнь техникума</title>
+    <link rel="stylesheet" href="/static/css/header.css">
+    <link rel="stylesheet" href="/static/css/main.css">
+    <link rel="stylesheet" href="/static/css/page.css">
+    <link rel="stylesheet" href="/static/css/account.css">
+    <link rel="stylesheet" href="/static/css/footer.css">
+</head>
+
+<body>
+    <div class="wrapper">
+        {% include "components/header.html" %}
+
+        <div class="crumbs">
+            <a href="/">Главная</a>
+            <span>/</span>
+            <span class="crumbs-current">Жизнь техникума</span>
+        </div>
+
+        <div class="page-head">
+            <div>
+                <h1>Жизнь техникума</h1>
+                <p>Фотографии и видео с занятий, мероприятий, встреч и экскурсий.</p>
+            </div>
+            <div class="sched-tabs">
+                <a href="/all_news" class="sched-tab">Все новости</a>
+            </div>
+        </div>
+
+        {% if videos %}
+        <div class="panel">
+            <div class="panel-title">Видео с событий</div>
+            <div class="gallery-grid">
+                {% for item in videos %}
+                <a href="/news/{{ item.id }}" class="gallery-item is-video">
+                    <video preload="metadata" muted playsinline
+                        {% if item.image_url %}poster="{{ item.image_url }}"{% endif %}>
+                        <source src="{{ item.video_url }}">
+                    </video>
+                    <span class="gallery-caption">{{ item.title }}</span>
+                </a>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+
+        {% if covers %}
+        <div class="panel">
+            <div class="panel-title">Фоторепортажи</div>
+            <div class="gallery-grid">
+                {% for item in covers %}
+                <a href="/news/{{ item.id }}" class="gallery-item">
+                    <img src="{{ item.image_url }}" alt="{{ item.title }}" loading="lazy">
+                    <span class="gallery-caption">{{ item.title }}</span>
+                </a>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+
+        {% if images %}
+        <div class="panel">
+            <div class="panel-title">Ещё кадры</div>
+            <div class="gallery-grid">
+                {% for img in images %}
+                <a href="/news/{{ img.news_id }}" class="gallery-item">
+                    <img src="{{ img.image_url }}" alt="Фото с мероприятия" loading="lazy">
+                </a>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+
+        {% if not videos and not covers and not images %}
+        <div class="panel">
+            <div class="empty-state">
+                <span class="emoji">📷</span>
+                Фотографии появятся после публикации ближайших новостей.
+            </div>
+        </div>
+        {% endif %}
+
+        <div class="p-cta">
+            <div class="p-cta-text">
+                <h2>Есть фотографии с мероприятия?</h2>
+                <p>Присылайте материалы в медиацентр техникума — лучшие кадры попадут в новости и галерею.</p>
+            </div>
+            <div class="p-cta-actions">
+                <a href="/contacts" class="btn-primary">Связаться с нами</a>
+            </div>
+        </div>
+    </div>
+
+    {% include "components/footer.html" %}
+</body>
+
+</html>

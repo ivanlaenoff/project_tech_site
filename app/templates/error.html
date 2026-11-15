@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>КТТО — {{ title }}</title>
+    <link rel="stylesheet" href="/static/css/header.css">
+    <link rel="stylesheet" href="/static/css/main.css">
+    <link rel="stylesheet" href="/static/css/page.css">
+    <link rel="stylesheet" href="/static/css/account.css">
+    <link rel="stylesheet" href="/static/css/footer.css">
+</head>
+
+<body>
+    <div class="wrapper">
+        {% include "components/header.html" %}
+
+        <section class="p-hero">
+            <div class="p-hero-main">
+                <div class="p-badge">Ошибка {{ code }}</div>
+                <h1>{{ title }}</h1>
+                <p class="p-lead">{{ message }}</p>
+                <div style="margin-top:22px; display:flex; gap:12px; flex-wrap:wrap;">
+                    <a href="/" class="btn-primary">На главную</a>
+                    <a href="/login" class="btn-secondary">Войти в кабинет</a>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    {% include "components/footer.html" %}
+</body>
+
+</html>

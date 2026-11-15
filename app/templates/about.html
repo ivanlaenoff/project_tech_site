@@ -7,218 +7,150 @@
     <title>КТТО — О нас</title>
     <link rel="stylesheet" href="/static/css/header.css">
     <link rel="stylesheet" href="/static/css/main.css">
+    <link rel="stylesheet" href="/static/css/page.css">
+    <link rel="stylesheet" href="/static/css/account.css">
     <link rel="stylesheet" href="/static/css/footer.css">
-    <style>
-        /* ===== УНИКАЛЬНЫЕ СТИЛИ ТОЛЬКО ДЛЯ ABOUT ===== */
-        .page-title {
-            font-size: 2.4rem;
-            font-weight: 700;
-            margin: 20px 0 30px;
-            color: #0F1E2F;
-            text-shadow: 0 1px 2px rgba(255, 255, 255, 0.2);
-        }
-
-        .about-hero {
-            padding: 48px 52px;
-            margin-bottom: 40px;
-            background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(24px) saturate(200%);
-            -webkit-backdrop-filter: blur(24px) saturate(200%);
-            border-radius: 60px;
-            border: 2px solid rgba(255, 255, 255, 0.25);
-            box-shadow: 0 10px 40px rgba(15, 30, 47, 0.05),
-                inset 0 1px 0 rgba(255, 255, 255, 0.6);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .about-hero::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            right: -15%;
-            width: 60%;
-            height: 200%;
-            background: radial-gradient(ellipse at 70% 30%, rgba(255, 255, 255, 0.25), transparent 70%);
-            pointer-events: none;
-            border-radius: 60px;
-        }
-
-        .about-hero h2 {
-            font-size: 2rem;
-            color: #2D9CDB;
-            margin-bottom: 20px;
-            position: relative;
-            z-index: 1;
-        }
-
-        .about-hero p {
-            color: #1A2F44;
-            line-height: 1.7;
-            font-size: 1.05rem;
-            margin-bottom: 15px;
-            position: relative;
-            z-index: 1;
-        }
-
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 25px;
-            margin-bottom: 50px;
-        }
-
-        .feature-card {
-            background: rgba(255, 255, 255, 0.2);
-            backdrop-filter: blur(12px) saturate(180%);
-            -webkit-backdrop-filter: blur(12px) saturate(180%);
-            border-radius: 32px;
-            padding: 30px;
-            border: 1px solid rgba(255, 255, 255, 0.25);
-            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4);
-            transition: all 0.3s ease;
-        }
-
-        .feature-card:hover {
-            transform: translateY(-6px);
-            background: rgba(255, 255, 255, 0.35);
-            border-color: rgba(255, 255, 255, 0.5);
-            box-shadow: 0 15px 40px rgba(45, 156, 219, 0.08);
-        }
-
-        .feature-card h3 {
-            color: #2D9CDB;
-            font-size: 1.2rem;
-            margin-bottom: 15px;
-        }
-
-        .feature-card ul {
-            list-style: none;
-            padding: 0;
-        }
-
-        .feature-card li {
-            position: relative;
-            padding-left: 20px;
-            margin-bottom: 10px;
-            color: #1A2F44;
-            font-size: 0.95rem;
-            line-height: 1.5;
-        }
-
-        .feature-card li::before {
-            content: "•";
-            color: #2D9CDB;
-            font-weight: bold;
-            font-size: 1.2rem;
-            position: absolute;
-            left: 0;
-            top: -1px;
-        }
-
-        .licenses-section {
-            padding: 40px;
-            margin-bottom: 60px;
-            background: rgba(45, 156, 219, 0.08);
-            backdrop-filter: blur(16px) saturate(180%);
-            -webkit-backdrop-filter: blur(16px) saturate(180%);
-            border-radius: 60px;
-            border: 1px solid rgba(45, 156, 219, 0.15);
-        }
-
-        .licenses-section h2 {
-            color: #0F1E2F;
-            font-size: 1.5rem;
-            margin-bottom: 20px;
-        }
-
-        .licenses-section p {
-            color: #1A2F44;
-            line-height: 1.6;
-            margin-bottom: 10px;
-            font-size: 0.95rem;
-        }
-
-        .licenses-section strong {
-            color: #2D9CDB;
-        }
-
-        @media (max-width: 860px) {
-            .wrapper {
-                padding: 0 20px;
-            }
-            .page-title {
-                font-size: 1.8rem;
-                text-align: center;
-            }
-            .about-hero,
-            .licenses-section {
-                padding: 30px 20px;
-            }
-        }
-    </style>
 </head>
 
 <body>
     <div class="wrapper">
         {% include "components/header.html" %}
 
-        <div class="page-title">О нас</div>
+        <nav class="crumbs" aria-label="Хлебные крошки">
+            <a href="/">Главная</a>
+            <span>/</span>
+            <span class="crumbs-current">О нас</span>
+        </nav>
 
-        <div class="about-hero">
-            <h2>Кооперативный техникум Тамбовского облпотребсоюза</h2>
-            <p>
-                <strong>67 лет успешной деятельности</strong> в профессиональном образовании. Мы осуществляем подготовку
-                квалифицированных специалистов, востребованных в различных отраслях экономики.
-            </p>
-            <p>
-                Техникум проводит обучение в строгом соответствии с Федеральными государственными образовательными
-                стандартами по очной форме обучения, предоставляет возможность поступить на бюджетные места и выдает диплом
-                государственного образца.
-            </p>
-        </div>
-
-        <div class="features-grid">
-            <div class="feature-card">
-                <h3>Материально-техническая база</h3>
-                <ul>
-                    <li>Специализированные аудитории и лаборатории</li>
-                    <li>Компьютерные классы в локальной сети с выходом в Интернет</li>
-                    <li>Библиотека и читальный зал с бесплатным доступом к электронной библиотеке</li>
-                    <li>Спортивный и тренажёрный залы, открытый стадион</li>
-                    <li>Столовая и медицинский пункт</li>
-                </ul>
+        <section class="p-hero">
+            <div class="p-hero-main">
+                <div class="p-badge">АНПОО КТТО</div>
+                <h1>О нас</h1>
+                <p class="p-lead">
+                    Кооперативный техникум Тамбовского облпотребсоюза — учебное заведение с более чем
+                    полувековой историей. Готовим специалистов для торговли, финансовой системы, права,
+                    информационных технологий и общественного питания.
+                </p>
             </div>
+            <aside class="p-hero-aside">
+                <div class="p-aside-icon">🎓</div>
+                <div class="p-aside-label">Приёмная комиссия</div>
+                <div class="p-aside-value">8(4752) 53-65-60</div>
+                <div class="p-aside-note">Пн–Сб, 8:00–16:30 · tkt33@inbox.ru</div>
+                <a href="/admission" class="p-aside-link">Условия поступления →</a>
+            </aside>
+        </section>
 
-            <div class="feature-card">
-                <h3>Дополнительные возможности</h3>
-                <ul>
-                    <li>Получение дополнительной рабочей профессии в период обучения (продавец, официант, бармен,
-                        секретарь, делопроизводитель, оператор ЭВМ, пользователь 1С, повар, кондитер)</li>
-                    <li>Право получить высшее профессиональное образование по профилю в сокращённые сроки</li>
-                    <li>Гарантированная карьера в торговле, на производстве, госслужбе и в финансовой сфере</li>
-                </ul>
+        <div class="p-stats">
+            <div class="p-stat">
+                <div class="p-stat-value">8</div>
+                <div class="p-stat-label">направлений подготовки</div>
+            </div>
+            <div class="p-stat">
+                <div class="p-stat-value">150</div>
+                <div class="p-stat-label">бюджетных мест</div>
+            </div>
+            <div class="p-stat">
+                <div class="p-stat-value">40+</div>
+                <div class="p-stat-label">преподавателей и наставников</div>
+            </div>
+            <div class="p-stat">
+                <div class="p-stat-value">12 000+</div>
+                <div class="p-stat-label">выпускников</div>
             </div>
         </div>
 
-        <div class="licenses-section">
-            <h2>Официальные документы</h2>
-            <p>
-                <strong>Лицензия</strong> на осуществление образовательной деятельности 68Л01 № 0000598 от 15 февраля
-                2016 года, бессрочно, регистрационный номер 19/26.
+        <section class="p-panel">
+            <h2 class="p-panel-title">Материально-техническая база</h2>
+            <p class="p-text">
+                Обучение проходит в специализированных аудиториях и лабораториях. Практические занятия
+                обеспечены оборудованием, программами и доступом к профессиональным информационным системам.
             </p>
-            <p>
-                <strong>Свидетельство о государственной аккредитации</strong> № А007-01289-68/01149434 от 15 марта 2019
-                года, бессрочно.
+            <ul class="dot-list">
+                <li>Специализированные аудитории и лаборатории</li>
+                <li>Компьютерные классы в локальной сети с выходом в Интернет</li>
+                <li>Библиотека и читальный зал с бесплатным доступом к электронной библиотеке</li>
+                <li>Спортивный и тренажёрный залы, открытый стадион</li>
+                <li>Столовая и медицинский пункт</li>
+            </ul>
+        </section>
+
+        <section class="p-panel">
+            <h2 class="p-panel-title">Дополнительные возможности</h2>
+            <p class="p-text">
+                Во время обучения студенты могут получить смежную квалификацию и подготовиться
+                к продолжению образования в вузе по профилю.
             </p>
+            <ul class="dot-list">
+                <li>Дополнительные рабочие профессии: продавец, официант, бармен, секретарь,
+                    делопроизводитель, оператор ЭВМ, пользователь 1С, повар, кондитер</li>
+                <li>Право получить высшее профессиональное образование по профилю в сокращённые сроки</li>
+                <li>Гарантированная карьера в торговле, на производстве, госслужбе и в финансовой сфере</li>
+            </ul>
+        </section>
+
+        <section class="p-panel">
+            <h2 class="p-panel-title">Официальные документы</h2>
+            <div class="p-table-wrap">
+                <table class="p-table">
+                    <thead>
+                        <tr>
+                            <th>Документ</th>
+                            <th>Номер и дата</th>
+                            <th>Срок действия</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Лицензия на образовательную деятельность</td>
+                            <td>68Л01 № 0000598 от 15.02.2016, рег. № 19/26</td>
+                            <td>бессрочно</td>
+                        </tr>
+                        <tr>
+                            <td>Свидетельство о государственной аккредитации</td>
+                            <td>№ А007-01289-68/01149434 от 15.03.2019</td>
+                            <td>бессрочно</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p class="p-note">
+                Копии документов предоставляются по запросу в приёмной техникума,
+                электронные версии — в каталоге документов.
+            </p>
+        </section>
+
+        <div class="p-notice">
+            <div class="p-notice-icon">💡</div>
+            <div>
+                <h3>Откуда мы начали</h3>
+                <p>
+                    Учебное заведение было создано в 1958 году как техникум потребительской кооперации
+                    и с тех пор выпустило тысячи специалистов для Тамбова и области.
+                    Подробная хроника — в разделе «История и традиции».
+                </p>
+            </div>
         </div>
 
-        <div class="section-links">
-            <a href="/about/history">История и традиции</a>
-            <a href="/about/leadership">Руководство</a>
-            <a href="/about/achievements">Достижения</a>
-            <a href="/about/documents">Документы</a>
-            <a href="/about/licenses">Лицензии</a>
+        <section class="p-cta">
+            <div class="p-cta-text">
+                <h2>Хотите учиться у нас?</h2>
+                <p>Приём документов на новый учебный год открыт. Оставьте заявку — приёмная комиссия подскажет порядок действий.</p>
+            </div>
+            <div class="p-cta-actions">
+                <a href="/apply" class="btn-primary">Подать заявку</a>
+                <a href="/contacts" class="btn-secondary">Контакты</a>
+            </div>
+        </section>
+
+        <div class="p-related">
+            <span class="p-related-label">Смотрите также:</span>
+            <a href="/about/history" class="p-related-link">История и традиции</a>
+            <a href="/about/leadership" class="p-related-link">Руководство</a>
+            <a href="/about/achievements" class="p-related-link">Достижения</a>
+            <a href="/documents" class="p-related-link">Документы</a>
+            <a href="/about/licenses" class="p-related-link">Лицензии</a>
+            <a href="/gallery" class="p-related-link">Жизнь техникума</a>
         </div>
     </div>
 

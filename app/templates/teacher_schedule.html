@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>КТТО — Редактирование расписания</title>
+    <link rel="stylesheet" href="/static/css/header.css">
+    <link rel="stylesheet" href="/static/css/main.css">
+    <link rel="stylesheet" href="/static/css/page.css">
+    <link rel="stylesheet" href="/static/css/account.css">
+    <link rel="stylesheet" href="/static/css/footer.css">
+</head>
+
+<body>
+    <div class="wrapper">
+        {% include "components/header.html" %}
+
+        <div class="crumbs">
+            <a href="/">Главная</a>
+            <span>/</span>
+            <a href="/teacher">Кабинет</a>
+            <span>/</span>
+            <span class="crumbs-current">Расписание</span>
+        </div>
+
+        <div class="page-head">
+            <div>
+                <h1>Расписание{% if current_group %} — {{ current_group.name }}{% endif %}</h1>
+                <p>Добавляйте и меняйте пары: изменение сразу видно студентам группы.</p>
+            </div>
+            <div class="sched-tabs">
+                <a href="/teacher" class="sched-tab">Кабинет</a>
+                <a href="/teacher/journal?group={{ group_name }}" class="sched-tab">Журнал</a>
+                <a href="/schedule?group={{ group_name }}" class="sched-tab">Как видят студенты</a>
+            </div>
+        </div>
+
+        <div class="sched-controls">
+            <div class="sched-tabs">
+                {% for g in groups %}
+                <a href="/teacher/schedule?group={{ g.name }}"
+                    class="sched-tab {% if current_group and g.name == current_group.name %}is-current{% endif %}">{{ g.name }}</a>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="panel">
+            <div class="panel-title">Добавить или изменить пару</div>
+            <form method="post" action="/teacher/schedule/save" class="inline-form">
+                <input type="hidden" name="group" value="{{ group_name }}">
+
+                <div class="auth-field">
+                    <label class="auth-label" for="weekday">День</label>
+                    <select class="auth-select" id="weekday" name="weekday">
+                        {% for d, name in weekdays.items() %}
+                        <option value="{{ d }}">{{ name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="auth-field">
+                    <label class="auth-label" for="lesson_no">Пара</label>
+                    <select class="auth-select" id="lesson_no" name="lesson_no">
+                        {% for n in [1, 2, 3, 4, 5] %}
+                        <option value="{{ n }}">{{ n }} пара ({{ lesson_times.get(n, '') }})</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="auth-field">
+                    <label class="auth-label" for="subject">Предмет</label>
+                    <input class="auth-input" id="subject" name="subject" type="text" required>
+                </div>
+
+                <div class="auth-field">
+                    <label class="auth-label" for="teacher_name">Преподаватель</label>
+                    <input class="auth-input" id="teacher_name" name="teacher_name" type="text"
+                        placeholder="Фамилия И. О.">
+                </div>
+
+                <div class="auth-field">
+                    <label class="auth-label" for="room">Кабинет</label>
+                    <input class="auth-input" id="room" name="room" type="text" placeholder="Например, 210">
+                </div>
+
+                <div class="auth-field">
+                    <label class="auth-label" for="lesson_type">Тип</label>
+                    <select class="auth-select" id="lesson_type" name="lesson_type">
+                        {% for t in lesson_types %}
+                        <option value="{{ t }}">{{ t }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <button type="submit" class="auth-submit">Сохранить пару</button>
+            </form>
+            <p class="panel-hint" style="margin-top:12px;">
+                Если пара на это место уже стоит — она будет заменена.
+            </p>
+        </div>
+
+        <div class="panel">
+            <div class="panel-title">
+                Текущая неделя
+                <span class="panel-hint">{{ rows|length }} пар</span>
+            </div>
+
+            {% if rows %}
+            <div class="table-scroll">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>День</th>
+                            <th>Пара</th>
+                            <th>Предмет</th>
+                            <th>Преподаватель</th>
+                            <th>Кабинет</th>
+                            <th>Тип</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for row in rows %}
+                        <tr>
+                            <td>{{ weekdays.get(row.weekday, row.weekday) }}</td>
+                            <td>{{ row.lesson_no }}</td>
+                            <td><strong>{{ row.subject }}</strong></td>
+                            <td>{{ row.teacher_name or '—' }}</td>
+                            <td>{{ row.room or '—' }}</td>
+                            <td>{{ row.lesson_type }}</td>
+                            <td>
+                                <form method="post" action="/teacher/schedule/delete" style="margin:0;">
+                                    <input type="hidden" name="lesson_id" value="{{ row.id }}">
+                                    <input type="hidden" name="group" value="{{ group_name }}">
+                                    <button type="submit" class="icon-btn" title="Удалить пару">✕</button>
+                                </form>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {% else %}
+            <div class="empty-state">
+                <span class="emoji">🗓️</span>
+                Расписание для этой группы пока не заполнено.
+            </div>
+            {% endif %}
+        </div>
+    </div>
+
+    {% include "components/footer.html" %}
+</body>
+
+</html>

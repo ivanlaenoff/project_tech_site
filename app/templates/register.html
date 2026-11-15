@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>КТТО — Регистрация</title>
+    <link rel="stylesheet" href="/static/css/header.css">
+    <link rel="stylesheet" href="/static/css/main.css">
+    <link rel="stylesheet" href="/static/css/page.css">
+    <link rel="stylesheet" href="/static/css/account.css">
+    <link rel="stylesheet" href="/static/css/footer.css">
+</head>
+
+<body>
+    <div class="wrapper">
+        {% include "components/header.html" %}
+
+        <div class="auth-wrap">
+            <div class="auth-card auth-wide">
+                <div class="auth-head">
+                    <div class="auth-icon">📝</div>
+                    <div class="auth-title">Регистрация</div>
+                    <div class="auth-sub">Аккаунт открывает доступ к дневнику и расписанию группы</div>
+                </div>
+
+                {% if error %}
+                <div class="auth-error">{{ error }}</div>
+                {% endif %}
+
+                <form method="post" action="/register">
+                    <div class="auth-field">
+                        <label class="auth-label">Кто вы?</label>
+                        <div class="role-choice">
+                            <label class="role-option">
+                                <input type="radio" name="role" value="student" {% if not form or form.role != 'parent' %}checked{% endif %}>
+                                <span>🎓 Студент</span>
+                            </label>
+                            <label class="role-option">
+                                <input type="radio" name="role" value="parent" {% if form and form.role == 'parent' %}checked{% endif %}>
+                                <span>👨‍👩‍👦 Родитель</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="auth-grid-2">
+                        <div class="auth-field">
+                            <label class="auth-label" for="last_name">Фамилия</label>
+                            <input class="auth-input" id="last_name" name="last_name" type="text"
+                                value="{{ form.last_name if form else '' }}" required>
+                        </div>
+                        <div class="auth-field">
+                            <label class="auth-label" for="first_name">Имя</label>
+                            <input class="auth-input" id="first_name" name="first_name" type="text"
+                                value="{{ form.first_name if form else '' }}" required>
+                        </div>
+                    </div>
+
+                    <div class="auth-grid-2">
+                        <div class="auth-field">
+                            <label class="auth-label" for="email">Email</label>
+                            <input class="auth-input" id="email" name="email" type="email"
+                                value="{{ form.email if form else '' }}" placeholder="you@example.ru" required>
+                        </div>
+                        <div class="auth-field">
+                            <label class="auth-label" for="phone">Телефон</label>
+                            <input class="auth-input" id="phone" name="phone" type="tel"
+                                value="{{ form.phone if form else '' }}" placeholder="+7 (900) 000-00-00">
+                        </div>
+                    </div>
+
+                    <div class="auth-field">
+                        <label class="auth-label" for="group_name">Учебная группа</label>
+                        <select class="auth-select" id="group_name" name="group_name">
+                            <option value="">— выберите группу —</option>
+                            {% for g in groups %}
+                            <option value="{{ g.name }}" {% if form and form.group_name == g.name %}selected{% endif %}>
+                                {{ g.name }} · {{ g.course }} курс
+                            </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <div class="auth-grid-2">
+                        <div class="auth-field">
+                            <label class="auth-label" for="password">Пароль</label>
+                            <input class="auth-input" id="password" name="password" type="password"
+                                placeholder="не менее 6 символов" required>
+                        </div>
+                        <div class="auth-field">
+                            <label class="auth-label" for="confirm_password">Повторите пароль</label>
+                            <input class="auth-input" id="confirm_password" name="confirm_password"
+                                type="password" required>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="auth-submit">Создать аккаунт</button>
+                </form>
+
+                <div class="auth-alt">
+                    Уже зарегистрированы? <a href="/login">Войти</a>
+                </div>
+
+                <div class="auth-demo">
+                    <strong>Обратите внимание</strong>
+                    Аккаунт преподавателя создаётся администрацией техникума — самостоятельная регистрация
+                    доступна только студентам и родителям. После регистрации данные проверит учебная часть.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% include "components/footer.html" %}
+</body>
+
+</html>

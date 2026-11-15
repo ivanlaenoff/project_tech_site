@@ -328,7 +328,7 @@ PAGES = {
             "title": "Нужна копия документа?",
             "text": "Напишите нам на tkt33@inbox.ru с указанием нужного документа и цели запроса.",
             "buttons": [
-                {"label": "Написать в приёмную", "href": "mailto:tkt33@inbox.ru", "kind": "primary"},
+                {"label": "Каталог документов", "href": "/documents", "kind": "primary"},
                 {"label": "Контакты и адрес", "href": "/contacts", "kind": "secondary"},
             ],
         },

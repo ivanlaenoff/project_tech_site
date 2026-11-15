@@ -1,21 +1,21 @@
 <div class="nav">
-    <a href="/">Главная</a>
+    <a href="/" class="{% if active_path == '/' %}nav-active{% endif %}">Главная</a>
 
     <div class="dropdown">
-        <a href="/about">О нас ▾</a>
+        <a href="/about" class="{% if active_path.startswith('/about') %}nav-active{% endif %}">О нас ▾</a>
 
         <div class="dropdown-menu">
             <a href="/about/history">История и традиции</a>
             <a href="/about/leadership">Руководство</a>
             <a href="/about/achievements">Достижения</a>
-            <a href="/about/documents">Документы</a>
+            <a href="/documents">Документы</a>
             <a href="/about/licenses">Лицензии</a>
+            <a href="/gallery">Жизнь техникума</a>
         </div>
     </div>
 
-
     <div class="dropdown">
-        <a href="/admission">Поступление ▾</a>
+        <a href="/admission" class="{% if active_path.startswith('/admission') %}nav-active{% endif %}">Поступление ▾</a>
 
         <div class="dropdown-menu">
             <a href="/admission/conditions">Условия поступления</a>
@@ -26,12 +26,11 @@
         </div>
     </div>
 
-
     <div class="dropdown">
-        <a href="/students">Студентам ▾</a>
+        <a href="/students" class="{% if active_path.startswith('/students') %}nav-active{% endif %}">Студентам ▾</a>
 
         <div class="dropdown-menu">
-            <a href="/students/schedule">Расписание</a>
+            <a href="/schedule">Расписание</a>
             <a href="/students/scholarships">Стипендии</a>
             <a href="/students/dormitory">Общежитие</a>
             <a href="/students/practice">Практика</a>
@@ -40,6 +39,6 @@
         </div>
     </div>
 
-
-    <a href="/contacts">Контакты</a>
+    <a href="/contacts" class="{% if active_path == '/contacts' %}nav-active{% endif %}">Контакты</a>
+    <a href="/login" class="nav-login">Войти</a>
 </div>

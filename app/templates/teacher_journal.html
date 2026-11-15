@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>КТТО — Журнал оценок</title>
+    <link rel="stylesheet" href="/static/css/header.css">
+    <link rel="stylesheet" href="/static/css/main.css">
+    <link rel="stylesheet" href="/static/css/page.css">
+    <link rel="stylesheet" href="/static/css/account.css">
+    <link rel="stylesheet" href="/static/css/footer.css">
+</head>
+
+<body>
+    <div class="wrapper">
+        {% include "components/header.html" %}
+
+        <div class="crumbs">
+            <a href="/">Главная</a>
+            <span>/</span>
+            <a href="/teacher">Кабинет</a>
+            <span>/</span>
+            <span class="crumbs-current">Журнал</span>
+        </div>
+
+        <div class="page-head">
+            <div>
+                <h1>Журнал оценок{% if current_group %} — {{ current_group.name }}{% endif %}</h1>
+                <p>Выставление оценок и домашних заданий. Средний балл считается автоматически.</p>
+            </div>
+            <div class="sched-tabs">
+                <a href="/teacher" class="sched-tab">Кабинет</a>
+                <a href="/teacher/schedule" class="sched-tab">Расписание</a>
+            </div>
+        </div>
+
+        <div class="sched-controls">
+            <div class="sched-tabs">
+                {% for g in groups %}
+                <a href="/teacher/journal?group={{ g.name }}"
+                    class="sched-tab {% if current_group and g.name == current_group.name %}is-current{% endif %}">{{ g.name }}</a>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="dash-grid">
+            <div class="panel">
+                <div class="panel-title">
+                    Студенты группы
+                    <span class="panel-hint">{{ students|length }} чел.</span>
+                </div>
+
+                {% if student_rows %}
+                <div class="table-scroll">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Студент</th>
+                                <th>Оценок</th>
+                                <th>Средний</th>
+                                <th>Последняя</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for row in student_rows %}
+                            <tr>
+                                <td><strong>{{ row.profile.full_name }}</strong></td>
+                                <td>{{ row.count }}</td>
+                                <td>{{ row.avg if row.avg is not none else '—' }}</td>
+                                <td>
+                                    {% if row.last %}
+                                    <span class="mark mark-{{ row.last.mark }}">{{ row.last.mark }}</span>
+                                    {% else %}—{% endif %}
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                {% else %}
+                <div class="empty-state">
+                    <span class="emoji">👥</span>
+                    В этой группе ещё нет зарегистрированных студентов.
+                </div>
+                {% endif %}
+            </div>
+
+            <div>
+                <div class="panel">
+                    <div class="panel-title">Выставить оценку</div>
+                    {% if students %}
+                    <form method="post" action="/teacher/grade">
+                        <input type="hidden" name="group" value="{{ current_group.name if current_group else '' }}">
+
+                        <div class="auth-field">
+                            <label class="auth-label" for="student_id">Студент</label>
+                            <select class="auth-select" id="student_id" name="student_id" required>
+                                {% for s in students %}
+                                <option value="{{ s.user_id }}">{{ s.full_name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <div class="auth-field">
+                            <label class="auth-label" for="subject">Предмет</label>
+                            <input class="auth-input" id="subject" name="subject" type="text"
+                                placeholder="Например, Базы данных" required>
+                        </div>
+
+                        <div class="auth-grid-2">
+                            <div class="auth-field">
+                                <label class="auth-label" for="mark">Оценка</label>
+                                <select class="auth-select" id="mark" name="mark">
+                                    <option value="5">5 — отлично</option>
+                                    <option value="4">4 — хорошо</option>
+                                    <option value="3">3 — удовлетворительно</option>
+                                    <option value="2">2 — неудовлетворительно</option>
+                                </select>
+                            </div>
+                            <div class="auth-field">
+                                <label class="auth-label" for="grade_date">Дата</label>
+                                <input class="auth-input" id="grade_date" name="grade_date" type="date"
+                                    value="{{ today }}">
+                            </div>
+                        </div>
+
+                        <div class="auth-field">
+                            <label class="auth-label" for="comment">Комментарий</label>
+                            <input class="auth-input" id="comment" name="comment" type="text"
+                                placeholder="Например, контрольная работа">
+                        </div>
+
+                        <button type="submit" class="auth-submit">Поставить оценку</button>
+                    </form>
+                    {% else %}
+                    <div class="empty-state"><span class="emoji">📝</span>Некому выставлять оценки.</div>
+                    {% endif %}
+                </div>
+
+                <div class="panel">
+                    <div class="panel-title">Добавить домашнее задание</div>
+                    <form method="post" action="/teacher/homework">
+                        <input type="hidden" name="group" value="{{ current_group.name if current_group else '' }}">
+
+                        <div class="auth-field">
+                            <label class="auth-label" for="hw-subject">Предмет</label>
+                            <input class="auth-input" id="hw-subject" name="subject" type="text" required>
+                        </div>
+                        <div class="auth-field">
+                            <label class="auth-label" for="hw-task">Задание</label>
+                            <textarea class="auth-textarea" id="hw-task" name="task" required
+                                style="min-height:80px;"></textarea>
+                        </div>
+                        <div class="auth-field">
+                            <label class="auth-label" for="due_date">Срок сдачи</label>
+                            <input class="auth-input" id="due_date" name="due_date" type="date">
+                        </div>
+                        <button type="submit" class="auth-submit">Сохранить задание</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel">
+            <div class="panel-title">
+                Последние оценки группы
+                <span class="panel-hint">последние 15</span>
+            </div>
+            {% if recent_grades %}
+            <div class="table-scroll">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Дата</th>
+                            <th>Студент</th>
+                            <th>Предмет</th>
+                            <th>Оценка</th>
+                            <th>Комментарий</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for g in recent_grades %}
+                        <tr>
+                            <td>{{ g.date|ru_date }}</td>
+                            <td>{{ g.user.email }}</td>
+                            <td>{{ g.subject }}</td>
+                            <td><span class="mark mark-{{ g.mark }}">{{ g.mark }}</span></td>
+                            <td>{{ g.comment or '—' }}</td>
+                            <td>
+                                <form method="post" action="/teacher/grade/delete" style="margin:0;">
+                                    <input type="hidden" name="grade_id" value="{{ g.id }}">
+                                    <input type="hidden" name="group" value="{{ current_group.name if current_group else '' }}">
+                                    <button type="submit" class="icon-btn" title="Удалить оценку">✕</button>
+                                </form>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {% else %}
+            <div class="empty-state"><span class="emoji">📊</span>Оценок пока нет.</div>
+            {% endif %}
+        </div>
+    </div>
+
+    {% include "components/footer.html" %}
+</body>
+
+</html>

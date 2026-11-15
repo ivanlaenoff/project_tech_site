@@ -1,0 +1,35 @@
+<div class="nav nav-auth">
+    <a href="/" class="{% if active_path == '/' %}nav-active{% endif %}">Главная</a>
+
+    {% if user_role == 'student' %}
+    <a href="/diary" class="{% if active_path.startswith('/diary') %}nav-active{% endif %}">Дневник</a>
+    {% elif user_role in ('teacher', 'admin') %}
+    <a href="/teacher" class="{% if active_path.startswith('/teacher') %}nav-active{% endif %}">Журнал</a>
+    {% endif %}
+
+    <a href="/schedule" class="{% if active_path.startswith('/schedule') %}nav-active{% endif %}">Расписание</a>
+
+    <div class="user-chip">
+        <div class="user-chip-head">
+            <span class="user-avatar">{{ (user_name or 'П')[:1] }}{% if ' ' in (user_name or '') %}{{ user_name.split(' ')[1][:1] }}{% endif %}</span>
+            <span class="user-chip-text">
+                <span class="user-chip-name">{{ user_name or 'Пользователь' }}</span>
+                <span class="user-chip-role">
+                    {% if user_role == 'student' %}Студент{% elif user_role == 'teacher' %}Преподаватель{% elif user_role == 'admin' %}Администратор{% else %}Родитель{% endif %}
+                    {% if user_group %} · {{ user_group }}{% endif %}
+                </span>
+            </span>
+        </div>
+
+        <div class="user-menu">
+            <a href="/diary">Дневник</a>
+            <a href="/schedule">Расписание</a>
+            <a href="/profile">Мои данные</a>
+            {% if user_role in ('teacher', 'admin') %}
+            <a href="/teacher/journal">Журнал оценок</a>
+            <a href="/admin" target="_blank">Админ-панель</a>
+            {% endif %}
+            <a href="/logout" class="user-menu-exit">Выйти</a>
+        </div>
+    </div>
+</div>

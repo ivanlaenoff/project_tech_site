@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>КТТО — Дневник</title>
+    <link rel="stylesheet" href="/static/css/header.css">
+    <link rel="stylesheet" href="/static/css/main.css">
+    <link rel="stylesheet" href="/static/css/page.css">
+    <link rel="stylesheet" href="/static/css/account.css">
+    <link rel="stylesheet" href="/static/css/footer.css">
+</head>
+
+<body>
+    <div class="wrapper">
+        {% include "components/header.html" %}
+
+        <div class="crumbs">
+            <a href="/">Главная</a>
+            <span>/</span>
+            <span class="crumbs-current">Дневник</span>
+        </div>
+
+        <div class="page-head">
+            <div>
+                <h1>Дневник</h1>
+                <p>
+                    {{ profile.full_name if profile and profile.full_name else user.email }}
+                    {% if group %} · группа <strong>{{ group.name }}</strong>{% endif %}
+                </p>
+            </div>
+            <div class="sched-tabs">
+                <a href="/schedule" class="sched-tab">Расписание</a>
+                <a href="/profile" class="sched-tab">Мои данные</a>
+            </div>
+        </div>
+
+        {% if profile and not group %}
+        <div class="panel">
+            <div class="empty-state">
+                <span class="emoji">📌</span>
+                Группа пока не привязана к аккаунту. Обратитесь в учебную часть — после привязки
+                здесь появятся оценки и домашние задания.
+            </div>
+        </div>
+        {% endif %}
+
+        <div class="stat-strip">
+            <div class="stat-box">
+                <div class="value {{ 'value-dark' if average is none }}">{{ average if average is not none else '—' }}</div>
+                <div class="label">Средний балл</div>
+            </div>
+            <div class="stat-box">
+                <div class="value">{{ grades|length }}</div>
+                <div class="label">Оценок за период</div>
+            </div>
+            <div class="stat-box">
+                <div class="value">{{ homework|length }}</div>
+                <div class="label">Домашних заданий</div>
+            </div>
+            <div class="stat-box">
+                <div class="value">{{ today_lessons|length }}</div>
+                <div class="label">Пар сегодня</div>
+            </div>
+        </div>
+
+        <div class="dash-grid">
+            <div>
+                <div class="panel">
+                    <div class="panel-title">
+                        Оценки по предметам
+                        <span class="panel-hint">{{ 'по убыванию среднего' if by_subject else '' }}</span>
+                    </div>
+
+                    {% if by_subject %}
+                    <div class="table-scroll">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Предмет</th>
+                                    <th>Оценки</th>
+                                    <th>Средний</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for subject, data in by_subject.items() %}
+                                <tr>
+                                    <td><strong>{{ subject }}</strong></td>
+                                    <td>
+                                        <span class="mark-row">
+                                            {% for m in data.marks[:8] %}
+                                            <span class="mark mark-{{ m }}">{{ m }}</span>
+                                            {% endfor %}
+                                        </span>
+                                    </td>
+                                    <td>{{ data.avg }}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    {% else %}
+                    <div class="empty-state">
+                        <span class="emoji">📭</span>
+                        Пока нет выставленных оценок.
+                    </div>
+                    {% endif %}
+                </div>
+
+                <div class="panel">
+                    <div class="panel-title">Последние оценки</div>
+                    {% if grades %}
+                    <div class="table-scroll">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Дата</th>
+                                    <th>Предмет</th>
+                                    <th>Оценка</th>
+                                    <th>Преподаватель</th>
+                                    <th>Комментарий</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for g in grades[:12] %}
+                                <tr>
+                                    <td>{{ g.date|ru_date }}</td>
+                                    <td>{{ g.subject }}</td>
+                                    <td><span class="mark mark-{{ g.mark }}">{{ g.mark }}</span></td>
+                                    <td>{{ g.teacher_name or '—' }}</td>
+                                    <td>{{ g.comment or '—' }}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    {% else %}
+                    <div class="empty-state"><span class="emoji">🗒️</span>Оценок ещё нет.</div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div>
+                <div class="panel">
+                    <div class="panel-title">
+                        Домашние задания
+                        <a href="/schedule" class="panel-hint">расписание →</a>
+                    </div>
+
+                    {% if homework %}
+                    {% for h in homework %}
+                    <div class="lesson-row">
+                        <div class="lesson-time">до {{ h.due_date|ru_date }}</div>
+                        <div class="lesson-body">
+                            <strong>{{ h.subject }}</strong>
+                            <span>{{ h.task }}</span>
+                        </div>
+                    </div>
+                    {% endfor %}
+                    {% else %}
+                    <div class="empty-state"><span class="emoji">✅</span>Новых заданий нет.</div>
+                    {% endif %}
+                </div>
+
+                <div class="panel">
+                    <div class="panel-title">Сегодня по расписанию</div>
+                    {% if today_lessons %}
+                    {% for lesson in today_lessons %}
+                    <div class="lesson-row">
+                        <div class="lesson-time">{{ lesson_times.get(lesson.lesson_no, '') }}</div>
+                        <div class="lesson-body">
+                            <strong>{{ lesson.subject }}</strong>
+                            <span>{{ lesson.teacher_name or '' }}</span>
+                        </div>
+                        <div class="lesson-room">{{ lesson.room or '—' }}</div>
+                    </div>
+                    {% endfor %}
+                    {% else %}
+                    <div class="empty-state"><span class="emoji">🌤️</span>Сегодня занятий нет или день не учебный.</div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% include "components/footer.html" %}
+</body>
+
+</html>

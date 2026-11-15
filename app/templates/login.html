@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>КТТО — Вход в личный кабинет</title>
+    <link rel="stylesheet" href="/static/css/header.css">
+    <link rel="stylesheet" href="/static/css/main.css">
+    <link rel="stylesheet" href="/static/css/page.css">
+    <link rel="stylesheet" href="/static/css/account.css">
+    <link rel="stylesheet" href="/static/css/footer.css">
+</head>
+
+<body>
+    <div class="wrapper">
+        {% include "components/header.html" %}
+
+        <div class="auth-wrap">
+            <div class="auth-card">
+                <div class="auth-head">
+                    <div class="auth-icon">🔑</div>
+                    <div class="auth-title">Вход в личный кабинет</div>
+                    <div class="auth-sub">Дневник, расписание и оценки — в одном месте</div>
+                </div>
+
+                {% if error %}
+                <div class="auth-error">{{ error }}</div>
+                {% endif %}
+
+                <form method="post" action="/login">
+                    <input type="hidden" name="next" value="{{ next or '' }}">
+
+                    <div class="auth-field">
+                        <label class="auth-label" for="email">Email</label>
+                        <input class="auth-input" type="email" id="email" name="email"
+                            value="{{ email or '' }}" placeholder="student@tkt33.ru" required autofocus>
+                    </div>
+
+                    <div class="auth-field">
+                        <label class="auth-label" for="password">Пароль</label>
+                        <input class="auth-input" type="password" id="password" name="password"
+                            placeholder="••••••••" required>
+                    </div>
+
+                    <button type="submit" class="auth-submit">Войти</button>
+                </form>
+
+                <div class="auth-alt">
+                    Нет аккаунта? <a href="/register">Зарегистрироваться</a>
+                </div>
+
+                <div class="auth-demo">
+                    <strong>Демо-доступ для проверки</strong>
+                    Студент: <code>student@tkt33.ru</code> / <code>student123</code><br>
+                    Преподаватель: <code>teacher@tkt33.ru</code> / <code>teacher123</code><br>
+                    Администратор: <code>admin@tkt33.ru</code> / <code>admin123</code>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% include "components/footer.html" %}
+</body>
+
+</html>

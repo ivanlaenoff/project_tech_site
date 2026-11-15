@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>КТТО — Кабинет преподавателя</title>
+    <link rel="stylesheet" href="/static/css/header.css">
+    <link rel="stylesheet" href="/static/css/main.css">
+    <link rel="stylesheet" href="/static/css/page.css">
+    <link rel="stylesheet" href="/static/css/account.css">
+    <link rel="stylesheet" href="/static/css/footer.css">
+</head>
+
+<body>
+    <div class="wrapper">
+        {% include "components/header.html" %}
+
+        <div class="crumbs">
+            <a href="/">Главная</a>
+            <span>/</span>
+            <span class="crumbs-current">Кабинет преподавателя</span>
+        </div>
+
+        <div class="page-head">
+            <div>
+                <h1>Здравствуйте, {{ (profile.full_name if profile and profile.full_name else (user_name or 'преподаватель')) }}</h1>
+                <p>{{ profile.position if profile and profile.position else 'Преподаватель' }} · {{ weekday_name }}</p>
+            </div>
+            <div class="sched-tabs">
+                <a href="/teacher/journal" class="sched-tab">Журнал оценок</a>
+                <a href="/teacher/schedule" class="sched-tab">Расписание</a>
+            </div>
+        </div>
+
+        <div class="stat-strip">
+            <div class="stat-box">
+                <div class="value">{{ groups|length }}</div>
+                <div class="label">Учебных групп</div>
+            </div>
+            <div class="stat-box">
+                <div class="value">{{ students|length }}</div>
+                <div class="label">Студентов в базе</div>
+            </div>
+            <div class="stat-box">
+                <div class="value">{{ my_lessons|length }}</div>
+                <div class="label">Ваших пар сегодня</div>
+            </div>
+            <div class="stat-box">
+                <div class="value value-dark">{{ today_lessons|length }}</div>
+                <div class="label">Пар по техникуму сегодня</div>
+            </div>
+        </div>
+
+        <div class="dash-grid">
+            <div>
+                <div class="panel">
+                    <div class="panel-title">
+                        Ваши занятия сегодня
+                        <a href="/teacher/schedule" class="panel-hint">изменить →</a>
+                    </div>
+
+                    {% if my_lessons %}
+                    {% for lesson in my_lessons %}
+                    <div class="lesson-row">
+                        <div class="lesson-time">{{ lesson_times.get(lesson.lesson_no, '') }}</div>
+                        <div class="lesson-body">
+                            <strong>{{ lesson.subject }}</strong>
+                            <span>{{ lesson.group.name if lesson.group else '' }} · {{ lesson.lesson_type }}</span>
+                        </div>
+                        <div class="lesson-room">{{ lesson.room or '—' }}</div>
+                    </div>
+                    {% endfor %}
+                    {% else %}
+                    <div class="empty-state">
+                        <span class="emoji">📅</span>
+                        {% if today_lessons %}Сегодня ваших пар нет — ниже расписание всех групп.{% else %}Сегодня занятий нет.{% endif %}
+                    </div>
+                    {% endif %}
+                </div>
+
+                <div class="panel">
+                    <div class="panel-title">Группы</div>
+                    <div class="table-scroll">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Группа</th>
+                                    <th>Курс</th>
+                                    <th>Куратор</th>
+                                    <th>Студентов в базе</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for g in groups %}
+                                <tr>
+                                    <td><strong>{{ g.name }}</strong></td>
+                                    <td>{{ g.course }}</td>
+                                    <td>{{ g.curator or '—' }}</td>
+                                    <td>{{ groups_count.get(g.name, 0) }}</td>
+                                    <td>
+                                        <a href="/teacher/journal?group={{ g.name }}" class="doc-download">журнал →</a>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel">
+                <div class="panel-title">Все пары на сегодня</div>
+                {% if today_lessons %}
+                {% for lesson in today_lessons %}
+                <div class="lesson-row">
+                    <div class="lesson-time">{{ lesson_times.get(lesson.lesson_no, '') }}</div>
+                    <div class="lesson-body">
+                        <strong>{{ lesson.subject }}</strong>
+                        <span>{{ lesson.group.name if lesson.group else '' }} · {{ lesson.teacher_name or '' }}</span>
+                    </div>
+                    <div class="lesson-room">{{ lesson.room or '—' }}</div>
+                </div>
+                {% endfor %}
+                {% else %}
+                <div class="empty-state"><span class="emoji">🌤️</span>Сегодня занятий нет.</div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    {% include "components/footer.html" %}
+</body>
+
+</html>

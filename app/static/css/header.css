@@ -202,3 +202,201 @@
         transform: translateX(-50%) translateY(0);
     }
 }
+
+/* ============================================================
+   ФОКУС, АКТИВНЫЙ ПУНКТ, КНОПКА «ВОЙТИ»
+   ============================================================ */
+a {
+    -webkit-tap-highlight-color: transparent;
+}
+
+/* Убираем синюю рамку/полосу после клика; оставляем её только
+   для навигации с клавиатуры */
+.nav a:focus,
+.nav a:active,
+.header .logo a:focus,
+.header .logo a:active,
+.dropdown-menu a:focus,
+.user-menu a:focus {
+    outline: none;
+}
+
+.nav a:focus-visible,
+.header .logo a:focus-visible,
+.dropdown-menu a:focus-visible,
+.user-menu a:focus-visible {
+    outline: 2px solid #2D9CDB;
+    outline-offset: 3px;
+}
+
+/* Логотип: аккуратный эффект без сдвига макета */
+.header .logo a {
+    border-radius: 24px;
+    transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: transform;
+}
+
+.header .logo img {
+    transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+        filter 0.35s ease;
+}
+
+.header .logo a:hover img {
+    transform: scale(1.04);
+    filter: drop-shadow(0 6px 14px rgba(45, 156, 219, 0.25));
+}
+
+.header .logo a:active img {
+    transform: scale(0.97);
+}
+
+.nav a.nav-active {
+    background: rgba(45, 156, 219, 0.22);
+    border-color: rgba(45, 156, 219, 0.45);
+    color: #0F1E2F;
+}
+
+.nav a.nav-login {
+    background: #2D9CDB;
+    color: #FFFFFF;
+    border-color: rgba(255, 255, 255, 0.25);
+    box-shadow: 0 4px 16px rgba(45, 156, 219, 0.25);
+}
+
+.nav a.nav-login:hover {
+    background: #0F1E2F;
+    color: #FFFFFF;
+}
+
+/* ============================================================
+   КАРТОЧКА ПОЛЬЗОВАТЕЛЯ В ШАПКЕ
+   ============================================================ */
+.user-chip {
+    position: relative;
+    margin-left: 4px;
+}
+
+.user-chip-head {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 6px 14px 6px 6px;
+    border-radius: 60px;
+    background: rgba(255, 255, 255, 0.45);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    cursor: pointer;
+    transition: background 0.25s ease, box-shadow 0.25s ease;
+}
+
+.user-chip:hover .user-chip-head {
+    background: rgba(255, 255, 255, 0.7);
+    box-shadow: 0 6px 18px rgba(15, 30, 47, 0.08);
+}
+
+.user-avatar {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #2D9CDB, #1B6FA8);
+    color: #FFFFFF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    font-weight: 800;
+    letter-spacing: 0.3px;
+    flex-shrink: 0;
+}
+
+.user-chip-text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.15;
+    text-align: left;
+}
+
+.user-chip-name {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #0F1E2F;
+    max-width: 150px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.user-chip-role {
+    font-size: 0.7rem;
+    color: rgba(15, 30, 47, 0.6);
+    font-weight: 600;
+}
+
+.user-menu {
+    position: absolute;
+    top: 52px;
+    right: 0;
+    min-width: 210px;
+    padding: 10px;
+    border-radius: 22px;
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(30px) saturate(180%);
+    -webkit-backdrop-filter: blur(30px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.7);
+    box-shadow: 0 20px 40px rgba(15, 30, 47, 0.14);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(8px);
+    transition: all 0.25s ease;
+    z-index: 9999;
+}
+
+.user-chip:hover .user-menu,
+.user-menu:hover {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.user-menu a {
+    display: block;
+    padding: 9px 14px;
+    border-radius: 14px;
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: #0F1E2F;
+    background: transparent;
+    border: none;
+    white-space: nowrap;
+}
+
+.user-menu a:hover {
+    background: #2D9CDB;
+    color: #FFFFFF;
+}
+
+.user-menu a.user-menu-exit {
+    margin-top: 4px;
+    border-top: 1px solid rgba(15, 30, 47, 0.08);
+    border-radius: 0 0 14px 14px;
+    color: #C0392B;
+}
+
+.user-menu a.user-menu-exit:hover {
+    background: #C0392B;
+    color: #FFFFFF;
+}
+
+@media (max-width: 1024px) {
+    .user-chip {
+        margin: 8px auto 0;
+    }
+
+    .user-menu {
+        right: 50%;
+        transform: translateX(50%) translateY(8px);
+    }
+
+    .user-chip:hover .user-menu {
+        transform: translateX(50%) translateY(0);
+    }
+}

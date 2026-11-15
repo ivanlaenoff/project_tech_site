@@ -5,175 +5,382 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>КТТО — Контакты</title>
+    <meta name="description"
+        content="Контакты Кооперативного техникума Тамбовского облпотребсоюза: адрес 392020, г. Тамбов, ул. Пролетарская, 252/2, телефоны приёмной комиссии и дирекции, режим работы, схема проезда и форма обратной связи.">
     <link rel="stylesheet" href="/static/css/header.css">
     <link rel="stylesheet" href="/static/css/main.css">
     <link rel="stylesheet" href="/static/css/footer.css">
+    <link rel="stylesheet" href="/static/css/page.css">
     <style>
-        /* ===== УНИКАЛЬНЫЕ СТИЛИ ДЛЯ CONTACTS ===== */
-        .page-title {
-            font-size: 2.4rem;
-            font-weight: 700;
-            margin: 20px 0 30px;
+        /* ===== УНИКАЛЬНЫЕ СТИЛИ ТОЛЬКО ДЛЯ CONTACTS ===== */
+
+        /* --- быстрые действия в герое --- */
+        .contact-chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 24px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .contact-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 9px;
+            padding: 10px 18px;
+            border-radius: 60px;
+            background: rgba(255, 255, 255, 0.38);
+            border: 1px solid rgba(255, 255, 255, 0.55);
             color: #0F1E2F;
-            text-shadow: 0 1px 2px rgba(255, 255, 255, 0.2);
+            font-weight: 700;
+            font-size: 0.9rem;
+            line-height: 1.35;
+            text-align: left;
+            backdrop-filter: blur(10px) saturate(160%);
+            -webkit-backdrop-filter: blur(10px) saturate(160%);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.6);
+            transition: background 0.25s ease, color 0.25s ease, border-color 0.25s ease,
+                transform 0.25s ease, box-shadow 0.25s ease;
         }
 
-        .contacts-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 40px;
-            margin-bottom: 60px;
+        .contact-chip:hover {
+            background: #2D9CDB;
+            border-color: #2D9CDB;
+            color: #FFFFFF;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 22px rgba(45, 156, 219, 0.28);
         }
 
-        .contacts-info {
-            padding: 40px 44px;
-            background: rgba(255, 255, 255, 0.12);
-            backdrop-filter: blur(24px) saturate(200%);
-            -webkit-backdrop-filter: blur(24px) saturate(200%);
-            border-radius: 60px;
-            border: 2px solid rgba(255, 255, 255, 0.2);
-            box-shadow: 0 10px 40px rgba(15, 30, 47, 0.04),
-                inset 0 1px 0 rgba(255, 255, 255, 0.5);
-            position: relative;
-            overflow: hidden;
+        .contact-chip:focus-visible {
+            outline: 3px solid rgba(45, 156, 219, 0.5);
+            outline-offset: 2px;
         }
 
-        .contacts-info::before {
-            content: '';
-            position: absolute;
-            top: -40%;
-            right: -15%;
-            width: 60%;
-            height: 180%;
-            background: radial-gradient(ellipse at 70% 30%, rgba(255, 255, 255, 0.2), transparent 70%);
-            pointer-events: none;
-            border-radius: 60px;
-        }
-
-        .contact-item {
-            display: flex;
-            align-items: center;
-            gap: 18px;
-            margin-bottom: 28px;
-            position: relative;
-            z-index: 1;
-        }
-
-        .contact-item:last-child {
-            margin-bottom: 0;
-        }
-
-        .contact-icon {
-            background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-            width: 56px;
-            height: 56px;
-            border-radius: 28px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.6rem;
-            color: #2D9CDB;
-            border: 1px solid rgba(255, 255, 255, 0.15);
+        .contact-chip-icon {
+            font-size: 1rem;
+            line-height: 1;
             flex-shrink: 0;
         }
 
-        .contact-text {
-            font-size: 1.05rem;
-            color: #1A2F44;
-            font-weight: 500;
-            line-height: 1.4;
+        /* --- карточки контактов --- */
+        .contact-card {
+            display: flex;
+            flex-direction: column;
         }
 
-        .contact-text a {
+        .contact-card-phone {
+            display: inline-block;
+            align-self: flex-start;
+            font-size: 1.12rem;
+            font-weight: 800;
+            letter-spacing: 0.2px;
             color: #2D9CDB;
-            text-decoration: none;
-            transition: color 0.2s;
+            line-height: 1.3;
+            margin-bottom: 6px;
+            white-space: nowrap;
+            transition: color 0.2s ease;
         }
 
-        .contact-text a:hover {
+        .contact-card-phone:hover {
             color: #0F1E2F;
             text-decoration: underline;
         }
 
-        .map-container {
-            border-radius: 60px;
-            overflow: hidden;
-            background: rgba(255, 255, 255, 0.08);
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-            border: 2px solid rgba(255, 255, 255, 0.15);
-            min-height: 420px;
-            position: relative;
+        .contact-card-address {
+            display: block;
+            font-size: 0.98rem;
+            font-weight: 700;
+            color: #0F1E2F;
+            line-height: 1.45;
+            white-space: normal;
+            margin-bottom: 6px;
         }
 
-        .map-container iframe {
+        .contact-card-address:hover {
+            color: #0F1E2F;
+            text-decoration: none;
+        }
+
+        .contact-card-meta {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: rgba(15, 30, 47, 0.6);
+            line-height: 1.45;
+            margin-bottom: 10px;
+        }
+
+        .contact-card .p-card-desc {
+            margin-top: auto;
+        }
+
+        /* --- таблица отделов --- */
+        .p-table a {
+            color: #2D9CDB;
+            font-weight: 700;
+            white-space: nowrap;
+            transition: color 0.2s ease;
+        }
+
+        .p-table a:hover {
+            color: #0F1E2F;
+            text-decoration: underline;
+        }
+
+        .dept-person {
+            display: block;
+            margin-top: 2px;
+            font-size: 0.78rem;
+            font-weight: 500;
+            color: rgba(15, 30, 47, 0.55);
+        }
+
+        .dept-note {
+            display: block;
+            font-size: 0.72rem;
+            font-weight: 500;
+            color: rgba(15, 30, 47, 0.5);
+        }
+
+        .p-note a {
+            color: #2D9CDB;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+
+        .p-note a:hover {
+            color: #0F1E2F;
+            text-decoration: underline;
+        }
+
+        /* --- как нас найти --- */
+        .find-grid {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+            gap: 28px;
+            align-items: stretch;
+        }
+
+        .find-info {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .find-map {
+            border-radius: 36px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.55);
+            background: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 12px 34px rgba(15, 30, 47, 0.08),
+                inset 0 1px 0 rgba(255, 255, 255, 0.5);
+            min-height: 380px;
+        }
+
+        .find-map iframe {
+            display: block;
             width: 100%;
             height: 100%;
-            min-height: 420px;
-            border: none;
+            min-height: 380px;
+            border: 0;
+        }
+
+        .route-list {
+            list-style: none;
+            margin: 4px 0 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .route-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            padding: 14px 18px;
+            background: rgba(255, 255, 255, 0.24);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            border-radius: 24px;
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5);
+            transition: background 0.25s ease, transform 0.25s ease;
+        }
+
+        .route-item:hover {
+            background: rgba(255, 255, 255, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .route-icon {
+            font-size: 1.25rem;
+            line-height: 1.2;
+            flex-shrink: 0;
+        }
+
+        .route-item strong {
             display: block;
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: #0F1E2F;
+            line-height: 1.4;
         }
 
+        .route-item span {
+            display: block;
+            font-size: 0.86rem;
+            color: #1A2F44;
+            opacity: 0.8;
+            line-height: 1.45;
+        }
+
+        /* --- форма обратной связи --- */
+        .contact-success {
+            margin-bottom: 22px;
+        }
+
+        .cf-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px 20px;
+        }
+
+        .cf-field {
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+        }
+
+        .cf-field-full {
+            grid-column: 1 / -1;
+        }
+
+        .cf-field label {
+            font-size: 0.88rem;
+            font-weight: 700;
+            color: #0F1E2F;
+            letter-spacing: 0.1px;
+        }
+
+        .cf-field input,
+        .cf-field select,
+        .cf-field textarea {
+            width: 100%;
+            padding: 13px 16px;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.55);
+            background: rgba(255, 255, 255, 0.42);
+            color: #0F1E2F;
+            font-family: inherit;
+            font-size: 0.95rem;
+            line-height: 1.45;
+            outline: none;
+            backdrop-filter: blur(8px) saturate(160%);
+            -webkit-backdrop-filter: blur(8px) saturate(160%);
+            transition: border-color 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+        }
+
+        .cf-field input::placeholder,
+        .cf-field textarea::placeholder {
+            color: rgba(15, 30, 47, 0.45);
+        }
+
+        .cf-field input:focus,
+        .cf-field select:focus,
+        .cf-field textarea:focus {
+            border-color: #2D9CDB;
+            background: rgba(255, 255, 255, 0.62);
+            box-shadow: 0 0 0 3px rgba(45, 156, 219, 0.16);
+        }
+
+        .cf-field select {
+            cursor: pointer;
+        }
+
+        .cf-field textarea {
+            min-height: 132px;
+            resize: vertical;
+        }
+
+        .cf-actions {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 18px;
+            margin-top: 22px;
+        }
+
+        .cf-submit {
+            padding: 14px 36px;
+        }
+
+        .cf-hint {
+            font-size: 0.8rem;
+            line-height: 1.5;
+            color: rgba(15, 30, 47, 0.6);
+            max-width: 44ch;
+        }
+
+        /* ===== АДАПТИВ ===== */
         @media (max-width: 1024px) {
-            .contacts-grid {
+            .find-grid {
                 grid-template-columns: 1fr;
-                gap: 30px;
             }
-            .map-container {
-                min-height: 320px;
+
+            .find-map {
+                min-height: 330px;
             }
-            .map-container iframe {
-                min-height: 320px;
+
+            .find-map iframe {
+                min-height: 330px;
+            }
+
+            .contact-card-meta {
+                font-size: 0.78rem;
             }
         }
 
-        @media (max-width: 860px) {
-            .wrapper {
-                padding: 0 20px;
+        @media (max-width: 680px) {
+            .contact-chips {
+                margin-top: 18px;
+                gap: 8px;
             }
-            .page-title {
-                font-size: 1.8rem;
-                text-align: center;
+
+            .contact-chip {
+                padding: 9px 14px;
+                font-size: 0.85rem;
             }
-            .contacts-info {
-                padding: 28px 24px;
+
+            .cf-grid {
+                grid-template-columns: 1fr;
+                gap: 16px;
             }
-            .contact-item {
+
+            .cf-field-full {
+                grid-column: auto;
+            }
+
+            .cf-actions {
+                flex-direction: column;
+                align-items: stretch;
                 gap: 14px;
-                margin-bottom: 20px;
             }
-            .contact-icon {
-                width: 48px;
-                height: 48px;
-                font-size: 1.3rem;
-            }
-            .contact-text {
-                font-size: 0.95rem;
-            }
-            .map-container {
-                min-height: 260px;
-            }
-            .map-container iframe {
-                min-height: 260px;
-            }
-        }
 
-        @media (max-width: 480px) {
-            .contact-item {
-                flex-wrap: wrap;
-                gap: 10px;
+            .cf-submit {
+                width: 100%;
             }
-            .contact-icon {
-                width: 44px;
-                height: 44px;
-                font-size: 1.1rem;
+
+            .find-map {
+                min-height: 280px;
+                border-radius: 28px;
             }
-            .contact-text {
-                font-size: 0.9rem;
-                flex: 1;
-                min-width: 140px;
+
+            .find-map iframe {
+                min-height: 280px;
+            }
+
+            .route-item {
+                padding: 12px 14px;
+                gap: 12px;
             }
         }
     </style>
@@ -183,35 +390,293 @@
     <div class="wrapper">
         {% include "components/header.html" %}
 
-        <div class="page-title">Контакты</div>
+        <nav class="crumbs" aria-label="Хлебные крошки">
+            <a href="/">Главная</a>
+            <span>/</span>
+            <span class="crumbs-current">Контакты</span>
+        </nav>
 
-        <div class="contacts-grid">
-            <div class="contacts-info">
-                <div class="contact-item">
-                    <div class="contact-icon">📞</div>
-                    <div class="contact-text">8(4752) 53-53-70</div>
+        <section class="p-hero" aria-labelledby="contacts-title">
+            <div class="p-hero-main">
+                <div class="p-badge">Кооперативный техникум · Тамбов</div>
+                <h1 id="contacts-title">Контакты</h1>
+                <p class="p-lead">
+                    Приёмная комиссия, учебная часть и администрация техникума всегда на связи.
+                    Позвоните, напишите на почту или загляните к нам — мы работаем Пн–Сб с 8:00 до 16:30.
+                </p>
+                <div class="contact-chips">
+                    <a class="contact-chip" href="tel:+74752536560">
+                        <span class="contact-chip-icon" aria-hidden="true">📞</span>
+                        Позвонить в приёмную комиссию
+                    </a>
+                    <a class="contact-chip" href="mailto:tkt33@inbox.ru">
+                        <span class="contact-chip-icon" aria-hidden="true">✉️</span>
+                        Написать на email
+                    </a>
+                    <a class="contact-chip" href="https://vk.com/cooptech68" target="_blank" rel="noopener">
+                        <span class="contact-chip-icon" aria-hidden="true">💬</span>
+                        Написать в VK
+                    </a>
                 </div>
-                <div class="contact-item">
-                    <div class="contact-icon">✉️</div>
-                    <div class="contact-text"><a href="mailto:tkt33@inbox.ru">tkt33@inbox.ru</a></div>
+            </div>
+        </section>
+
+        <div class="p-cards">
+            <article class="p-card contact-card">
+                <div class="p-card-icon" aria-hidden="true">📍</div>
+                <h3>Адрес и режим работы</h3>
+                <div class="contact-card-address">392020, г. Тамбов,<br>ул. Пролетарская, 252/2</div>
+                <a class="contact-card-phone" href="tel:+74752535370">8(4752) 53-53-70</a>
+                <div class="contact-card-meta">приёмная · Пн–Сб 8:00–16:30</div>
+                <p class="p-card-desc">
+                    Главный корпус техникума в центре Тамбова, рядом остановка «Пролетарская».
+                    Вход со стороны улицы Пролетарской.
+                </p>
+            </article>
+
+            <article class="p-card contact-card">
+                <div class="p-card-icon" aria-hidden="true">🎓</div>
+                <h3>Приёмная комиссия</h3>
+                <a class="contact-card-phone" href="tel:+74752536560">8(4752) 53-65-60</a>
+                <div class="contact-card-meta">Пн–Пт 8:00–16:30 · каб. 109</div>
+                <p class="p-card-desc">
+                    Приём документов, консультации абитуриентов и родителей, информация о
+                    специальностях, условиях поступления и проходных баллах.
+                </p>
+            </article>
+
+            <article class="p-card contact-card">
+                <div class="p-card-icon" aria-hidden="true">👤</div>
+                <h3>Дирекция</h3>
+                <a class="contact-card-phone" href="tel:+74752535370">8(4752) 53-53-70</a>
+                <div class="contact-card-meta">Земской Николай Александрович · вторник 15:00–17:00 · каб. 206</div>
+                <p class="p-card-desc">
+                    Личный приём по предварительной записи, общие вопросы работы техникума
+                    и официальные обращения.
+                </p>
+            </article>
+
+            <article class="p-card contact-card">
+                <div class="p-card-icon" aria-hidden="true">📚</div>
+                <h3>Учебная часть</h3>
+                <a class="contact-card-phone" href="tel:+74752536561">8(4752) 53-65-61</a>
+                <div class="contact-card-meta">Пн–Пт 9:00–16:00 · каб. 108</div>
+                <p class="p-card-desc">
+                    Расписание занятий, учебные планы, перевод и отчисление, справки
+                    для студентов и родителей.
+                </p>
+            </article>
+
+            <article class="p-card contact-card">
+                <div class="p-card-icon" aria-hidden="true">💼</div>
+                <h3>Бухгалтерия</h3>
+                <a class="contact-card-phone" href="tel:+74752536563">8(4752) 53-65-63</a>
+                <div class="contact-card-meta">Пн–Пт 9:00–16:00 · каб. 207</div>
+                <p class="p-card-desc">
+                    Оплата обучения, договоры, стипендии и другие финансовые вопросы
+                    студентов и слушателей.
+                </p>
+            </article>
+
+            <article class="p-card contact-card">
+                <div class="p-card-icon" aria-hidden="true">🏠</div>
+                <h3>Общежитие</h3>
+                <a class="contact-card-phone" href="tel:+74752536564">8(4752) 53-65-64</a>
+                <div class="contact-card-meta">комендант · Пн–Вс 8:00–20:00 · корпус Б</div>
+                <p class="p-card-desc">
+                    Заселение, проживание и бытовые вопросы. Общежитие расположено
+                    в корпусе Б на территории техникума.
+                </p>
+            </article>
+        </div>
+
+        <section class="p-panel" id="departments" aria-labelledby="departments-title">
+            <h2 class="p-panel-title" id="departments-title">Отделы и службы</h2>
+            <p class="p-text">
+                Телефоны подразделений техникума. Приём ведётся по предварительной записи —
+                позвоните, чтобы согласовать удобное время.
+            </p>
+            <div class="p-table-wrap">
+                <table class="p-table" aria-label="Телефоны и часы приёма отделов и служб">
+                    <thead>
+                        <tr>
+                            <th scope="col">Подразделение</th>
+                            <th scope="col">Телефон</th>
+                            <th scope="col">Кабинет</th>
+                            <th scope="col">Часы приёма</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Директор<span class="dept-person">Земской Н. А.</span></td>
+                            <td><a href="tel:+74752535370">8(4752) 53-53-70</a></td>
+                            <td>206</td>
+                            <td>вторник, 15:00–17:00</td>
+                        </tr>
+                        <tr>
+                            <td>Заместитель по учебной работе<span class="dept-person">Петрова А. С.</span></td>
+                            <td><a href="tel:+74752536561">8(4752) 53-65-61</a></td>
+                            <td>205</td>
+                            <td>Пн–Пт, 9:00–16:00</td>
+                        </tr>
+                        <tr>
+                            <td>Заместитель по воспитательной работе<span class="dept-person">Сидоров Д. П.</span></td>
+                            <td><a href="tel:+74752536562">8(4752) 53-65-62</a></td>
+                            <td>204</td>
+                            <td>Пн–Пт, 9:00–16:00</td>
+                        </tr>
+                        <tr>
+                            <td>Приёмная комиссия</td>
+                            <td><a href="tel:+74752536560">8(4752) 53-65-60</a></td>
+                            <td>109</td>
+                            <td>Пн–Пт, 8:00–16:30</td>
+                        </tr>
+                        <tr>
+                            <td>Учебная часть</td>
+                            <td><a href="tel:+74752536561">8(4752) 53-65-61</a></td>
+                            <td>108</td>
+                            <td>Пн–Пт, 9:00–16:00</td>
+                        </tr>
+                        <tr>
+                            <td>Бухгалтерия</td>
+                            <td><a href="tel:+74752536563">8(4752) 53-65-63</a></td>
+                            <td>207</td>
+                            <td>Пн–Пт, 9:00–16:00</td>
+                        </tr>
+                        <tr>
+                            <td>Библиотека</td>
+                            <td>
+                                <a href="tel:+74752535370">8(4752) 53-53-70</a>
+                                <span class="dept-note">через приёмную</span>
+                            </td>
+                            <td>102</td>
+                            <td>Пн–Пт, 9:00–16:00</td>
+                        </tr>
+                        <tr>
+                            <td>Общежитие</td>
+                            <td><a href="tel:+74752536564">8(4752) 53-65-64</a></td>
+                            <td>корпус Б</td>
+                            <td>Пн–Вс, 8:00–20:00</td>
+                        </tr>
+                        <tr>
+                            <td>Медпункт</td>
+                            <td>
+                                <a href="tel:+74752535370">8(4752) 53-53-70</a>
+                                <span class="dept-note">через приёмную</span>
+                            </td>
+                            <td>115</td>
+                            <td>Пн–Пт, 8:00–16:00</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p class="p-note">
+                Если не удалось дозвониться в подразделение, наберите приёмную техникума
+                <a href="tel:+74752535370">8(4752) 53-53-70</a> — вас соединят с нужным специалистом.
+            </p>
+        </section>
+
+        <section class="p-panel" id="how-to-find" aria-labelledby="find-title">
+            <h2 class="p-panel-title" id="find-title">Как нас найти</h2>
+            <div class="find-grid">
+                <div class="find-info">
+                    <p class="p-text">
+                        Техникум расположен в центральной части Тамбова. Добраться можно
+                        городскими автобусами — от остановки до главного корпуса около пяти минут пешком.
+                    </p>
+                    <ul class="route-list">
+                        <li class="route-item">
+                            <span class="route-icon" aria-hidden="true">🚌</span>
+                            <div>
+                                <strong>Автобусы № 1, 12, 17, 20, 25</strong>
+                                <span>остановка «Пролетарская»</span>
+                            </div>
+                        </li>
+                        <li class="route-item">
+                            <span class="route-icon" aria-hidden="true">🚶</span>
+                            <div>
+                                <strong>5 минут пешком</strong>
+                                <span>от остановки «Пролетарская» до главного корпуса</span>
+                            </div>
+                        </li>
+                        <li class="route-item">
+                            <span class="route-icon" aria-hidden="true">🅿️</span>
+                            <div>
+                                <strong>Парковка</strong>
+                                <span>бесплатная стоянка для автомобилей перед главным корпусом</span>
+                            </div>
+                        </li>
+                    </ul>
                 </div>
-                <div class="contact-item">
-                    <div class="contact-icon">💬</div>
-                    <div class="contact-text"><a href="https://vk.com/cooptech68" target="_blank">vk.com/cooptech68</a>
+                <div class="find-map">
+                    <iframe
+                        src="https://api-maps.yandex.ru/services/constructor/1.0/js/?um=constructor%3A2af0320f3819a376aedf8a87d5941800f455184d4a3337ac3abb1f91bc39bf0f&amp;width=100%25&amp;height=420&amp;lang=ru_RU&amp;scroll=true"
+                        title="Кооперативный техникум на карте Тамбова — ул. Пролетарская, 252/2"
+                        loading="lazy" allowfullscreen></iframe>
+                </div>
+            </div>
+        </section>
+
+        <section class="p-panel" id="feedback" aria-labelledby="feedback-title">
+            <h2 class="p-panel-title" id="feedback-title">Обратная связь</h2>
+            <p class="p-text">
+                Задайте вопрос приёмной комиссии или администрации техникума. Укажите удобный
+                способ связи — мы ответим в течение одного рабочего дня.
+            </p>
+
+            {% if success %}
+            <div class="p-notice contact-success" role="status">
+                <div class="p-notice-icon" aria-hidden="true">✅</div>
+                <div>
+                    <h3>Обращение отправлено</h3>
+                    <p>Спасибо! Обращение отправлено. Мы ответим в течение одного рабочего дня.</p>
+                </div>
+            </div>
+            {% endif %}
+
+            <form class="cf-form" method="post" action="/contacts">
+                <div class="cf-grid">
+                    <div class="cf-field">
+                        <label for="cf-name">Ваше имя</label>
+                        <input type="text" id="cf-name" name="name" placeholder="Иван Иванович"
+                            autocomplete="name" required>
+                    </div>
+                    <div class="cf-field">
+                        <label for="cf-contact">Контакт для ответа</label>
+                        <input type="text" id="cf-contact" name="contact" placeholder="телефон или email"
+                            autocomplete="tel" required>
+                    </div>
+                    <div class="cf-field cf-field-full">
+                        <label for="cf-topic">Тема обращения</label>
+                        <select id="cf-topic" name="topic">
+                            <option value="Приём на обучение">Приём на обучение</option>
+                            <option value="Учебный процесс">Учебный процесс</option>
+                            <option value="Общежитие">Общежитие</option>
+                            <option value="Другое">Другое</option>
+                        </select>
+                    </div>
+                    <div class="cf-field cf-field-full">
+                        <label for="cf-message">Сообщение</label>
+                        <textarea id="cf-message" name="message" placeholder="Кратко опишите ваш вопрос"
+                            required></textarea>
                     </div>
                 </div>
-                <div class="contact-item">
-                    <div class="contact-icon">📍</div>
-                    <div class="contact-text">г. Тамбов, ул. Пролетарская, 252/2</div>
+                <div class="cf-actions">
+                    <button type="submit" class="btn-primary cf-submit">Отправить обращение</button>
+                    <span class="cf-hint">
+                        Нажимая кнопку, вы соглашаетесь на обработку персональных данных.
+                    </span>
                 </div>
-            </div>
+            </form>
+        </section>
 
-            <div class="map-container">
-                <iframe
-                    src="https://api-maps.yandex.ru/services/constructor/1.0/js/?um=constructor%3A2af0320f3819a376aedf8a87d5941800f455184d4a3337ac3abb1f91bc39bf0f&amp;width=100%25&amp;height=420&amp;lang=ru_RU&amp;scroll=true">
-                </iframe>
-            </div>
-        </div>
+        <nav class="p-related" aria-label="Полезные разделы">
+            <span class="p-related-label">Полезные разделы:</span>
+            <a href="/admission" class="p-related-link">Поступление</a>
+            <a href="/students" class="p-related-link">Студентам</a>
+            <a href="/info" class="p-related-link">Сведения об организации</a>
+            <a href="/apply" class="p-related-link">Подать заявку</a>
+        </nav>
     </div>
 
     {% include "components/footer.html" %}

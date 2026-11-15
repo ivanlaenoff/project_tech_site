@@ -8,7 +8,6 @@
     <link rel="stylesheet" href="/static/css/header.css">
     <link rel="stylesheet" href="/static/css/main.css">
     <link rel="stylesheet" href="/static/css/footer.css">
-    <!-- УНИКАЛЬНЫЕ СТИЛИ ДЛЯ ГЛАВНОЙ (ПОЧТИ НЕТ, ВСЁ В MAIN.CSS) -->
 </head>
 
 <body>
@@ -21,65 +20,28 @@
             <div class="hero-text">
                 <h1>Кооперативный техникум<br><span class="accent">Тамбовского Облпотребсоюза</span></h1>
                 <p>Одно из старейших учебных заведений СПО России. Основан в 1923 году. Готовим специалистов для
-                    потребительской кооперации, государственного хозяйства и предпринимательства.</p>
-                <button class="btn-primary" onclick="location.href='/apply'">Поступить онлайн →</button>
+                    потребительской кооперации, финансовой системы, права и общественного питания.</p>
+
+                <div class="hero-facts">
+                    <div class="hero-fact"><strong>8</strong><span>направлений подготовки</span></div>
+                    <div class="hero-fact"><strong>150</strong><span>бюджетных мест</span></div>
+                    <div class="hero-fact"><strong>100+</strong><span>лет истории</span></div>
+                </div>
+
+                <div class="hero-actions">
+                    <button class="btn-primary" onclick="location.href='/apply'">Поступить онлайн →</button>
+                    <a class="hero-link" href="/specialties">Все специальности</a>
+                </div>
             </div>
             <div class="hero-image">
                 <img src="/src/tech.jpg" alt="Здание техникума">
             </div>
         </div>
 
-        <!-- ====== СВЕДЕНИЯ ====== -->
-        <div class="quick-section">
-            <div class="section-title">Сведения об образовательной организации</div>
-            <div class="quick-grid">
-                <a href="/info" class="quick-card">
-                    <div class="quick-icon">🏛️</div>
-                    <h3>Основные сведения</h3>
-                    <p>История, лицензии, документы</p>
-                </a>
-                <a href="/info" class="quick-card">
-                    <div class="quick-icon">📚</div>
-                    <h3>Образование</h3>
-                    <p>Направления и формы обучения</p>
-                </a>
-                <a href="/info" class="quick-card">
-                    <div class="quick-icon">👥</div>
-                    <h3>Руководство</h3>
-                    <p>Администрация и преподаватели</p>
-                </a>
-                <a href="/info" class="quick-card">
-                    <div class="quick-icon">📢</div>
-                    <h3>Приёмная комиссия</h3>
-                    <p>Правила поступления и контакты</p>
-                </a>
-            </div>
-        </div>
-
-        <!-- ====== НОВОСТИ ====== -->
-        <div class="news-section">
-            <div class="section-title">Новости КТТО</div>
-            <div class="news-grid">
-                {% for item in news[:3] %}
-                <a href="/news/{{ item.id }}" class="news-card"
-                    style="background-image: linear-gradient(to top, rgba(15,30,47,0.8), rgba(15,30,47,0.1)), url('{{ item.image_url or '/static/placeholder.jpg' }}'); background-size: cover; background-position: center;">
-                    <div class="news-content-overlay">
-                        <div class="news-date-overlay">{{ item.date }}</div>
-                        <div class="news-title-overlay">{{ item.title }}</div>
-                        <span class="news-badge">Читать →</span>
-                    </div>
-                </a>
-                {% endfor %}
-            </div>
-            <div class="news-text-center">
-                <a href="/all_news" class="btn-secondary">Смотреть все новости →</a>
-            </div>
-        </div>
-
         <!-- ====== НАПРАВЛЕНИЯ ====== -->
         <div class="directions">
-            <div class="directions-badge">⭐ 7 ключевых направлений</div>
-            <div class="section-title" style="margin-top: -4px;">🎓 Направления подготовки</div>
+            <div class="directions-badge">🎓 8 ключевых направлений</div>
+            <div class="section-title" style="margin-top: -4px;">Направления подготовки</div>
             <div class="dir-grid">
 
                 <a href="/specialties?item=bank" class="dir-item">
@@ -109,7 +71,7 @@
                 <a href="/specialties?item=cook" class="dir-item">
                     <div class="dir-img" style="background-image:url('/src/Поварское.png');"></div>
                     <div class="dir-info">
-                        <h4>Поварское дело</h4>
+                        <h4>Поварское и кондитерское дело</h4>
                         <span class="dir-arrow">Подробнее →</span>
                     </div>
                 </a>
@@ -149,6 +111,74 @@
             </div>
         </div>
 
+        <!-- ====== СВЕДЕНИЯ ====== -->
+        <div class="quick-section">
+            <div class="section-title">Сведения об образовательной организации</div>
+            <div class="quick-grid">
+                <a href="/info" class="quick-card">
+                    <div class="quick-icon">🏛️</div>
+                    <h3>Основные сведения</h3>
+                    <p>История, лицензии, документы</p>
+                </a>
+                <a href="/specialties" class="quick-card">
+                    <div class="quick-icon">📚</div>
+                    <h3>Образование</h3>
+                    <p>Направления и формы обучения</p>
+                </a>
+                <a href="/about/leadership" class="quick-card">
+                    <div class="quick-icon">👥</div>
+                    <h3>Руководство</h3>
+                    <p>Администрация и преподаватели</p>
+                </a>
+                <a href="/admission" class="quick-card">
+                    <div class="quick-icon">📢</div>
+                    <h3>Приёмная комиссия</h3>
+                    <p>Правила поступления и контакты</p>
+                </a>
+            </div>
+        </div>
+
+        <!-- ====== НОВОСТИ ====== -->
+        <div class="news-section">
+            <div class="section-title">Новости КТТО</div>
+            <div class="news-grid">
+                {% for item in news[:3] %}
+                <a href="/news/{{ item.id }}" class="news-card"
+                    style="background-image: linear-gradient(to top, rgba(15,30,47,0.85), rgba(15,30,47,0.05)), url('{{ item.image_url or '/static/src/newscard1.png' }}');">
+                    <span class="news-shine"></span>
+                    <div class="news-content-overlay">
+                        <div class="news-date-overlay">{{ item.date }}</div>
+                        <div class="news-title-overlay">{{ item.title }}</div>
+                        <span class="news-badge">Читать →</span>
+                    </div>
+                </a>
+                {% endfor %}
+            </div>
+            <div class="news-text-center">
+                <a href="/all_news" class="btn-secondary">Смотреть все новости →</a>
+            </div>
+        </div>
+
+        <!-- ====== ЖИЗНЬ ТЕХНИКУМА ====== -->
+        <div class="life-section">
+            <div class="life-head">
+                <div>
+                    <div class="section-title" style="margin-bottom:10px;">Жизнь техникума</div>
+                    <p class="life-sub">Занятия, конкурсы, экскурсии и встречи с работодателями — как это было.</p>
+                </div>
+                <a href="/gallery" class="btn-secondary">Все фото и видео →</a>
+            </div>
+
+            {% set pics = gallery if gallery|length >= 4 else gallery + ['/static/src/newscard1.png', '/static/src/newscard2.png', '/static/src/newscard3.jpg', '/static/src/tech.jpg'] %}
+            <div class="life-grid">
+                {% for pic in pics[:5] %}
+                <a href="/gallery" class="life-item">
+                    <img src="{{ pic }}" alt="Фото из жизни техникума" loading="lazy">
+                </a>
+                {% endfor %}
+            </div>
+        </div>
+
         <!-- ====== КОНТАКТЫ ====== -->
         <div class="contacts">
             <div>
@@ -159,7 +189,7 @@
                     <div class="contact-icon">💬</div> tkt33@inbox.ru
                 </div>
                 <div class="contact-line">
-                    <div class="contact-icon">✈️</div> tkt33@inbox.ru
+                    <div class="contact-icon">🕒</div> Пн–Сб, 8:00–16:30
                 </div>
                 <div class="contact-line">
                     <div class="contact-icon">📍</div> г. Тамбов, ул. Пролетарская, 252/2

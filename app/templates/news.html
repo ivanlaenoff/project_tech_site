@@ -4,9 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>{{ post.title }} — КТТО</title>
+    <title>КТТО — {{ post.title }}</title>
     <link rel="stylesheet" href="/static/css/header.css">
     <link rel="stylesheet" href="/static/css/main.css">
+    <link rel="stylesheet" href="/static/css/page.css">
+    <link rel="stylesheet" href="/static/css/account.css">
     <link rel="stylesheet" href="/static/css/footer.css">
     <style>
         /* ===== УНИКАЛЬНЫЕ СТИЛИ ДЛЯ NEWS ===== */
@@ -14,7 +16,7 @@
             display: grid;
             grid-template-columns: 2.5fr 1fr;
             gap: 40px;
-            margin-bottom: 60px;
+            margin-bottom: 40px;
         }
 
         .news-container {
@@ -22,26 +24,41 @@
         }
 
         .news-title {
-            font-size: 2.2rem;
+            font-size: 2.1rem;
             font-weight: 800;
-            margin: 20px 0 10px;
+            letter-spacing: -0.5px;
+            line-height: 1.2;
+            margin: 22px 0 10px;
             color: #0F1E2F;
             text-shadow: 0 1px 2px rgba(255, 255, 255, 0.2);
         }
 
         .news-date {
-            color: #2D9CDB;
-            font-weight: 600;
-            margin-bottom: 30px;
-            font-size: 1rem;
+            display: inline-block;
+            color: #1B6FA8;
+            background: rgba(45, 156, 219, 0.12);
+            border: 1px solid rgba(45, 156, 219, 0.2);
+            padding: 5px 16px;
+            border-radius: 40px;
+            font-weight: 700;
+            font-size: 0.82rem;
+            margin-bottom: 22px;
         }
 
         .news-content {
-            font-size: 1.1rem;
-            line-height: 1.7;
-            margin-bottom: 40px;
+            font-size: 1.05rem;
+            line-height: 1.75;
+            margin-bottom: 30px;
             white-space: pre-line;
             color: #1A2F44;
+            background: rgba(255, 255, 255, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            border-radius: 36px;
+            padding: 28px 32px;
+            backdrop-filter: blur(20px) saturate(190%);
+            -webkit-backdrop-filter: blur(20px) saturate(190%);
+            box-shadow: 0 10px 30px rgba(15, 30, 47, 0.05),
+                inset 0 1px 0 rgba(255, 255, 255, 0.8);
         }
 
         .back-link {
@@ -543,6 +560,14 @@
     <div class="wrapper">
         {% include "components/header.html" %}
 
+        <nav class="crumbs" aria-label="Хлебные крошки">
+            <a href="/">Главная</a>
+            <span>/</span>
+            <a href="/all_news">Новости</a>
+            <span>/</span>
+            <span class="crumbs-current">{{ post.title }}</span>
+        </nav>
+
         <div class="news-layout">
 
             <!-- ЛЕВАЯ КОЛОНКА -->
@@ -554,7 +579,7 @@
                     <button class="slider-btn prev" id="sliderPrevBtn">❮</button>
                     <button class="slider-btn next" id="sliderNextBtn">❯</button>
                     <img id="mainSliderImg"
-                        src="{{ post.image_url if post.image_url else 'https://placehold.co/1200x800/2D9CDB/FFFFFF?text=Нет+фото' }}"
+                        src="{{ post.image_url if post.image_url else '/static/src/newscard1.png' }}"
                         alt="Фото новости">
                 </div>
 
@@ -594,7 +619,7 @@
                     {% for item in other_news %}
                     <a href="/news/{{ item.id }}" class="sidebar-item">
                         <img class="sidebar-thumb"
-                            src="{{ item.image_url if item.image_url else 'https://placehold.co/80x60/2D9CDB/FFFFFF?text=Нет+фото' }}"
+                            src="{{ item.image_url if item.image_url else '/static/src/newscard2.png' }}"
                             alt="">
                         <div class="sidebar-info">
                             <h4>{{ item.title }}</h4>
@@ -626,6 +651,13 @@
                 </div>
             </aside>
 
+        </div>
+        <div class="p-related">
+            <span class="p-related-label">Смотрите также:</span>
+            <a href="/all_news" class="p-related-link">Все новости</a>
+            <a href="/gallery" class="p-related-link">Жизнь техникума</a>
+            <a href="/admission" class="p-related-link">Поступление</a>
+            <a href="/schedule" class="p-related-link">Расписание</a>
         </div>
     </div>
 
